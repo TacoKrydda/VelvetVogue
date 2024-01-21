@@ -26,5 +26,13 @@ namespace WebbShopClassLibrary.Context
         public DbSet<Staff> Staff { get; set; }
         public DbSet<Size> Sizes { get; set; }
         public DbSet<Stock> Stocks { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Product>()
+                .HasOne(p=>p.Stock)
+                .WithOne(s=>s.Product)
+                .HasForeignKey<Stock>(s=>s.ProductId);
+        }
     }
 }

@@ -12,8 +12,8 @@ using WebbShopClassLibrary.Context;
 namespace WebbShopClassLibrary.Migrations
 {
     [DbContext(typeof(WebbShopContext))]
-    [Migration("20240120165541_inizidb")]
-    partial class inizidb
+    [Migration("20240121191710_newdb")]
+    partial class newdb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -76,7 +76,10 @@ namespace WebbShopClassLibrary.Migrations
             modelBuilder.Entity("WebbShopClassLibrary.Models.Production.Product", b =>
                 {
                     b.Property<int>("ProductId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"));
 
                     b.Property<int>("BrandId")
                         .HasColumnType("int");
@@ -93,7 +96,7 @@ namespace WebbShopClassLibrary.Migrations
                     b.Property<int>("SizeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("StockId")
+                    b.Property<int?>("StockId")
                         .HasColumnType("int");
 
                     b.HasKey("ProductId");
@@ -127,16 +130,23 @@ namespace WebbShopClassLibrary.Migrations
 
             modelBuilder.Entity("WebbShopClassLibrary.Models.Production.Stock", b =>
                 {
-                    b.Property<int>("ProductId")
+                    b.Property<int>("StockId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StockId"));
+
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("ProductId");
+                    b.HasKey("StockId");
+
+                    b.HasIndex("ProductId")
+                        .IsUnique()
+                        .HasFilter("[ProductId] IS NOT NULL");
 
                     b.ToTable("Stocks");
                 });
@@ -212,7 +222,7 @@ namespace WebbShopClassLibrary.Migrations
                     b.Property<DateTime?>("OrderDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Orders")
+                    b.Property<string>("OrderStatus")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ShippedDate")
@@ -275,12 +285,6 @@ namespace WebbShopClassLibrary.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebbShopClassLibrary.Models.Production.Stock", "Stock")
-                        .WithMany("Products")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("WebbShopClassLibrary.Models.Production.Size", "Size")
                         .WithMany("Products")
                         .HasForeignKey("SizeId")
@@ -294,13 +298,20 @@ namespace WebbShopClassLibrary.Migrations
                     b.Navigation("Color");
 
                     b.Navigation("Size");
+                });
 
-                    b.Navigation("Stock");
+            modelBuilder.Entity("WebbShopClassLibrary.Models.Production.Stock", b =>
+                {
+                    b.HasOne("WebbShopClassLibrary.Models.Production.Product", "Product")
+                        .WithOne("Stock")
+                        .HasForeignKey("WebbShopClassLibrary.Models.Production.Stock", "ProductId");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("WebbShopClassLibrary.Models.Sales.CartItem", b =>
                 {
-                    b.HasOne("WebbShopClassLibrary.Models.Sales.Order", null)
+                    b.HasOne("WebbShopClassLibrary.Models.Sales.Order", "Order")
                         .WithMany("CartItems")
                         .HasForeignKey("OrderId");
 
@@ -309,6 +320,8 @@ namespace WebbShopClassLibrary.Migrations
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Order");
 
                     b.Navigation("Product");
                 });
@@ -345,12 +358,12 @@ namespace WebbShopClassLibrary.Migrations
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("WebbShopClassLibrary.Models.Production.Size", b =>
+            modelBuilder.Entity("WebbShopClassLibrary.Models.Production.Product", b =>
                 {
-                    b.Navigation("Products");
+                    b.Navigation("Stock");
                 });
 
-            modelBuilder.Entity("WebbShopClassLibrary.Models.Production.Stock", b =>
+            modelBuilder.Entity("WebbShopClassLibrary.Models.Production.Size", b =>
                 {
                     b.Navigation("Products");
                 });

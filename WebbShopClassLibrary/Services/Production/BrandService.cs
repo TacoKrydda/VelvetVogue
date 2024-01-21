@@ -28,7 +28,7 @@ namespace WebbShopClassLibrary.Services.Production
         }
         public async Task<Brand> CreateBrandAsync(Brand brand)
         {
-            if (_context.Brands == null)
+            if (brand == null)
             {
                 throw new ArgumentNullException(nameof(brand));
             }

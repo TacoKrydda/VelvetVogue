@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using WebbShopClassLibrary.Interfaces.Production;
 using WebbShopClassLibrary.Models.Production;
 
@@ -22,7 +21,7 @@ namespace VelvetVogue.Controllers.Production
             return Ok(result);
         }
 
-        [HttpPost(Name = "PostBrands")]
+        [HttpPost(Name = "PostBrand")]
         public async Task<ActionResult<Brand>> PostBrand(Brand brand)
         {
             await _service.CreateBrandAsync(brand);

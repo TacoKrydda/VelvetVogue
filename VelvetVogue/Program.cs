@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using WebbShopClassLibrary.Context;
 using WebbShopClassLibrary.Interfaces.Production;
+using WebbShopClassLibrary.Interfaces.Sales;
 using WebbShopClassLibrary.Services.Production;
+using WebbShopClassLibrary.Services.Sales;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +17,18 @@ builder.Services.AddDbContext<WebbShopContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 }, ServiceLifetime.Scoped);
+
+//-------------Production-------------//
 builder.Services.AddScoped<IBrandService, BrandService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IColorService, ColorService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ISizeService, SizeService>();
+builder.Services.AddScoped<IStockService, StockService>();
+
+//----------------Sales---------------//
+builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 var app = builder.Build();
 

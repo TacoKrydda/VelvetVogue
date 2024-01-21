@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace WebbShopClassLibrary.Models.Production
 {
@@ -14,12 +10,17 @@ namespace WebbShopClassLibrary.Models.Production
         public int CategoryId { get; set; }
         public int ColorId { get; set; }
         public int SizeId { get; set; }
-        public int StockId { get; set; }
+        public int? StockId { get; set; }
 
+        [JsonIgnore]
         public Brand? Brand { get; set; }
+        [JsonIgnore]
         public Category? Category { get; set; }
+        [JsonIgnore]
         public Color? Color { get; set; }
+        [JsonIgnore]
         public Size? Size { get; set; }
+        [JsonIgnore]
         public Stock? Stock { get; set; }
     }
 }
