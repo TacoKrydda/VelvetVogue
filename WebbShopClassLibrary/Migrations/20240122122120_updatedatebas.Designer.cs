@@ -12,8 +12,8 @@ using WebbShopClassLibrary.Context;
 namespace WebbShopClassLibrary.Migrations
 {
     [DbContext(typeof(WebbShopContext))]
-    [Migration("20240121191710_newdb")]
-    partial class newdb
+    [Migration("20240122122120_updatedatebas")]
+    partial class updatedatebas
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -89,6 +89,9 @@ namespace WebbShopClassLibrary.Migrations
 
                     b.Property<int>("ColorId")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<string>("ProductName")
                         .HasColumnType("nvarchar(max)");
@@ -230,6 +233,9 @@ namespace WebbShopClassLibrary.Migrations
 
                     b.Property<int?>("StaffId")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18, 2)");
 
                     b.HasKey("OrderId");
 

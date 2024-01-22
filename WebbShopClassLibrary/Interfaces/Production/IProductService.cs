@@ -6,5 +6,6 @@ namespace WebbShopClassLibrary.Interfaces.Production
     {
         Task<Product> CreateProductAsync(Product product);
         Task<IEnumerable<Product>> GetProductAsync();
+        Task<Product> UpdateProductAsync(Product product);
     }
 }

@@ -87,6 +87,9 @@ namespace WebbShopClassLibrary.Migrations
                     b.Property<int>("ColorId")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18, 2)");
+
                     b.Property<string>("ProductName")
                         .HasColumnType("nvarchar(max)");
 
@@ -227,6 +230,9 @@ namespace WebbShopClassLibrary.Migrations
 
                     b.Property<int?>("StaffId")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18, 2)");
 
                     b.HasKey("OrderId");
 

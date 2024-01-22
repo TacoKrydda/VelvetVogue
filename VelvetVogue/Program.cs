@@ -27,6 +27,7 @@ builder.Services.AddScoped<ISizeService, SizeService>();
 builder.Services.AddScoped<IStockService, StockService>();
 
 //----------------Sales---------------//
+builder.Services.AddScoped<ICartItemService, CartItemService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 

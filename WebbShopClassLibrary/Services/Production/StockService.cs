@@ -38,5 +38,6 @@ namespace WebbShopClassLibrary.Services.Production
             await _context.SaveChangesAsync();
             return stock;
         }
+
     }
 }

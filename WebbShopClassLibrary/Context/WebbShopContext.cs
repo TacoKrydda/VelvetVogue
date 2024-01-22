@@ -33,6 +33,14 @@ namespace WebbShopClassLibrary.Context
                 .HasOne(p=>p.Stock)
                 .WithOne(s=>s.Product)
                 .HasForeignKey<Stock>(s=>s.ProductId);
+
+            modelBuilder.Entity<Product>()
+                .Property(p => p.Price)
+                .HasColumnType("decimal(18, 2)");
+
+            modelBuilder.Entity<Order>()
+                .Property(o => o.TotalPrice)
+                .HasColumnType("decimal(18, 2)");
         }
     }
 }

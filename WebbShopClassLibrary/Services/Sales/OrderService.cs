@@ -42,7 +42,7 @@ namespace WebbShopClassLibrary.Services.Sales
                 item.OrderId = newOrder.OrderId;
                 newOrder.CartItems.Add(item);
             }
-            _context.CartItems.AddRange(newOrder.CartItems);
+            //_context.CartItems.AddRange(newOrder.CartItems);
             await _context.SaveChangesAsync();
             return newOrder;
 

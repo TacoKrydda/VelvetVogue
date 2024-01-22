@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WebbShopClassLibrary.Context;
 using WebbShopClassLibrary.Interfaces.Production;
@@ -35,6 +36,19 @@ namespace WebbShopClassLibrary.Services.Production
                 throw new ArgumentNullException(nameof(product));
             }
             _context.Products.Add(product);
+            await _context.SaveChangesAsync();
+            return product;
+        }
+
+        public async Task<Product> UpdateProductAsync(Product product)
+        {
+            //var existingProduct = await _context.Products.FindAsync(product.ProductId);
+
+            if (product == null)
+            {
+                throw new KeyNotFoundException($"Product with ID {product.ProductId} not found");
+            }
+            _context.Products.Update(product);
             await _context.SaveChangesAsync();
             return product;
         }

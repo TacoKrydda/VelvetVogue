@@ -23,9 +23,16 @@ namespace VelvetVogue.Controllers.Production
             return Ok(result);
         }
         [HttpPost(Name = "PostProduct")]
-        public async Task<ActionResult<Product>> PostProduction(Product product)
+        public async Task<ActionResult<Product>> PostProduct(Product product)
         {
             var result = await _service.CreateProductAsync(product);
+            return Ok(result);
+        }
+
+        [HttpPut(Name = "PutProduct")]
+        public async Task<ActionResult<Product>> PutProduct(Product product)
+        {
+            var result = await _service.UpdateProductAsync(product);
             return Ok(result);
         }
     }

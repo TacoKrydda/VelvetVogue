@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebbShopClassLibrary.Migrations
 {
     /// <inheritdoc />
-    public partial class newdb : Migration
+    public partial class updatedatebas : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -108,7 +108,8 @@ namespace WebbShopClassLibrary.Migrations
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     ColorId = table.Column<int>(type: "int", nullable: false),
                     SizeId = table.Column<int>(type: "int", nullable: false),
-                    StockId = table.Column<int>(type: "int", nullable: true)
+                    StockId = table.Column<int>(type: "int", nullable: true),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -149,7 +150,8 @@ namespace WebbShopClassLibrary.Migrations
                     StaffId = table.Column<int>(type: "int", nullable: true),
                     OrderStatus = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OrderDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ShippedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    ShippedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
