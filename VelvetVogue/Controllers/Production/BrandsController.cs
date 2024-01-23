@@ -14,6 +14,7 @@ namespace VelvetVogue.Controllers.Production
         {
             _service = service;
         }
+
         [HttpGet(Name = "GetBrands")]
         public async Task<ActionResult<IEnumerable<Brand>>> GetBrands()
         {
@@ -26,6 +27,27 @@ namespace VelvetVogue.Controllers.Production
         {
             await _service.CreateBrandAsync(brand);
             return Ok(brand);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Brand>> GetBrandById(int id)
+        {
+            var result = await _service.GetBrandByIdAsync(id);
+            return Ok(result);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Brand>> DeleteBrand(int id)
+        {
+            var result = await _service.DeleteBrand(id);
+            return Ok(result);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Brand>> UpdateBrand(int id, Brand brand)
+        {
+            var result = await _service.UpdateBrandAsync(id, brand);
+            return Ok(result);
         }
     }
 }
