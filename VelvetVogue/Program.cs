@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using WebbShopClassLibrary.Context;
 using WebbShopClassLibrary.Interfaces.Production;
 using WebbShopClassLibrary.Interfaces.Sales;
+using WebbShopClassLibrary.Models.Production;
+using WebbShopClassLibrary.Services;
 using WebbShopClassLibrary.Services.Production;
 using WebbShopClassLibrary.Services.Sales;
 
@@ -21,10 +23,13 @@ builder.Services.AddDbContext<WebbShopContext>(options =>
 //-------------Production-------------//
 builder.Services.AddScoped<IBrandService, BrandService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
-builder.Services.AddScoped<IColorService, ColorService>();
+//builder.Services.AddScoped<IColorService, ColorService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ISizeService, SizeService>();
 builder.Services.AddScoped<IStockService, StockService>();
+
+builder.Services.AddScoped<IGenericService<Color>, ColorService>();
+builder.Services.AddScoped<GenericService<Color>>();
 
 //----------------Sales---------------//
 builder.Services.AddScoped<ICartItemService, CartItemService>();

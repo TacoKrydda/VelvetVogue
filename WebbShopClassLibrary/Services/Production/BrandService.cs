@@ -14,15 +14,6 @@ namespace WebbShopClassLibrary.Services.Production
             _context = context;
         }
 
-        public async Task<IEnumerable<Brand>> GetBrandsAsync()
-        {
-            if (_context.Brands == null)
-            {
-                return Enumerable.Empty<Brand>();
-            }
-            return await _context.Brands.ToListAsync();
-        }
-
         public async Task<Brand> CreateBrandAsync(Brand brand)
         {
             if (brand == null)
@@ -30,24 +21,6 @@ namespace WebbShopClassLibrary.Services.Production
                 throw new ArgumentNullException(nameof(brand));
             }
             _context.Brands.Add(brand);
-            await _context.SaveChangesAsync();
-            return brand;
-        }
-
-        public async Task<Brand> GetBrandByIdAsync(int id)
-        {
-            var result = await FindBrandByIdAsync(id);
-            return result;
-        }
-
-        public async Task<Brand> UpdateBrandAsync(int id, Brand brand)
-        {
-            var result = await FindBrandByIdAsync(id);
-            if (result.BrandId != brand.BrandId)
-            {
-                throw new KeyNotFoundException($"ID's not matching {id} != {brand.BrandId}");
-            }
-            _context.Entry(brand).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return brand;
         }
@@ -69,6 +42,33 @@ namespace WebbShopClassLibrary.Services.Production
             }
             _context.Entry(existingProduct).State = EntityState.Detached;
             return existingProduct;
+        }
+
+        public async Task<IEnumerable<Brand>> GetBrandsAsync()
+        {
+            if (_context.Brands == null)
+            {
+                return Enumerable.Empty<Brand>();
+            }
+            return await _context.Brands.ToListAsync();
+        }
+
+        public async Task<Brand> GetBrandByIdAsync(int id)
+        {
+            var result = await FindBrandByIdAsync(id);
+            return result;
+        }
+
+        public async Task<Brand> UpdateBrandAsync(int id, Brand brand)
+        {
+            var result = await FindBrandByIdAsync(id);
+            if (result.BrandId != brand.BrandId)
+            {
+                throw new KeyNotFoundException($"ID's not matching {id} != {brand.BrandId}");
+            }
+            _context.Entry(brand).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return brand;
         }
 
         //private void DetachEntity<T>(T entity) where T : class

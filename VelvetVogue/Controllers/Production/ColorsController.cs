@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebbShopClassLibrary.Interfaces.Production;
 using WebbShopClassLibrary.Models.Production;
+using WebbShopClassLibrary.Services;
 
 namespace VelvetVogue.Controllers.Production
 {
@@ -8,23 +9,45 @@ namespace VelvetVogue.Controllers.Production
     [ApiController]
     public class ColorsController : ControllerBase
     {
-        private readonly IColorService _service;
+        private readonly IGenericService<Color> _service;
 
-        public ColorsController(IColorService service)
+        public ColorsController(IGenericService<Color> service)
         {
             _service = service;
         }
 
-        [HttpGet(Name = "GetColors")]
-        public async Task<ActionResult<IEnumerable<Color>>> GetColors()
+        [HttpPost(Name = "PostColor")]
+        public async Task<ActionResult<Color>> CreateAsync(Color color)
         {
-            var result = await _service.GetColorsAsync();
+            var result = await _service.CreateAsync(color);
             return Ok(result);
         }
-        [HttpPost(Name = "PostColor")]
-        public async Task<ActionResult<Color>> PostColors(Color color)
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Color>> DeleteAsync(int id)
         {
-            var result = await _service.CreateColorsAsync(color);
+            var result = await _service.DeleteAsync(id);
+            return Ok(result);
+        }
+
+        [HttpGet(Name = "GetColors")]
+        public async Task<ActionResult<IEnumerable<Color>>> GetAllAsync()
+        {
+            var result = await _service.GetAllAsync();
+            return Ok(result);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Color>> GetByIdAsync(int id)
+        {
+            var result = await _service.GetByIdAsync(id);
+            return Ok(result);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Color>> UpdateAsync(int id, Color color)
+        {
+            var result = await _service.UpdateAsync(id, color);
             return Ok(result);
         }
     }

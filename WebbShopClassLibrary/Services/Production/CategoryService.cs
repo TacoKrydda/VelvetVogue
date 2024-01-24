@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebbShopClassLibrary.Context;
 using WebbShopClassLibrary.Interfaces.Production;
 using WebbShopClassLibrary.Models.Production;
@@ -18,14 +13,7 @@ namespace WebbShopClassLibrary.Services.Production
         {
             _context = context;
         }
-        public async Task<IEnumerable<Category>> GetCategorysAsync()
-        {
-            if (_context.Categories == null)
-            {
-                return Enumerable.Empty<Category>();
-            }
-            return await _context.Categories.ToListAsync();
-        }
+
         public async Task<Category> CreateCategoryAsync(Category category)
         {
             if (category == null)
@@ -36,5 +24,26 @@ namespace WebbShopClassLibrary.Services.Production
             await _context.SaveChangesAsync();
             return category;
         }
+
+        public async Task<Category> FindCategoryByIdAsync(int id)
+        {
+            var existingObject = await _context.Categories.SingleOrDefaultAsync(x=>x.CategoryId == id);
+            if (existingObject == null)
+            {
+                throw new KeyNotFoundException($"Object with ID {id} was not found");
+            }
+            _context.Entry(existingObject).State = EntityState.Detached;
+            return existingObject;
+        }
+
+        public async Task<IEnumerable<Category>> GetCategorysAsync()
+        {
+            if (_context.Categories == null)
+            {
+                return Enumerable.Empty<Category>();
+            }
+            return await _context.Categories.ToListAsync();
+        }
+        
     }
 }

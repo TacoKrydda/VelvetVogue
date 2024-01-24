@@ -1,38 +1,41 @@
-﻿using Microsoft.EntityFrameworkCore;
-using WebbShopClassLibrary.Context;
+﻿using WebbShopClassLibrary.Context;
 using WebbShopClassLibrary.Interfaces.Production;
 using WebbShopClassLibrary.Models.Production;
 
 namespace WebbShopClassLibrary.Services.Production
 {
-    public class ColorService : IColorService
+    public class ColorService : IGenericService<Color>
     {
-        private readonly WebbShopContext _context;
+        private readonly GenericService<Color> _genericService;
 
-        public ColorService(WebbShopContext context)
+        public ColorService(GenericService<Color> genericService)
         {
-            _context = context;
+            _genericService = genericService;
         }
 
-        public async Task<IEnumerable<Color>> GetColorsAsync()
+        public Task<IEnumerable<Color>> GetAllAsync()
         {
-            if (_context.Colors == null)
-            {
-                return Enumerable.Empty<Color>();
-            }
-            return await _context.Colors.ToListAsync();
+            return _genericService.GetAllAsync();
         }
 
-        public async Task<Color> CreateColorsAsync(Color color)
+        public Task<Color> GetByIdAsync(int id)
         {
-            if (color == null)
-            {
-                throw new ArgumentNullException(nameof(color));
-            }
-            _context.Colors.Add(color);
-            await _context.SaveChangesAsync();
-            return color;
+            return _genericService.GetByIdAsync(id);
         }
 
+        public Task<Color> CreateAsync(Color entity)
+        {
+            return _genericService.CreateAsync(entity);
+        }
+
+        public Task<Color> UpdateAsync(int id, Color entity)
+        {
+            return _genericService.UpdateAsync(id, entity);
+        }
+
+        public Task<Color> DeleteAsync(int id)
+        {
+            return _genericService.DeleteAsync(id);
+        }
     }
 }
