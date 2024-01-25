@@ -25,11 +25,13 @@ builder.Services.AddScoped<IBrandService, BrandService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 //builder.Services.AddScoped<IColorService, ColorService>();
 builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<ISizeService, SizeService>();
+//builder.Services.AddScoped<ISizeService, SizeService>();
 builder.Services.AddScoped<IStockService, StockService>();
 
 builder.Services.AddScoped<IGenericService<Color>, ColorService>();
 builder.Services.AddScoped<GenericService<Color>>();
+builder.Services.AddScoped<IGenericService<Size>, SizeService>();
+builder.Services.AddScoped<GenericService<Size>>();
 
 //----------------Sales---------------//
 builder.Services.AddScoped<ICartItemService, CartItemService>();

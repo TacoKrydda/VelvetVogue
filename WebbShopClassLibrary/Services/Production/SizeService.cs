@@ -1,43 +1,39 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WebbShopClassLibrary.Context;
-using WebbShopClassLibrary.Interfaces.Production;
-using WebbShopClassLibrary.Models.Production;
+﻿using WebbShopClassLibrary.Models.Production;
 
 namespace WebbShopClassLibrary.Services.Production
 {
-    public class SizeService : ISizeService
+    public class SizeService : IGenericService<Size>
     {
-        private readonly WebbShopContext _context;
+        private readonly GenericService<Size> _genericService;
 
-        public SizeService(WebbShopContext context)
+        public SizeService(GenericService<Size> genericService)
         {
-            _context = context;
+            _genericService = genericService;
         }
 
-        public async Task<IEnumerable<Size>> GetSizesAsync()
+        public Task<IEnumerable<Size>> GetAllAsync()
         {
-            if (_context.Sizes == null)
-            {
-                return Enumerable.Empty<Size>();
-            }
-            return await _context.Sizes.ToListAsync();
+            return _genericService.GetAllAsync();
         }
 
-        public async Task<Size> CreateSizeAsync(Size size)
+        public Task<Size> GetByIdAsync(int id)
         {
-            if (size == null)
-            {
-                throw new ArgumentNullException(nameof(size));
-            }
-            _context.Sizes.Add(size);
-            await _context.SaveChangesAsync();
-            return size;
+            return _genericService.GetByIdAsync(id);
         }
 
+        public Task<Size> CreateAsync(Size entity)
+        {
+            return _genericService.CreateAsync(entity);
+        }
+
+        public Task<Size> UpdateAsync(int id, Size entity)
+        {
+            return _genericService.UpdateAsync(id, entity);
+        }
+
+        public Task<Size> DeleteAsync(int id)
+        {
+            return _genericService.DeleteAsync(id);
+        }
     }
 }
