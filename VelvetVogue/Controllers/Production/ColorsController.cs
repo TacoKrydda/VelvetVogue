@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebbShopClassLibrary.Interfaces.Production;
 using WebbShopClassLibrary.Models.Production;
 using WebbShopClassLibrary.Services;
 
@@ -17,38 +16,77 @@ namespace VelvetVogue.Controllers.Production
         }
 
         [HttpPost(Name = "PostColor")]
-        public async Task<ActionResult<Color>> CreateAsync(Color color)
+        public async Task<ActionResult<Color>> CreateAsync(Color entity)
         {
-            var result = await _service.CreateAsync(color);
-            return Ok(result);
+            try
+            {
+                var result = await _service.CreateAsync(entity);
+                return Ok(result);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<Color>> DeleteAsync(int id)
         {
-            var result = await _service.DeleteAsync(id);
-            return Ok(result);
+            try
+            {
+                var result = await _service.DeleteAsync(id);
+                return Ok(result);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpGet(Name = "GetColors")]
         public async Task<ActionResult<IEnumerable<Color>>> GetAllAsync()
         {
-            var result = await _service.GetAllAsync();
-            return Ok(result);
+            try
+            {
+                var result = await _service.GetAllAsync();
+                return Ok(result);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Color>> GetByIdAsync(int id)
         {
-            var result = await _service.GetByIdAsync(id);
-            return Ok(result);
+            try
+            {
+                var result = await _service.GetByIdAsync(id);
+                return Ok(result);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Color>> UpdateAsync(int id, Color color)
+        public async Task<ActionResult<Color>> UpdateAsync(int id, Color entity)
         {
-            var result = await _service.UpdateAsync(id, color);
-            return Ok(result);
+            try
+            {
+                var result = await _service.UpdateAsync(id, entity);
+                return Ok(result);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
     }
 }

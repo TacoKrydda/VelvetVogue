@@ -6,17 +6,17 @@ namespace VelvetVogue.Controllers.Sales
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CartItemsController : ControllerBase
+    public class StaffsController : ControllerBase
     {
-        private readonly IGenericService<CartItem> _service;
+        private readonly IGenericService<Staff> _service;
 
-        public CartItemsController(IGenericService<CartItem> service)
+        public StaffsController(IGenericService<Staff> service)
         {
             _service = service;
         }
 
-        [HttpPost(Name = "PostCartItem")]
-        public async Task<ActionResult<CartItem>> CreateAsync(CartItem entity)
+        [HttpPost(Name = "PostStaff")]
+        public async Task<ActionResult<Staff>> CreateAsync(Staff entity)
         {
             try
             {
@@ -30,7 +30,7 @@ namespace VelvetVogue.Controllers.Sales
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<CartItem>> DeleteAsync(int id)
+        public async Task<ActionResult<Staff>> DeleteAsync(int id)
         {
             try
             {
@@ -43,8 +43,8 @@ namespace VelvetVogue.Controllers.Sales
             }
         }
 
-        [HttpGet(Name = "GetCartItems")]
-        public async Task<ActionResult<IEnumerable<CartItem>>> GetAllAsync()
+        [HttpGet(Name = "GetStaffs")]
+        public async Task<ActionResult<IEnumerable<Staff>>> GetAllAsync()
         {
             try
             {
@@ -58,7 +58,7 @@ namespace VelvetVogue.Controllers.Sales
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<CartItem>> GetByIdAsync(int id)
+        public async Task<ActionResult<Staff>> GetByIdAsync(int id)
         {
             try
             {
@@ -72,7 +72,7 @@ namespace VelvetVogue.Controllers.Sales
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<CartItem>> UpdateAsync(int id, CartItem entity)
+        public async Task<ActionResult<Staff>> UpdateAsync(int id, Staff entity)
         {
             try
             {

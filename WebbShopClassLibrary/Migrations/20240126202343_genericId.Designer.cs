@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebbShopClassLibrary.Context;
 
@@ -11,9 +12,11 @@ using WebbShopClassLibrary.Context;
 namespace WebbShopClassLibrary.Migrations
 {
     [DbContext(typeof(WebbShopContext))]
-    partial class WebbShopContextModelSnapshot : ModelSnapshot
+    [Migration("20240126202343_genericId")]
+    partial class genericId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -153,11 +156,11 @@ namespace WebbShopClassLibrary.Migrations
 
             modelBuilder.Entity("WebbShopClassLibrary.Models.Sales.CartItem", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CartItemId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CartItemId"));
 
                     b.Property<int?>("OrderId")
                         .HasColumnType("int");
@@ -168,7 +171,7 @@ namespace WebbShopClassLibrary.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("CartItemId");
 
                     b.HasIndex("OrderId");
 
@@ -179,11 +182,11 @@ namespace WebbShopClassLibrary.Migrations
 
             modelBuilder.Entity("WebbShopClassLibrary.Models.Sales.Customer", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CustomerId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerId"));
 
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
@@ -203,18 +206,18 @@ namespace WebbShopClassLibrary.Migrations
                     b.Property<string>("Street")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("CustomerId");
 
                     b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("WebbShopClassLibrary.Models.Sales.Order", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("OrderId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"));
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
@@ -234,7 +237,7 @@ namespace WebbShopClassLibrary.Migrations
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18, 2)");
 
-                    b.HasKey("Id");
+                    b.HasKey("OrderId");
 
                     b.HasIndex("CustomerId");
 
@@ -245,11 +248,11 @@ namespace WebbShopClassLibrary.Migrations
 
             modelBuilder.Entity("WebbShopClassLibrary.Models.Sales.Staff", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("StaffId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StaffId"));
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -263,7 +266,7 @@ namespace WebbShopClassLibrary.Migrations
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("StaffId");
 
                     b.ToTable("Staff");
                 });

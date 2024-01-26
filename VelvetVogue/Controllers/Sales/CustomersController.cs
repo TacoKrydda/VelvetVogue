@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using WebbShopClassLibrary.Interfaces.Sales;
+﻿using Microsoft.AspNetCore.Mvc;
 using WebbShopClassLibrary.Models.Sales;
+using WebbShopClassLibrary.Services;
 
 namespace VelvetVogue.Controllers.Sales
 {
@@ -9,25 +8,85 @@ namespace VelvetVogue.Controllers.Sales
     [ApiController]
     public class CustomersController : ControllerBase
     {
-        private readonly ICustomerService _service;
+        private readonly IGenericService<Customer> _service;
 
-        public CustomersController(ICustomerService service)
+        public CustomersController(IGenericService<Customer> service)
         {
             _service = service;
         }
 
-        [HttpGet(Name = "GetCustomers")]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        [HttpPost(Name = "PostCustomer")]
+        public async Task<ActionResult<Customer>> CreateAsync(Customer entity)
         {
-            var result = await _service.GetCustomersAsync();
-            return Ok(result);
+            try
+            {
+                var result = await _service.CreateAsync(entity);
+                return Ok(result);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
-        [HttpPost(Name = "PostCustomer")]
-        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Customer>> DeleteAsync(int id)
         {
-            var result = await _service.CreateCustomerAsync(customer);
-            return Ok(result);
+            try
+            {
+                var result = await _service.DeleteAsync(id);
+                return Ok(result);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        [HttpGet(Name = "GetCustomers")]
+        public async Task<ActionResult<IEnumerable<Customer>>> GetAllAsync()
+        {
+            try
+            {
+                var result = await _service.GetAllAsync();
+                return Ok(result);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Customer>> GetByIdAsync(int id)
+        {
+            try
+            {
+                var result = await _service.GetByIdAsync(id);
+                return Ok(result);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Customer>> UpdateAsync(int id, Customer entity)
+        {
+            try
+            {
+                var result = await _service.UpdateAsync(id, entity);
+                return Ok(result);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
     }
 }

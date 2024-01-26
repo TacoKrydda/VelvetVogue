@@ -1,43 +1,45 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebbShopClassLibrary.Context;
 using WebbShopClassLibrary.Interfaces.Production;
 using WebbShopClassLibrary.Models.Production;
 
 namespace WebbShopClassLibrary.Services.Production
 {
-    public class StockService : IStockService
+    public class StockService : IGenericService<Stock>
     {
-        private readonly WebbShopContext _context;
+        private readonly IGenericService<Stock> _genericService;
 
-        public StockService(WebbShopContext context)
+        public StockService(GenericService<Stock> genericService)
         {
-            _context = context;
+            _genericService = genericService;
+        }
+        public Task<Stock> CreateAsync(Stock entity)
+        {
+            return _genericService.CreateAsync(entity);
         }
 
-        public async Task<IEnumerable<Stock>> GetStocksAsync()
+        public Task<Stock> DeleteAsync(int id)
         {
-            if (_context.Stocks == null)
+            return _genericService.DeleteAsync(id);
+        }
+
+        public Task<IEnumerable<Stock>> GetAllAsync()
+        {
+            return _genericService.GetAllAsync();
+        }
+
+        public Task<Stock> GetByIdAsync(int id)
+        {
+            return _genericService.GetByIdAsync(id);
+        }
+
+        public Task<Stock> UpdateAsync(int id, Stock entity)
+        {
+            if (entity.Id != id)
             {
-                return Enumerable.Empty<Stock>();
+                throw new ArgumentException($"Entity {entity.Id} does not match the provided id {id}");
             }
-            return await _context.Stocks.ToListAsync();
+            return _genericService.UpdateAsync(id, entity);
         }
-
-        public async Task<Stock> CreateStockAsync(Stock stock)
-        {
-            if (stock == null)
-            {
-                throw new ArgumentNullException(nameof(stock));
-            }
-            _context.Stocks.Add(stock);
-            await _context.SaveChangesAsync();
-            return stock;
-        }
-
     }
 }

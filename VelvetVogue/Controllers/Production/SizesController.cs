@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebbShopClassLibrary.Interfaces.Production;
 using WebbShopClassLibrary.Models.Production;
 using WebbShopClassLibrary.Services;
 
@@ -17,11 +16,11 @@ namespace VelvetVogue.Controllers.Production
         }
 
         [HttpPost(Name = "PostSize")]
-        public async Task<ActionResult<Size>> CreateAsync(Size size)
+        public async Task<ActionResult<Size>> CreateAsync(Size entity)
         {
             try
             {
-                var result = await _service.CreateAsync(size);
+                var result = await _service.CreateAsync(entity);
                 return Ok(result);
             }
             catch (ArgumentException ex)
@@ -73,11 +72,11 @@ namespace VelvetVogue.Controllers.Production
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Size>> UpdateAsync(int id, Size size)
+        public async Task<ActionResult<Size>> UpdateAsync(int id, Size entity)
         {
             try
             {
-                var result = await _service.UpdateAsync(id, size);
+                var result = await _service.UpdateAsync(id, entity);
                 return Ok(result);
             }
             catch (ArgumentException ex)

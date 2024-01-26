@@ -5,46 +5,41 @@ using WebbShopClassLibrary.Models.Production;
 
 namespace WebbShopClassLibrary.Services.Production
 {
-    public class ProductService : IProductService
+    public class ProductService : IGenericService<Product>
     {
-        private readonly WebbShopContext _context;
+        private readonly IGenericService<Product> _genericService;
 
-        public ProductService(WebbShopContext context)
+        public ProductService(GenericService<Product> genericService)
         {
-            _context = context;
+            _genericService = genericService;
+        }
+        public Task<Product> CreateAsync(Product entity)
+        {
+            return _genericService.CreateAsync(entity);
         }
 
-        public async Task<IEnumerable<Product>> GetProductAsync()
+        public Task<Product> DeleteAsync(int id)
         {
-            if (_context.Products == null)
-            {
-                return Enumerable.Empty<Product>();
-            }
-            return await _context.Products.ToListAsync();
+            return _genericService.DeleteAsync(id);
         }
 
-        public async Task<Product> CreateProductAsync(Product product)
+        public Task<IEnumerable<Product>> GetAllAsync()
         {
-            if (product == null)
-            {
-                throw new ArgumentNullException(nameof(product));
-            }
-            _context.Products.Add(product);
-            await _context.SaveChangesAsync();
-            return product;
+            return _genericService.GetAllAsync();
         }
 
-        public async Task<Product> UpdateProductAsync(Product product)
+        public Task<Product> GetByIdAsync(int id)
         {
-            //var existingProduct = await _context.Products.FindAsync(product.ProductId);
+            return _genericService.GetByIdAsync(id);
+        }
 
-            if (product == null)
+        public Task<Product> UpdateAsync(int id, Product entity)
+        {
+            if (entity.Id != id)
             {
-                throw new KeyNotFoundException($"Product with ID {product.ProductId} not found");
+                throw new ArgumentException($"Entity {entity.Id} does not match the provided id {id}");
             }
-            _context.Products.Update(product);
-            await _context.SaveChangesAsync();
-            return product;
+            return _genericService.UpdateAsync(id, entity);
         }
     }
 }

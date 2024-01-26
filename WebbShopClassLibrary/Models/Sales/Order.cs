@@ -4,7 +4,7 @@ namespace WebbShopClassLibrary.Models.Sales
 {
     public class Order
     {
-        public int OrderId { get; set; }
+        public int Id { get; set; }
         public int CustomerId { get; set; }
         public int? StaffId { get; set; }
         public string? OrderStatus { get; set; }

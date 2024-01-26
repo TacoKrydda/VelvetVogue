@@ -3,6 +3,7 @@ using WebbShopClassLibrary.Context;
 using WebbShopClassLibrary.Interfaces.Production;
 using WebbShopClassLibrary.Interfaces.Sales;
 using WebbShopClassLibrary.Models.Production;
+using WebbShopClassLibrary.Models.Sales;
 using WebbShopClassLibrary.Services;
 using WebbShopClassLibrary.Services.Production;
 using WebbShopClassLibrary.Services.Sales;
@@ -21,21 +22,27 @@ builder.Services.AddDbContext<WebbShopContext>(options =>
 }, ServiceLifetime.Scoped);
 
 //-------------Production-------------//
-builder.Services.AddScoped<IBrandService, BrandService>();
-builder.Services.AddScoped<ICategoryService, CategoryService>();
-//builder.Services.AddScoped<IColorService, ColorService>();
-builder.Services.AddScoped<IProductService, ProductService>();
-//builder.Services.AddScoped<ISizeService, SizeService>();
-builder.Services.AddScoped<IStockService, StockService>();
-
+builder.Services.AddScoped<IGenericService<Brand>, BrandService>();
+builder.Services.AddScoped<IGenericService<Category>, CategoryService>();
 builder.Services.AddScoped<IGenericService<Color>, ColorService>();
-builder.Services.AddScoped<GenericService<Color>>();
+builder.Services.AddScoped<IGenericService<Product>, ProductService>();
 builder.Services.AddScoped<IGenericService<Size>, SizeService>();
+builder.Services.AddScoped<IGenericService<Stock>, StockService>();
+builder.Services.AddScoped<GenericService<Brand>>();
+builder.Services.AddScoped<GenericService<Category>>();
+builder.Services.AddScoped<GenericService<Color>>();
+builder.Services.AddScoped<GenericService<Product>>();
 builder.Services.AddScoped<GenericService<Size>>();
+builder.Services.AddScoped<GenericService<Stock>>();
 
 //----------------Sales---------------//
-builder.Services.AddScoped<ICartItemService, CartItemService>();
-builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IGenericService<CartItem>, CartItemService>();
+builder.Services.AddScoped<IGenericService<Customer>, CustomerService>();
+builder.Services.AddScoped<IGenericService<Staff>, StaffService>();
+builder.Services.AddScoped<GenericService<CartItem>>();
+builder.Services.AddScoped<GenericService<Customer>>();
+builder.Services.AddScoped<GenericService<Staff>>();
+
 builder.Services.AddScoped<IOrderService, OrderService>();
 
 var app = builder.Build();

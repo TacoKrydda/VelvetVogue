@@ -5,33 +5,41 @@ using WebbShopClassLibrary.Models.Sales;
 
 namespace WebbShopClassLibrary.Services.Sales
 {
-    public class CustomerService : ICustomerService
+    public class CustomerService : IGenericService<Customer>
     {
-        private readonly WebbShopContext _context;
+        private readonly IGenericService<Customer> _genericService;
 
-        public CustomerService(WebbShopContext context)
+        public CustomerService(GenericService<Customer> genericService)
         {
-            _context = context;
+            _genericService = genericService;
+        }
+        public Task<Customer> CreateAsync(Customer entity)
+        {
+            return _genericService.CreateAsync(entity);
         }
 
-        public async Task<IEnumerable<Customer>> GetCustomersAsync()
+        public Task<Customer> DeleteAsync(int id)
         {
-            if (_context == null)
-            {
-                return Enumerable.Empty<Customer>();
-            }
-            return await _context.Customers.ToListAsync();
+            return _genericService.DeleteAsync(id);
         }
 
-        public async Task<Customer> CreateCustomerAsync(Customer customer)
+        public Task<IEnumerable<Customer>> GetAllAsync()
         {
-            if (customer == null)
+            return _genericService.GetAllAsync();
+        }
+
+        public Task<Customer> GetByIdAsync(int id)
+        {
+            return _genericService.GetByIdAsync(id);
+        }
+
+        public Task<Customer> UpdateAsync(int id, Customer entity)
+        {
+            if (entity.Id != id)
             {
-                throw new ArgumentNullException(nameof(Customer));
+                throw new ArgumentException($"Entity {entity.Id} does not match the provided id {id}");
             }
-            _context.Customers.Add(customer);
-            await _context.SaveChangesAsync();
-            return customer;
+            return _genericService.UpdateAsync(id, entity);
         }
     }
 }

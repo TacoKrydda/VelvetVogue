@@ -6,46 +6,64 @@ using WebbShopClassLibrary.Models.Sales;
 
 namespace WebbShopClassLibrary.Services.Sales
 {
-    public class OrderService : IOrderService
+    public class OrderService : IGenericService<Order>
     {
-        private readonly WebbShopContext _context;
+        private readonly IGenericService<Order> _genericService;
 
-        public OrderService(WebbShopContext context)
+        public OrderService(IGenericService<Order> genericService)
         {
-            _context = context;
+            _genericService = genericService;
+        }
+        public Task<Order> CreateAsync(Order entity)
+        {
+            throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Order>> GetOrdersAsync()
+        public Task<Order> DeleteAsync(int id)
         {
-            if (_context == null)
+            return _genericService.DeleteAsync(id);
+        }
+
+        public Task<IEnumerable<Order>> GetAllAsync()
+        {
+            return _genericService.GetAllAsync();
+        }
+
+        public Task<Order> GetByIdAsync(int id)
+        {
+            return _genericService.GetByIdAsync(id);
+        }
+
+        public Task<Order> UpdateAsync(int id, Order entity)
+        {
+            if (entity.Id != id)
             {
-                return Enumerable.Empty<Order>();
+                throw new ArgumentException($"Entity {entity.Id} does not match the provided id {id}");
             }
-            return await _context.Orders.ToListAsync();
+            return _genericService.UpdateAsync(id, entity);
         }
-        public async Task<Order> PostOrderAsync(OrderModel model)
-        {
-            var newOrder = new Order
-            {
-                CartItems = model.CartItems,
-                CustomerId = model.CustomerId,
-                OrderDate = model.OrderDate,
-                OrderStatus = model.OrderStatus,
-            };
-            _context.Orders.Add(newOrder);
-            await _context.SaveChangesAsync();
 
-            var cartItemsCopy = newOrder.CartItems.ToList();
+        //public async Task<Order> PostOrderAsync(OrderModel model)
+        //{
+        //    var newOrder = new Order
+        //    {
+        //        CartItems = model.CartItems,
+        //        CustomerId = model.CustomerId,
+        //        OrderDate = model.OrderDate,
+        //        OrderStatus = model.OrderStatus,
+        //    };
+        //    _context.Orders.Add(newOrder);
+        //    await _context.SaveChangesAsync();
 
-            foreach (var item in cartItemsCopy)
-            {
-                item.OrderId = newOrder.OrderId;
-                newOrder.CartItems.Add(item);
-            }
-            //_context.CartItems.AddRange(newOrder.CartItems);
-            await _context.SaveChangesAsync();
-            return newOrder;
+        //    var cartItemsCopy = newOrder.CartItems.ToList();
 
-        }
+        //    foreach (var item in cartItemsCopy)
+        //    {
+        //        item.OrderId = newOrder.Id;
+        //        newOrder.CartItems.Add(item);
+        //    }
+        //    await _context.SaveChangesAsync();
+        //    return newOrder;
+        //}
     }
 }

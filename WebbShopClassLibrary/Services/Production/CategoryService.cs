@@ -1,49 +1,42 @@
-﻿using Microsoft.EntityFrameworkCore;
-using WebbShopClassLibrary.Context;
-using WebbShopClassLibrary.Interfaces.Production;
-using WebbShopClassLibrary.Models.Production;
+﻿using WebbShopClassLibrary.Models.Production;
 
 namespace WebbShopClassLibrary.Services.Production
 {
-    public class CategoryService : ICategoryService
+    public class CategoryService : IGenericService<Category>
     {
-        private readonly WebbShopContext _context;
+        private readonly IGenericService<Category> _genericService;
 
-        public CategoryService(WebbShopContext context)
+        public CategoryService(GenericService<Category> genericService)
         {
-            _context = context;
+            _genericService = genericService;
+        }
+        public Task<Category> CreateAsync(Category entity)
+        {
+            return _genericService.CreateAsync(entity);
         }
 
-        public async Task<Category> CreateCategoryAsync(Category category)
+        public Task<Category> DeleteAsync(int id)
         {
-            if (category == null)
+            return _genericService.DeleteAsync(id);
+        }
+
+        public Task<IEnumerable<Category>> GetAllAsync()
+        {
+            return _genericService.GetAllAsync();
+        }
+
+        public Task<Category> GetByIdAsync(int id)
+        {
+            return _genericService.GetByIdAsync(id);
+        }
+
+        public Task<Category> UpdateAsync(int id, Category entity)
+        {
+            if (entity.Id != id)
             {
-                throw new ArgumentNullException(nameof(category));
+                throw new ArgumentException($"Entity {entity.Id} does not match the provided id {id}");
             }
-            _context.Categories.Add(category);
-            await _context.SaveChangesAsync();
-            return category;
+            return _genericService.UpdateAsync(id, entity);
         }
-
-        public async Task<Category> FindCategoryByIdAsync(int id)
-        {
-            var existingObject = await _context.Categories.SingleOrDefaultAsync(x=>x.CategoryId == id);
-            if (existingObject == null)
-            {
-                throw new KeyNotFoundException($"Object with ID {id} was not found");
-            }
-            _context.Entry(existingObject).State = EntityState.Detached;
-            return existingObject;
-        }
-
-        public async Task<IEnumerable<Category>> GetCategorysAsync()
-        {
-            if (_context.Categories == null)
-            {
-                return Enumerable.Empty<Category>();
-            }
-            return await _context.Categories.ToListAsync();
-        }
-        
     }
 }

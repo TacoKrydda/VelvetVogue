@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using WebbShopClassLibrary.Interfaces.Production;
+﻿using Microsoft.AspNetCore.Mvc;
 using WebbShopClassLibrary.Models.Production;
+using WebbShopClassLibrary.Services;
 
 namespace VelvetVogue.Controllers.Production
 {
@@ -9,25 +8,85 @@ namespace VelvetVogue.Controllers.Production
     [ApiController]
     public class StocksController : ControllerBase
     {
-        private readonly IStockService _service;
+        private readonly IGenericService<Stock> _service;
 
-        public StocksController(IStockService service)
+        public StocksController(IGenericService<Stock> service)
         {
             _service = service;
         }
 
-        [HttpGet(Name = "GetStocks")]
-        public async Task<ActionResult<IEnumerable<Stock>>> GetStocks()
+        [HttpPost(Name = "PostStock")]
+        public async Task<ActionResult<Stock>> CreateAsync(Stock entity)
         {
-            var result = await _service.GetStocksAsync();
-            return Ok(result);
+            try
+            {
+                var result = await _service.CreateAsync(entity);
+                return Ok(result);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
-        [HttpPost(Name = "PostStock")]
-        public async Task<ActionResult<Stock>> PostStock(Stock stock)
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Stock>> DeleteAsync(int id)
         {
-            var result = await _service.CreateStockAsync(stock);
-            return Ok(result);
+            try
+            {
+                var result = await _service.DeleteAsync(id);
+                return Ok(result);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        [HttpGet(Name = "GetStocks")]
+        public async Task<ActionResult<IEnumerable<Stock>>> GetAllAsync()
+        {
+            try
+            {
+                var result = await _service.GetAllAsync();
+                return Ok(result);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Stock>> GetByIdAsync(int id)
+        {
+            try
+            {
+                var result = await _service.GetByIdAsync(id);
+                return Ok(result);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Stock>> UpdateAsync(int id, Stock entity)
+        {
+            try
+            {
+                var result = await _service.UpdateAsync(id, entity);
+                return Ok(result);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
     }
 }

@@ -1,79 +1,42 @@
-﻿using Microsoft.EntityFrameworkCore;
-using WebbShopClassLibrary.Context;
-using WebbShopClassLibrary.Interfaces.Production;
-using WebbShopClassLibrary.Models.Production;
+﻿using WebbShopClassLibrary.Models.Production;
 
 namespace WebbShopClassLibrary.Services.Production
 {
-    public class BrandService : IBrandService
+    public class BrandService : IGenericService<Brand>
     {
-        private readonly WebbShopContext _context;
+        private readonly IGenericService<Brand> _genericService;
 
-        public BrandService(WebbShopContext context)
+        public BrandService(GenericService<Brand> genericService)
         {
-            _context = context;
+            _genericService = genericService;
+        }
+        public Task<Brand> CreateAsync(Brand entity)
+        {
+            return _genericService.CreateAsync(entity);
         }
 
-        public async Task<Brand> CreateBrandAsync(Brand brand)
+        public Task<Brand> DeleteAsync(int id)
         {
-            if (brand == null)
+            return _genericService.DeleteAsync(id);
+        }
+
+        public Task<IEnumerable<Brand>> GetAllAsync()
+        {
+            return _genericService.GetAllAsync();
+        }
+
+        public Task<Brand> GetByIdAsync(int id)
+        {
+            return _genericService.GetByIdAsync(id);
+        }
+
+        public Task<Brand> UpdateAsync(int id, Brand entity)
+        {
+            if (entity.Id != id)
             {
-                throw new ArgumentNullException(nameof(brand));
+                throw new ArgumentException($"Entity {entity.Id} does not match the provided id {id}");
             }
-            _context.Brands.Add(brand);
-            await _context.SaveChangesAsync();
-            return brand;
+            return _genericService.UpdateAsync(id, entity);
         }
-
-        public async Task<Brand> DeleteBrand(int id)
-        {
-            var result = await FindBrandByIdAsync(id);
-            _context.Brands.Remove(result);
-            await _context.SaveChangesAsync();
-            return result;
-        }
-
-        public async Task<Brand> FindBrandByIdAsync(int id)
-        {
-            var existingProduct = await _context.Brands.SingleOrDefaultAsync(x => x.BrandId == id);
-            if (existingProduct == null)
-            {
-                throw new KeyNotFoundException($"Brand with ID {id} was not found");
-            }
-            _context.Entry(existingProduct).State = EntityState.Detached;
-            return existingProduct;
-        }
-
-        public async Task<IEnumerable<Brand>> GetBrandsAsync()
-        {
-            if (_context.Brands == null)
-            {
-                return Enumerable.Empty<Brand>();
-            }
-            return await _context.Brands.ToListAsync();
-        }
-
-        public async Task<Brand> GetBrandByIdAsync(int id)
-        {
-            var result = await FindBrandByIdAsync(id);
-            return result;
-        }
-
-        public async Task<Brand> UpdateBrandAsync(int id, Brand brand)
-        {
-            var result = await FindBrandByIdAsync(id);
-            if (result.BrandId != brand.BrandId)
-            {
-                throw new KeyNotFoundException($"ID's not matching {id} != {brand.BrandId}");
-            }
-            _context.Entry(brand).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-            return brand;
-        }
-
-        //private void DetachEntity<T>(T entity) where T : class
-        //{
-        //    _context.Entry(entity).State = EntityState.Detached;
-        //}
     }
 }

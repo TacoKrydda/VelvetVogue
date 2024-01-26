@@ -4,7 +4,7 @@ namespace WebbShopClassLibrary.Models.Production
 {
     public class Size
     {
-        public int SizeId { get; set; }
+        public int Id { get; set; }
         public string? SizeName { get; set; }
 
         [JsonIgnore]

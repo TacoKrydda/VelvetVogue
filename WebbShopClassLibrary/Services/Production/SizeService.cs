@@ -11,6 +11,16 @@ namespace WebbShopClassLibrary.Services.Production
             _genericService = genericService;
         }
 
+        public Task<Size> CreateAsync(Size entity)
+        {
+            return _genericService.CreateAsync(entity);
+        }
+
+        public Task<Size> DeleteAsync(int id)
+        {
+            return _genericService.DeleteAsync(id);
+        }
+
         public Task<IEnumerable<Size>> GetAllAsync()
         {
             return _genericService.GetAllAsync();
@@ -21,23 +31,13 @@ namespace WebbShopClassLibrary.Services.Production
             return _genericService.GetByIdAsync(id);
         }
 
-        public Task<Size> CreateAsync(Size entity)
-        {
-            return _genericService.CreateAsync(entity);
-        }
-
         public Task<Size> UpdateAsync(int id, Size entity)
         {
-            if (entity.SizeId != id)
+            if (entity.Id != id)
             {
-                throw new ArgumentException($"SizeId {entity.SizeId} does not match the provided id {id}");
+                throw new ArgumentException($"Entity {entity.Id} does not match the provided id {id}");
             }
             return _genericService.UpdateAsync(id, entity);
-        }
-
-        public Task<Size> DeleteAsync(int id)
-        {
-            return _genericService.DeleteAsync(id);
         }
     }
 }

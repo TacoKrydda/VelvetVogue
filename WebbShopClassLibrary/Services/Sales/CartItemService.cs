@@ -1,48 +1,42 @@
-﻿using Microsoft.EntityFrameworkCore;
-using WebbShopClassLibrary.Context;
-using WebbShopClassLibrary.Interfaces.Sales;
-using WebbShopClassLibrary.Models.Sales;
+﻿using WebbShopClassLibrary.Models.Sales;
 
 namespace WebbShopClassLibrary.Services.Sales
 {
-    public class CartItemService : ICartItemService
+    public class CartItemService : IGenericService<CartItem>
     {
-        private readonly WebbShopContext _context;
+        private readonly IGenericService<CartItem> _genericService;
 
-        public CartItemService(WebbShopContext context)
+        public CartItemService(GenericService<CartItem> genericService)
         {
-            _context = context;
+            _genericService = genericService;
+        }
+        public Task<CartItem> CreateAsync(CartItem entity)
+        {
+            return _genericService.CreateAsync(entity);
         }
 
-        public async Task<IEnumerable<CartItem>> GetCartItemsAsync()
+        public Task<CartItem> DeleteAsync(int id)
         {
-            if (_context.CartItems == null)
-            {
-                return Enumerable.Empty<CartItem>();
-            }
-            return await _context.CartItems.ToListAsync();
+            return _genericService.DeleteAsync(id);
         }
 
-        public async Task<CartItem> CreateCartItemAsync(CartItem cartItem)
+        public Task<IEnumerable<CartItem>> GetAllAsync()
         {
-            if (cartItem == null)
-            {
-                throw new ArgumentNullException(nameof(cartItem));
-            }
-            _context.CartItems.Add(cartItem);
-            await _context.SaveChangesAsync();
-            return cartItem;
+            return _genericService.GetAllAsync();
         }
 
-        public async Task<CartItem> UpdateCartItemAsync(CartItem cartItem)
+        public Task<CartItem> GetByIdAsync(int id)
         {
-            if (cartItem == null)
+            return _genericService.GetByIdAsync(id);
+        }
+
+        public Task<CartItem> UpdateAsync(int id, CartItem entity)
+        {
+            if (entity.Id != id)
             {
-                throw new KeyNotFoundException($"CartItem with ID {cartItem} not found");
+                throw new ArgumentException($"Entity {entity.Id} does not match the provided id {id}");
             }
-            _context.CartItems.Update(cartItem);
-            await _context.SaveChangesAsync();
-            return cartItem;
+            return _genericService.UpdateAsync(id, entity);
         }
     }
 }

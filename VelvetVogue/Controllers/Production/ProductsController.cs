@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebbShopClassLibrary.Interfaces.Production;
 using WebbShopClassLibrary.Models.Production;
+using WebbShopClassLibrary.Services;
 
 namespace VelvetVogue.Controllers.Production
 {
@@ -8,31 +8,85 @@ namespace VelvetVogue.Controllers.Production
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly IProductService _service;
+        private readonly IGenericService<Product> _service;
 
-        public ProductsController(IProductService service)
+        public ProductsController(IGenericService<Product> service)
         {
             _service = service;
         }
 
-        [HttpGet(Name = "GetProducts")]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
-        {
-            var result = await _service.GetProductAsync();
-            return Ok(result);
-        }
         [HttpPost(Name = "PostProduct")]
-        public async Task<ActionResult<Product>> PostProduct(Product product)
+        public async Task<ActionResult<Product>> CreateAsync(Product entity)
         {
-            var result = await _service.CreateProductAsync(product);
-            return Ok(result);
+            try
+            {
+                var result = await _service.CreateAsync(entity);
+                return Ok(result);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
-        [HttpPut(Name = "PutProduct")]
-        public async Task<ActionResult<Product>> PutProduct(Product product)
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Product>> DeleteAsync(int id)
         {
-            var result = await _service.UpdateProductAsync(product);
-            return Ok(result);
+            try
+            {
+                var result = await _service.DeleteAsync(id);
+                return Ok(result);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        [HttpGet(Name = "GetProducts")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetAllAsync()
+        {
+            try
+            {
+                var result = await _service.GetAllAsync();
+                return Ok(result);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Product>> GetByIdAsync(int id)
+        {
+            try
+            {
+                var result = await _service.GetByIdAsync(id);
+                return Ok(result);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Product>> UpdateAsync(int id, Product entity)
+        {
+            try
+            {
+                var result = await _service.UpdateAsync(id, entity);
+                return Ok(result);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
     }
 }

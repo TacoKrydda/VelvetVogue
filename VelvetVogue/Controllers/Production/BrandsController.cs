@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebbShopClassLibrary.Interfaces.Production;
 using WebbShopClassLibrary.Models.Production;
+using WebbShopClassLibrary.Services;
 
 namespace VelvetVogue.Controllers.Production
 {
@@ -8,46 +8,85 @@ namespace VelvetVogue.Controllers.Production
     [ApiController]
     public class BrandsController : ControllerBase
     {
-        private readonly IBrandService _service;
+        private readonly IGenericService<Brand> _service;
 
-        public BrandsController(IBrandService service)
+        public BrandsController(IGenericService<Brand> service)
         {
             _service = service;
         }
 
-        [HttpGet(Name = "GetBrands")]
-        public async Task<ActionResult<IEnumerable<Brand>>> GetBrands()
-        {
-            var result = await _service.GetBrandsAsync();
-            return Ok(result);
-        }
-
         [HttpPost(Name = "PostBrand")]
-        public async Task<ActionResult<Brand>> PostBrand(Brand brand)
+        public async Task<ActionResult<Brand>> CreateAsync(Brand entity)
         {
-            await _service.CreateBrandAsync(brand);
-            return Ok(brand);
-        }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Brand>> GetBrandById(int id)
-        {
-            var result = await _service.GetBrandByIdAsync(id);
-            return Ok(result);
+            try
+            {
+                var result = await _service.CreateAsync(entity);
+                return Ok(result);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Brand>> DeleteBrand(int id)
+        public async Task<ActionResult<Brand>> DeleteAsync(int id)
         {
-            var result = await _service.DeleteBrand(id);
-            return Ok(result);
+            try
+            {
+                var result = await _service.DeleteAsync(id);
+                return Ok(result);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        [HttpGet(Name = "GetBrands")]
+        public async Task<ActionResult<IEnumerable<Brand>>> GetAllAsync()
+        {
+            try
+            {
+                var result = await _service.GetAllAsync();
+                return Ok(result);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Brand>> GetByIdAsync(int id)
+        {
+            try
+            {
+                var result = await _service.GetByIdAsync(id);
+                return Ok(result);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Brand>> UpdateBrand(int id, Brand brand)
+        public async Task<ActionResult<Brand>> UpdateAsync(int id, Brand entity)
         {
-            var result = await _service.UpdateBrandAsync(id, brand);
-            return Ok(result);
+            try
+            {
+                var result = await _service.UpdateAsync(id, entity);
+                return Ok(result);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
     }
 }
