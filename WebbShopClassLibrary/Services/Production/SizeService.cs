@@ -28,6 +28,10 @@ namespace WebbShopClassLibrary.Services.Production
 
         public Task<Size> UpdateAsync(int id, Size entity)
         {
+            if (entity.SizeId != id)
+            {
+                throw new ArgumentException($"SizeId {entity.SizeId} does not match the provided id {id}");
+            }
             return _genericService.UpdateAsync(id, entity);
         }
 

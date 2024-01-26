@@ -16,7 +16,12 @@ namespace WebbShopClassLibrary.Services
 
         public async Task<IEnumerable<T>> GetAllAsync()
         {
-            return await _table.ToListAsync();
+            var result = await _table.ToListAsync();
+            if (result == null)
+            {
+                throw new ArgumentException($"The table is empty");
+            }
+            return result;
         }
 
         public async Task<T> GetByIdAsync(int id)
@@ -43,11 +48,12 @@ namespace WebbShopClassLibrary.Services
 
         public async Task<T> UpdateAsync(int id, T entity)
         {
-            var result = await _table.FindAsync(id);
-            if (result == null)
+            var existingEntity = await _table.FindAsync(id);
+            if (existingEntity == null)
             {
-                throw new KeyNotFoundException($"Item with ID {id} was not found");
+                throw new KeyNotFoundException($"Entity with ID {id} was not found");
             }
+            _context.Entry(existingEntity).State = EntityState.Detached;
             _context.Entry(entity).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return entity;
