@@ -10,7 +10,6 @@ namespace WebbShopClassLibrary.Models.Production
         public int CategoryId { get; set; }
         public int ColorId { get; set; }
         public int SizeId { get; set; }
-        public int? StockId { get; set; }
         public decimal Price { get; set; }
 
         [JsonIgnore]

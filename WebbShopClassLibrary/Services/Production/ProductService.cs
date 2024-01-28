@@ -15,10 +15,6 @@ namespace WebbShopClassLibrary.Services.Production
         public async Task<Product> CreateAsync(Product entity)
         {
             var productResult = await _genericService.CreateAsync(entity);
-            //var stockEntity = new Stock { ProductId = productResult.Id, Quantity = 0 };
-            //await _stockService.CreateAsync(stockEntity);
-            //productResult.StockId = stockEntity.Id;
-            //await _genericService.UpdateAsync(productResult.Id, productResult);
             return productResult;
         }
 

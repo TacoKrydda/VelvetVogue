@@ -12,7 +12,15 @@ namespace WebbShopClassLibrary.Services.Sales
         }
         public async Task<Order> CreateAsync(Order entity)
         {
+            var cartItemsCopy = entity.CartItems.ToList();
+
             var orderResult = await _genericService.CreateAsync(entity);
+
+            // This may work but i need to send product with cartitem.
+            // Right now product is null
+            orderResult.TotalPrice = cartItemsCopy.Sum(x=>x.Product.Price * x.Quantity);
+            await _genericService.UpdateAsync(orderResult.Id, orderResult);
+
             return orderResult;
         }
 
