@@ -13,33 +13,33 @@ namespace WebbShopClassLibrary.Services.Sales
         {
             _genericService = genericService;
         }
-        public Task<Customer> CreateAsync(Customer entity)
+        public async Task<Customer> CreateAsync(Customer entity)
         {
-            return _genericService.CreateAsync(entity);
+            return await _genericService.CreateAsync(entity);
         }
 
-        public Task<Customer> DeleteAsync(int id)
+        public async Task<Customer> DeleteAsync(int id)
         {
-            return _genericService.DeleteAsync(id);
+            return await _genericService.DeleteAsync(id);
         }
 
-        public Task<IEnumerable<Customer>> GetAllAsync()
+        public async Task<IEnumerable<Customer>> GetAllAsync(params string[] includeProperties)
         {
-            return _genericService.GetAllAsync();
+            return await _genericService.GetAllAsync();
         }
 
-        public Task<Customer> GetByIdAsync(int id)
+        public async Task<Customer> GetByIdAsync(int id)
         {
-            return _genericService.GetByIdAsync(id);
+            return await _genericService.GetByIdAsync(id);
         }
 
-        public Task<Customer> UpdateAsync(int id, Customer entity)
+        public async Task<Customer> UpdateAsync(int id, Customer entity)
         {
             if (entity.Id != id)
             {
                 throw new ArgumentException($"Entity {entity.Id} does not match the provided id {id}");
             }
-            return _genericService.UpdateAsync(id, entity);
+            return await _genericService.UpdateAsync(id, entity);
         }
     }
 }

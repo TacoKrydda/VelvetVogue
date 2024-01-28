@@ -14,9 +14,17 @@ namespace WebbShopClassLibrary.Services
             _table = _context.Set<T>();
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public async Task<IEnumerable<T>> GetAllAsync(params string[] includeProperties)
         {
-            var result = await _table.ToListAsync();
+            IQueryable<T> query = _table;
+
+            foreach (var includeProperty in includeProperties)
+            {
+                query = query.Include(includeProperty);
+            }
+
+            var result = await query.ToListAsync();
+
             if (result == null)
             {
                 throw new ArgumentException($"The table is empty");

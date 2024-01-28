@@ -10,33 +10,33 @@ namespace WebbShopClassLibrary.Services.Production
         {
             _genericService = genericService;
         }
-        public Task<Color> CreateAsync(Color entity)
+        public async Task<Color> CreateAsync(Color entity)
         {
-            return _genericService.CreateAsync(entity);
+            return await _genericService.CreateAsync(entity);
         }
 
-        public Task<Color> DeleteAsync(int id)
+        public async Task<Color> DeleteAsync(int id)
         {
-            return _genericService.DeleteAsync(id);
+            return await _genericService.DeleteAsync(id);
         }
 
-        public Task<IEnumerable<Color>> GetAllAsync()
+        public async Task<IEnumerable<Color>> GetAllAsync(params string[] includeProperties)
         {
-            return _genericService.GetAllAsync();
+            return await _genericService.GetAllAsync();
         }
 
-        public Task<Color> GetByIdAsync(int id)
+        public async Task<Color> GetByIdAsync(int id)
         {
-            return _genericService.GetByIdAsync(id);
+            return await _genericService.GetByIdAsync(id);
         }
 
-        public Task<Color> UpdateAsync(int id, Color entity)
+        public async Task<Color> UpdateAsync(int id, Color entity)
         {
             if (entity.Id != id)
             {
                 throw new ArgumentException($"Entity {entity.Id} does not match the provided id {id}");
             }
-            return _genericService.UpdateAsync(id, entity);
+            return await _genericService.UpdateAsync(id, entity);
         }
     }
 }

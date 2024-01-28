@@ -1,45 +1,49 @@
-﻿using Microsoft.EntityFrameworkCore;
-using WebbShopClassLibrary.Context;
-using WebbShopClassLibrary.Interfaces.Production;
-using WebbShopClassLibrary.Models.Production;
+﻿using WebbShopClassLibrary.Models.Production;
 
 namespace WebbShopClassLibrary.Services.Production
 {
     public class ProductService : IGenericService<Product>
     {
         private readonly IGenericService<Product> _genericService;
+        private readonly GenericService<Stock> _stockService;
 
-        public ProductService(GenericService<Product> genericService)
+        public ProductService(GenericService<Product> genericService, GenericService<Stock> stockService)
         {
             _genericService = genericService;
+            _stockService = stockService;
         }
-        public Task<Product> CreateAsync(Product entity)
+        public async Task<Product> CreateAsync(Product entity)
         {
-            return _genericService.CreateAsync(entity);
+            var productResult = await _genericService.CreateAsync(entity);
+            //var stockEntity = new Stock { ProductId = productResult.Id, Quantity = 0 };
+            //await _stockService.CreateAsync(stockEntity);
+            //productResult.StockId = stockEntity.Id;
+            //await _genericService.UpdateAsync(productResult.Id, productResult);
+            return productResult;
         }
 
-        public Task<Product> DeleteAsync(int id)
+        public async Task<Product> DeleteAsync(int id)
         {
-            return _genericService.DeleteAsync(id);
+            return  await _genericService.DeleteAsync(id);
         }
 
-        public Task<IEnumerable<Product>> GetAllAsync()
+        public async Task<IEnumerable<Product>> GetAllAsync(params string[] includeProperties)
         {
-            return _genericService.GetAllAsync();
+            return await _genericService.GetAllAsync();
         }
 
-        public Task<Product> GetByIdAsync(int id)
+        public async Task<Product> GetByIdAsync(int id)
         {
-            return _genericService.GetByIdAsync(id);
+            return await _genericService.GetByIdAsync(id);
         }
 
-        public Task<Product> UpdateAsync(int id, Product entity)
+        public async Task<Product> UpdateAsync(int id, Product entity)
         {
             if (entity.Id != id)
             {
                 throw new ArgumentException($"Entity {entity.Id} does not match the provided id {id}");
             }
-            return _genericService.UpdateAsync(id, entity);
+            return await _genericService.UpdateAsync(id, entity);
         }
     }
 }

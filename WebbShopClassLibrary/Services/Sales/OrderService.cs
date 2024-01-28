@@ -1,8 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using WebbShopClassLibrary.Context;
-using WebbShopClassLibrary.DTO;
-using WebbShopClassLibrary.Interfaces.Sales;
-using WebbShopClassLibrary.Models.Sales;
+﻿using WebbShopClassLibrary.Models.Sales;
 
 namespace WebbShopClassLibrary.Services.Sales
 {
@@ -10,13 +6,14 @@ namespace WebbShopClassLibrary.Services.Sales
     {
         private readonly IGenericService<Order> _genericService;
 
-        public OrderService(IGenericService<Order> genericService)
+        public OrderService(GenericService<Order> genericService)
         {
             _genericService = genericService;
         }
-        public Task<Order> CreateAsync(Order entity)
+        public async Task<Order> CreateAsync(Order entity)
         {
-            throw new NotImplementedException();
+            var orderResult = await _genericService.CreateAsync(entity);
+            return orderResult;
         }
 
         public Task<Order> DeleteAsync(int id)
@@ -24,9 +21,9 @@ namespace WebbShopClassLibrary.Services.Sales
             return _genericService.DeleteAsync(id);
         }
 
-        public Task<IEnumerable<Order>> GetAllAsync()
+        public Task<IEnumerable<Order>> GetAllAsync(params string[] includeProperties)
         {
-            return _genericService.GetAllAsync();
+            return _genericService.GetAllAsync("CartItems");
         }
 
         public Task<Order> GetByIdAsync(int id)
@@ -42,28 +39,5 @@ namespace WebbShopClassLibrary.Services.Sales
             }
             return _genericService.UpdateAsync(id, entity);
         }
-
-        //public async Task<Order> PostOrderAsync(OrderModel model)
-        //{
-        //    var newOrder = new Order
-        //    {
-        //        CartItems = model.CartItems,
-        //        CustomerId = model.CustomerId,
-        //        OrderDate = model.OrderDate,
-        //        OrderStatus = model.OrderStatus,
-        //    };
-        //    _context.Orders.Add(newOrder);
-        //    await _context.SaveChangesAsync();
-
-        //    var cartItemsCopy = newOrder.CartItems.ToList();
-
-        //    foreach (var item in cartItemsCopy)
-        //    {
-        //        item.OrderId = newOrder.Id;
-        //        newOrder.CartItems.Add(item);
-        //    }
-        //    await _context.SaveChangesAsync();
-        //    return newOrder;
-        //}
     }
 }

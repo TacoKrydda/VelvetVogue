@@ -11,7 +11,6 @@ namespace WebbShopClassLibrary.Models.Production
         public int ColorId { get; set; }
         public int SizeId { get; set; }
         public int? StockId { get; set; }
-        //Price
         public decimal Price { get; set; }
 
         [JsonIgnore]
@@ -22,7 +21,7 @@ namespace WebbShopClassLibrary.Models.Production
         public Color? Color { get; set; }
         [JsonIgnore]
         public Size? Size { get; set; }
-        [JsonIgnore]
-        public Stock? Stock { get; set; }
+        
+        public Stock? Stock { get; set; } = new Stock();
     }
 }

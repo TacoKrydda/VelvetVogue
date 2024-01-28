@@ -12,7 +12,7 @@ namespace WebbShopClassLibrary.Models.Sales
         public DateTime? ShippedDate { get; set; }
         public Decimal TotalPrice { get; set; }
 
-        [JsonIgnore]
+        //[JsonIgnore]
         public List<CartItem>? CartItems { get; set; } = new List<CartItem>();
         [JsonIgnore]
         public Customer? Customer { get; set; }

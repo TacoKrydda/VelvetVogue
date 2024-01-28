@@ -29,10 +29,10 @@ namespace WebbShopClassLibrary.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Product>()
-                .HasOne(p=>p.Stock)
-                .WithOne(s=>s.Product)
-                .HasForeignKey<Stock>(s=>s.ProductId);
+            //modelBuilder.Entity<Product>()
+            //    .HasOne(p=>p.Stock)
+            //    .WithOne(s=>s.Product)
+            //    .HasForeignKey<Stock>(s=>s.ProductId);
 
             modelBuilder.Entity<Product>()
                 .Property(p => p.Price)
