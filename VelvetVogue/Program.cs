@@ -39,10 +39,12 @@ builder.Services.AddScoped<GenericService<Stock>>();
 builder.Services.AddScoped<IGenericService<CartItem>, CartItemService>();
 builder.Services.AddScoped<IGenericService<Customer>, CustomerService>();
 builder.Services.AddScoped<IGenericService<Order>, OrderService>();
+builder.Services.AddScoped<IGenericService<OrderStaffAssignment>, OrderStaffAssignmentService>();
 builder.Services.AddScoped<IGenericService<Staff>, StaffService>();
 builder.Services.AddScoped<GenericService<CartItem>>();
 builder.Services.AddScoped<GenericService<Customer>>();
 builder.Services.AddScoped<GenericService<Order>>();
+builder.Services.AddScoped<GenericService<OrderStaffAssignment>>();
 builder.Services.AddScoped<GenericService<Staff>>();
 
 var app = builder.Build();

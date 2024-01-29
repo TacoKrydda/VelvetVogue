@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebbShopClassLibrary.Context;
 
@@ -11,9 +12,11 @@ using WebbShopClassLibrary.Context;
 namespace WebbShopClassLibrary.Migrations
 {
     [DbContext(typeof(WebbShopContext))]
-    partial class WebbShopContextModelSnapshot : ModelSnapshot
+    [Migration("20240129170518_forgotTheId")]
+    partial class forgotTheId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

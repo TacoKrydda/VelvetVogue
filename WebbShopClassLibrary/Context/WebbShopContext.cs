@@ -22,6 +22,7 @@ namespace WebbShopClassLibrary.Context
         public DbSet<Color> Colors { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderStaffAssignment> OrderStaffAssignments { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Staff> Staff { get; set; }
         public DbSet<Size> Sizes { get; set; }
@@ -33,6 +34,16 @@ namespace WebbShopClassLibrary.Context
             //    .HasOne(p=>p.Stock)
             //    .WithOne(s=>s.Product)
             //    .HasForeignKey<Stock>(s=>s.ProductId);
+
+            //modelBuilder.Entity<OrderStaffAssignment>()
+            //    .HasOne(osa => osa.Order)
+            //    .WithMany(o => o.OrderStaffAssignments)
+            //    .HasForeignKey(osa => osa.OrderId);
+
+            //modelBuilder.Entity<OrderStaffAssignment>()
+            //    .HasOne(osa => osa.Staff)
+            //    .WithMany(s => s.OrderStaffAssignments)
+            //    .HasForeignKey(osa => osa.StaffId);
 
             modelBuilder.Entity<Product>()
                 .Property(p => p.Price)

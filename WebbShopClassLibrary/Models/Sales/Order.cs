@@ -6,7 +6,6 @@ namespace WebbShopClassLibrary.Models.Sales
     {
         public int Id { get; set; }
         public int CustomerId { get; set; }
-        public int? StaffId { get; set; }
         public string? OrderStatus { get; set; }
         public DateTime? OrderDate { get; set; }
         public DateTime? ShippedDate { get; set; }
@@ -17,6 +16,6 @@ namespace WebbShopClassLibrary.Models.Sales
         [JsonIgnore]
         public Customer? Customer { get; set; }
         [JsonIgnore]
-        public Staff? Staff { get; set; }
+        public List<OrderStaffAssignment>? OrderStaffAssignments { get; set; } = new List<OrderStaffAssignment>();
     }
 }

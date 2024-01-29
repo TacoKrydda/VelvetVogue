@@ -4,9 +4,8 @@ namespace WebbShopClassLibrary.DTO
 {
     public class OrderModel
     {
-        public List<CartItem>? CartItems { get; set; }
-        public int CustomerId { get; set; }
-        public DateTime? OrderDate { get; set; }
-        public string? OrderStatus { get; set; }
+        public int OrderId { get; set; }
+        public int StaffId { get; set; }
+        public Staff? Staffs { get; set; }
     }
 }

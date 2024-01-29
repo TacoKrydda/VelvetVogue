@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebbShopClassLibrary.Context;
 
@@ -11,9 +12,11 @@ using WebbShopClassLibrary.Context;
 namespace WebbShopClassLibrary.Migrations
 {
     [DbContext(typeof(WebbShopContext))]
-    partial class WebbShopContextModelSnapshot : ModelSnapshot
+    [Migration("20240129160916_SeperateOrderAndStaff")]
+    partial class SeperateOrderAndStaff
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -242,21 +245,13 @@ namespace WebbShopClassLibrary.Migrations
 
             modelBuilder.Entity("WebbShopClassLibrary.Models.Sales.OrderStaffAssignment", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
                     b.Property<int>("StaffId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
+                    b.HasKey("OrderId", "StaffId");
 
                     b.HasIndex("StaffId");
 

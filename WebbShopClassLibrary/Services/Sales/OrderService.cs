@@ -1,4 +1,5 @@
 ﻿using WebbShopClassLibrary.Models.Sales;
+using WebbShopClassLibrary.Utilities;
 
 namespace WebbShopClassLibrary.Services.Sales
 {
@@ -14,11 +15,13 @@ namespace WebbShopClassLibrary.Services.Sales
         {
             var cartItemsCopy = entity.CartItems.ToList();
 
+            var test = new testOrder();
+
             var orderResult = await _genericService.CreateAsync(entity);
 
             // This may work but i need to send product with cartitem.
             // Right now product is null
-            orderResult.TotalPrice = cartItemsCopy.Sum(x=>x.Product.Price * x.Quantity);
+            orderResult.TotalPrice = test.CartItems.Sum(x=>x.Product.Price * x.Quantity);
             await _genericService.UpdateAsync(orderResult.Id, orderResult);
 
             return orderResult;
