@@ -22,7 +22,7 @@ namespace WebbShopClassLibrary.Services.Sales
 
         public async Task<IEnumerable<Staff>> GetAllAsync(params string[] includeProperties)
         {
-            return await _genericService.GetAllAsync();
+            return await _genericService.GetAllAsync("OrderStaffAssignments");
         }
 
         public async Task<Staff> GetByIdAsync(int id)

@@ -7,6 +7,7 @@ using WebbShopClassLibrary.Models.Sales;
 using WebbShopClassLibrary.Services;
 using WebbShopClassLibrary.Services.Production;
 using WebbShopClassLibrary.Services.Sales;
+using WebbShopClassLibrary.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,6 +47,8 @@ builder.Services.AddScoped<GenericService<Customer>>();
 builder.Services.AddScoped<GenericService<Order>>();
 builder.Services.AddScoped<GenericService<OrderStaffAssignment>>();
 builder.Services.AddScoped<GenericService<Staff>>();
+
+builder.Services.AddScoped<IManagementUtilities, ManagementUtilities>();
 
 var app = builder.Build();
 

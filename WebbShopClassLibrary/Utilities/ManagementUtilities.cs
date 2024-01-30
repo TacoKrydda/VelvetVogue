@@ -1,16 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebbShopClassLibrary.Context;
-using WebbShopClassLibrary.DTO;
 using WebbShopClassLibrary.Models.Sales;
 
 namespace WebbShopClassLibrary.Utilities
 {
-    public class ManagementUtilities
+    public class ManagementUtilities : IManagementUtilities
     {
         private readonly WebbShopContext _context;
 
@@ -24,6 +18,11 @@ namespace WebbShopClassLibrary.Utilities
                                     .Where(osa => osa.OrderId == orderId)
                                     .Select(osa => osa.Staff)
                                     .ToListAsync();
+            if (staffIdsForOrder == null)
+            {
+                throw new ArgumentException($"No staff has worked for this order");
+            }
+
             return staffIdsForOrder;
         }
     }
