@@ -12,7 +12,7 @@ namespace WebbShopClassLibrary.Models.Sales
 
         [JsonIgnore]
         public List<Order>? Orders { get; set; } = new List<Order>();
-        
+        [JsonIgnore]
         public List<OrderStaffAssignment>? OrderStaffAssignments { get; set; } = new List<OrderStaffAssignment>();
     }
 }

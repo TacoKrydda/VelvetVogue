@@ -36,6 +36,7 @@ namespace WebbShopClassLibrary.Services.Sales
             {
                 throw new ArgumentException($"Entity {entity.Id} does not match the provided id {id}");
             }
+
             return await _genericService.UpdateAsync(id, entity);
         }
     }

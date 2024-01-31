@@ -20,7 +20,7 @@ namespace WebbShopClassLibrary.Utilities
                                     .ToListAsync();
             if (staffIdsForOrder == null)
             {
-                throw new ArgumentException($"No staff has worked for this order");
+                throw new ArgumentException($"No staff found for this order");
             }
 
             return staffIdsForOrder;
