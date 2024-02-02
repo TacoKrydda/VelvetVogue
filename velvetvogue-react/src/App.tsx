@@ -4,6 +4,7 @@ import Home from "./Pages/Home";
 import Footer from "./Componets/Footer";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import About from "./Pages/About";
+import SideNavBar from "./Componets/SideNavBar";
 
 function App() {
   return (
@@ -13,10 +14,15 @@ function App() {
           <Header />
         </div>
         <div className="App-Body">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-          </Routes>
+          <div className="SideNavbar">
+            <SideNavBar />
+          </div>
+          <div className="Content">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+            </Routes>
+          </div>
         </div>
         <div className="App-footer">
           <Footer />

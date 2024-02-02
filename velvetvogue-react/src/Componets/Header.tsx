@@ -5,8 +5,8 @@ const Header = () => {
   return (
     <header>
       <nav>
-        <ul className="nav-list">
-          <li>
+        <ul className="head-list">
+          {/* <li>
             <Link to="/">Hem</Link>
           </li>
           <li>
@@ -14,7 +14,7 @@ const Header = () => {
           </li>
           <li>
             <Link to="/contact">Kontakt</Link>
-          </li>
+          </li> */}
         </ul>
       </nav>
     </header>

@@ -37,16 +37,9 @@
   align-items: center;
   justify-content: center;
   color: white;
+  display: flex;
 }
-
-.App-Body {
-  flex: 1;
-}
-
-.App-footer {
-  margin-top: auto;
-}
-
+/* 
 .nav-list {
   list-style: none;
   padding: 0;
@@ -61,6 +54,65 @@
 .nav-list a {
   text-decoration: none;
   color: white;
+} */
+
+.App-Body {
+  flex: 1;
+  display: flex;
+}
+
+.SideNavbar {
+  flex: 1; /* Fyller ut all tillgänglig vertikal plats */
+  background-color: #414855;
+  padding: 20px;
+}
+
+.nav-list {
+  border-style: solid;
+  list-style: none;
+  padding: 0;
+}
+
+.nav-list li {
+  margin-bottom: 10px;
+  position: relative; /* Lägg till position relative för att hålla dropdown inomför föräldern */
+}
+
+.nav-list a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.dropdown-toggle {
+  position: absolute;
+  top: 0;
+  right: -30px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.sub-nav {
+  list-style: none;
+  padding-left: 20px;
+  display: none; /* Göm dropdown som standard */
+}
+
+.sub-nav li {
+  margin-bottom: 5px;
+}
+
+.nav-list li:hover .sub-nav {
+  display: block; /* Visa dropdown när föräldern hovras över */
+}
+
+.Content {
+  flex: 6; /* Fyller ut all tillgänglig vertikal plats */
+  padding: 20px;
+}
+
+.App-footer {
+  margin-top: auto;
 }
 
 .footer-content {
