@@ -8,16 +8,16 @@ import SideNavBar from "./Componets/SideNavBar";
 
 function App() {
   return (
-    <div className="App-Container">
+    <div className="App-container">
       <BrowserRouter>
         <div className="App-header">
           <Header />
         </div>
-        <div className="App-Body">
-          <div className="SideNavbar">
+        <div className="App-body">
+          <div className="Side-nav-bar">
             <SideNavBar />
           </div>
-          <div className="Content">
+          <div className="App-body-content">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />

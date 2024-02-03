@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 
 const SideNavBar = () => {
   return (
-    <nav className="SideNavbar">
-      <ul className="nav-list">
+    <nav className="Nav-list-content">
+      <ul className="Nav-list">
         <li>
           <Link to="/category/pants">Byxor</Link>
-          <ul className="sub-nav">
+          <ul className="Sub-nav">
             <li>
               <Link to="/category/pants/jeans">Jeans</Link>
             </li>
@@ -19,9 +19,11 @@ const SideNavBar = () => {
             </li>
           </ul>
         </li>
+      </ul>
+      <ul className="Nav-list">
         <li>
           <Link to="/category/shirts">Tröjor</Link>
-          <ul className="sub-nav">
+          <ul className="Sub-nav">
             <li>
               <Link to="/category/shirts/huvtröjor">Huvtröjor</Link>
             </li>

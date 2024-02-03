@@ -1,12 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import SearchBar from "./SearchBar";
 
 const Header = () => {
   return (
     <header>
-      <nav>
+      <div className="head-search">
+        <SearchBar />
+      </div>
+      {/* <nav>
         <ul className="head-list">
-          {/* <li>
+          <li>
             <Link to="/">Hem</Link>
           </li>
           <li>
@@ -14,9 +18,9 @@ const Header = () => {
           </li>
           <li>
             <Link to="/contact">Kontakt</Link>
-          </li> */}
+          </li>
         </ul>
-      </nav>
+      </nav> */}
     </header>
   );
 };

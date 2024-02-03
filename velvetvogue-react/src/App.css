@@ -26,10 +26,12 @@
   }
 }
 
-.App-Container {
+.App-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background-color: #282c34;
+  color: white;
 }
 
 .App-header {
@@ -39,51 +41,71 @@
   color: white;
   display: flex;
 }
-/* 
-.nav-list {
-  list-style: none;
-  padding: 0;
+.Search-container {
   display: flex;
-  justify-content: center;
+  margin: 10px;
 }
 
-.nav-list li {
-  margin: 0 15px;
+.Search-input {
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px 0 0 4px;
+  outline: none;
+  width: 40vw;
 }
 
-.nav-list a {
-  text-decoration: none;
+.Search-button {
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 0 4px 4px 0;
+  background-color: #4caf50;
   color: white;
-} */
+  cursor: pointer;
+  outline: none;
+}
 
-.App-Body {
-  flex: 1;
+.Search-button:hover {
+  background-color: #45a049;
+}
+
+.App-body {
   display: flex;
+  background-color: #363c47;
 }
 
-.SideNavbar {
+.Side-nav-bar {
   flex: 1; /* Fyller ut all tillgänglig vertikal plats */
-  background-color: #414855;
-  padding: 20px;
+  background-color: #282c34;
+
+  margin: 10px;
+  border-radius: 10px;
+}
+.Nav-list-content {
+  margin: 10px;
 }
 
-.nav-list {
-  border-style: solid;
+.Nav-list {
+  border-radius: 5px;
+  padding: 2%;
+  background-color: #363c47;
   list-style: none;
-  padding: 0;
+  padding: 5px;
+  font-size: large;
 }
 
-.nav-list li {
+.Nav-list li {
   margin-bottom: 10px;
   position: relative; /* Lägg till position relative för att hålla dropdown inomför föräldern */
 }
 
-.nav-list a {
+.Nav-list a {
   text-decoration: none;
   color: #ffffff;
 }
 
-.dropdown-toggle {
+.Dropdown-toggle {
   position: absolute;
   top: 0;
   right: -30px;
@@ -92,30 +114,85 @@
   cursor: pointer;
 }
 
-.sub-nav {
+.Sub-nav {
   list-style: none;
   padding-left: 20px;
   display: none; /* Göm dropdown som standard */
 }
 
-.sub-nav li {
+.Sub-nav li {
   margin-bottom: 5px;
 }
 
-.nav-list li:hover .sub-nav {
+.Nav-list li:hover .Sub-nav {
   display: block; /* Visa dropdown när föräldern hovras över */
 }
 
-.Content {
+.App-body-content {
   flex: 6; /* Fyller ut all tillgänglig vertikal plats */
   padding: 20px;
+  overflow-x: auto;
+}
+
+.Body-sales {
+  background-color: #282c34;
+  margin: 10px;
+  margin-bottom: 10vh;
+  min-height: 50vh;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  position: relative;
+}
+
+.Card {
+  width: 300px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-right: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  background-color: #363c47;
+  color: white;
+}
+
+.Card img {
+  border-radius: 8px;
+  width: 100%;
+  max-height: 40vh;
+  height: auto;
+  display: block;
+}
+
+.Card-text {
+  padding: 16px;
+}
+
+.Card-text h3 {
+  margin-top: 0;
+}
+
+.Card-text p {
+  margin-bottom: 0;
+}
+
+.Body-new-items {
+  background-color: #282c34;
+  margin: 10px;
+  min-height: 40vh;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  position: relative;
 }
 
 .App-footer {
   margin-top: auto;
 }
 
-.footer-content {
+.Footer-content {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -123,7 +200,7 @@
   background-color: #282c34;
 }
 
-.footer-content p {
+.Footer-content p {
   margin: 0;
   color: white;
 }
