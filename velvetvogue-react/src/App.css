@@ -40,10 +40,13 @@
   justify-content: center;
   color: white;
   display: flex;
+  justify-content: space-between;
 }
 .Search-container {
+  flex: 10;
   display: flex;
   margin: 10px;
+  justify-content: center;
 }
 
 .Search-input {
@@ -70,15 +73,30 @@
   background-color: #45a049;
 }
 
+.Head-nav-bar {
+  visibility: hidden;
+  flex: 1;
+}
+
+@media only screen and (max-width: 600px) {
+  .Head-nav-bar {
+    visibility: visible;
+    flex: 1;
+  }
+
+  .Side-nav-bar {
+    display: none;
+  }
+}
+
 .App-body {
   display: flex;
   background-color: #363c47;
 }
 
 .Side-nav-bar {
-  flex: 1; /* Fyller ut all tillgänglig vertikal plats */
+  flex: 1;
   background-color: #282c34;
-
   margin: 10px;
   border-radius: 10px;
 }

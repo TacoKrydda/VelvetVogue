@@ -11,7 +11,12 @@ function App() {
     <div className="App-container">
       <BrowserRouter>
         <div className="App-header">
-          <Header />
+          <div className="Head-nav-bar">
+            <SideNavBar />
+          </div>
+          <div className="Search-container">
+            <Header />
+          </div>
         </div>
         <div className="App-body">
           <div className="Side-nav-bar">
