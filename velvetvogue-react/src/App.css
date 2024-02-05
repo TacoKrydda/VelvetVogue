@@ -44,7 +44,7 @@
   justify-content: space-between;
 }
 .Search-container {
-  flex: 10;
+  flex: 8;
   display: flex;
   margin: 10px;
   justify-content: center;
@@ -166,19 +166,27 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 10px;
-  background-color: #333;
+  background-color: #282c34;
   color: white;
   z-index: 1; /* Ange ett högt z-index-värde för att placera overlay över befintligt innehåll */
   transform: translateX(-100%); /* Göm menyn utanför vänsterkanten */
   transition: transform 0.3s ease; /* Lägg till en övergångseffekt */
 }
 
+.Head-nav-bar {
+  flex: 2;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+}
+
 .menu-toggle {
-  position: fixed; /* Använd fast positionering för att skapa en overlay */
-  top: 0;
-  left: 0;
-  font-size: 20px;
+  font-size: 50px;
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+  height: 100%;
   cursor: pointer;
   display: block; /* Visa hamburgerikonen vid alla skärmstorlekar */
 }
@@ -202,6 +210,15 @@ li {
 }
 
 @media (min-width: 600px) {
+  .Head-nav-bar {
+    flex: 2;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    display: none;
+  }
+
   /* Justera stilen för större skärmar */
   .navigation {
     flex-direction: row; /* Ändra till radlayout när skärmen är tillräckligt stor */
@@ -218,22 +235,6 @@ li {
   }
 }
 
-/* .Head-nav-bar {
-  visibility: hidden;
-  flex: 1;
-}
-
-@media only screen and (max-width: 600px) {
-  .Head-nav-bar {
-    visibility: visible;
-    flex: 1;
-  }
-
-  .Side-nav-bar {
-    display: none;
-  }
-} */
-
 .Side-nav-bar {
   flex: 1;
   background-color: #282c34;
@@ -241,15 +242,15 @@ li {
   border-radius: 10px;
 }
 .Nav-list-content {
-  margin: 10px;
+  width: 50vw;
 }
 
 .Nav-list {
+  position: relative;
   border-radius: 5px;
   padding: 2%;
-  background-color: #363c47;
+  background-color: #eceff4;
   list-style: none;
-  padding: 5px;
   font-size: large;
 }
 
@@ -259,8 +260,10 @@ li {
 }
 
 .Nav-list a {
+  background-color: #45a049;
   text-decoration: none;
-  color: #ffffff;
+  position: relative;
+  color: #4e0a0a;
 }
 
 .Dropdown-toggle {

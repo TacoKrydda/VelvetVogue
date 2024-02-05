@@ -9,12 +9,15 @@ const Navigation: React.FC = () => {
   };
 
   return (
-    <div>
+    <>
+      <div className="menu-toggle" onClick={toggleMenu}>
+        ☰
+      </div>
       <div className={`navigation ${isOpen ? "open" : ""}`}>
         <nav className="Nav-list-content">
           <ul className="Nav-list">
             <li>
-              <Link to="/category/pants">Byxor</Link>
+              <Link to="/">Byxor</Link>
               <ul className="Sub-nav">
                 <li>
                   <Link to="/category/pants/jeans">Jeans</Link>
@@ -46,12 +49,7 @@ const Navigation: React.FC = () => {
           </ul>
         </nav>
       </div>
-      <div>
-        <div className="menu-toggle" onClick={toggleMenu}>
-          ☰
-        </div>
-      </div>
-    </div>
+    </>
   );
 };
 
