@@ -35,6 +35,7 @@
 }
 
 .App-header {
+  height: 10vh;
   background-color: #282c34;
   align-items: center;
   justify-content: center;
@@ -73,77 +74,9 @@
   background-color: #45a049;
 }
 
-.Head-nav-bar {
-  visibility: hidden;
-  flex: 1;
-}
-
-@media only screen and (max-width: 600px) {
-  .Head-nav-bar {
-    visibility: visible;
-    flex: 1;
-  }
-
-  .Side-nav-bar {
-    display: none;
-  }
-}
-
 .App-body {
   display: flex;
   background-color: #363c47;
-}
-
-.Side-nav-bar {
-  flex: 1;
-  background-color: #282c34;
-  margin: 10px;
-  border-radius: 10px;
-}
-.Nav-list-content {
-  margin: 10px;
-}
-
-.Nav-list {
-  border-radius: 5px;
-  padding: 2%;
-  background-color: #363c47;
-  list-style: none;
-  padding: 5px;
-  font-size: large;
-}
-
-.Nav-list li {
-  margin-bottom: 10px;
-  position: relative; /* Lägg till position relative för att hålla dropdown inomför föräldern */
-}
-
-.Nav-list a {
-  text-decoration: none;
-  color: #ffffff;
-}
-
-.Dropdown-toggle {
-  position: absolute;
-  top: 0;
-  right: -30px;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.Sub-nav {
-  list-style: none;
-  padding-left: 20px;
-  display: none; /* Göm dropdown som standard */
-}
-
-.Sub-nav li {
-  margin-bottom: 5px;
-}
-
-.Nav-list li:hover .Sub-nav {
-  display: block; /* Visa dropdown när föräldern hovras över */
 }
 
 .App-body-content {
@@ -221,4 +154,134 @@
 .Footer-content p {
   margin: 0;
   color: white;
+}
+
+/* Navigation.css */
+.navigation {
+  position: fixed; /* Använd fast positionering för att skapa en overlay */
+  top: 10vh;
+  left: 0;
+  width: 50%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 10px;
+  background-color: #333;
+  color: white;
+  z-index: 1; /* Ange ett högt z-index-värde för att placera overlay över befintligt innehåll */
+  transform: translateX(-100%); /* Göm menyn utanför vänsterkanten */
+  transition: transform 0.3s ease; /* Lägg till en övergångseffekt */
+}
+
+.menu-toggle {
+  position: fixed; /* Använd fast positionering för att skapa en overlay */
+  top: 0;
+  left: 0;
+  font-size: 20px;
+  cursor: pointer;
+  display: block; /* Visa hamburgerikonen vid alla skärmstorlekar */
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  margin: 10px 0;
+}
+
+.navigation.open {
+  transform: translateX(
+    0
+  ); /* Visa menyn genom att flytta den in från vänsterkanten */
+}
+
+@media (min-width: 600px) {
+  /* Justera stilen för större skärmar */
+  .navigation {
+    flex-direction: row; /* Ändra till radlayout när skärmen är tillräckligt stor */
+    align-items: center;
+  }
+
+  .menu-toggle {
+    display: none;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+/* .Head-nav-bar {
+  visibility: hidden;
+  flex: 1;
+}
+
+@media only screen and (max-width: 600px) {
+  .Head-nav-bar {
+    visibility: visible;
+    flex: 1;
+  }
+
+  .Side-nav-bar {
+    display: none;
+  }
+} */
+
+.Side-nav-bar {
+  flex: 1;
+  background-color: #282c34;
+  margin: 10px;
+  border-radius: 10px;
+}
+.Nav-list-content {
+  margin: 10px;
+}
+
+.Nav-list {
+  border-radius: 5px;
+  padding: 2%;
+  background-color: #363c47;
+  list-style: none;
+  padding: 5px;
+  font-size: large;
+}
+
+.Nav-list li {
+  margin-bottom: 10px;
+  position: relative; /* Lägg till position relative för att hålla dropdown inomför föräldern */
+}
+
+.Nav-list a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.Dropdown-toggle {
+  position: absolute;
+  top: 0;
+  right: -30px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.Sub-nav {
+  list-style: none;
+  padding-left: 20px;
+  display: none; /* Göm dropdown som standard */
+}
+
+.Sub-nav li {
+  margin-bottom: 5px;
+}
+
+.Nav-list li:hover .Sub-nav {
+  display: block; /* Visa dropdown när föräldern hovras över */
 }
