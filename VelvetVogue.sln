@@ -5,7 +5,9 @@ VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VelvetVogue", "VelvetVogue\VelvetVogue.csproj", "{F2C4FFBE-C8B3-4C2A-84DB-48D87F6E298C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebbShopClassLibrary", "WebbShopClassLibrary\WebbShopClassLibrary.csproj", "{B01CCA35-A9A3-4F3D-842F-47594D97C035}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebbShopClassLibrary", "WebbShopClassLibrary\WebbShopClassLibrary.csproj", "{B01CCA35-A9A3-4F3D-842F-47594D97C035}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestVelvetVogue", "UnitTestVelvetVogue\UnitTestVelvetVogue.csproj", "{9CC0AF25-1E01-4329-8C1E-C801A73A439D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{B01CCA35-A9A3-4F3D-842F-47594D97C035}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B01CCA35-A9A3-4F3D-842F-47594D97C035}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B01CCA35-A9A3-4F3D-842F-47594D97C035}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CC0AF25-1E01-4329-8C1E-C801A73A439D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CC0AF25-1E01-4329-8C1E-C801A73A439D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CC0AF25-1E01-4329-8C1E-C801A73A439D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CC0AF25-1E01-4329-8C1E-C801A73A439D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
