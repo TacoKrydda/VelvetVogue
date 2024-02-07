@@ -1,36 +1,10 @@
-.App {
-  text-align: center;
+body {
+  background-color: rgba(70, 77, 89);
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .App-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #282c34;
   color: white;
 }
 
@@ -43,6 +17,26 @@
   display: flex;
   justify-content: space-between;
 }
+
+.Head-nav-bar {
+  flex: 2;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  background-color: rgb(123, 94, 94);
+  display: none;
+}
+
+.mobile-sidebar {
+  background-color: rgb(40, 44, 52, 0.9);
+  top: 10%;
+  z-index: 1;
+  width: 50%;
+  color: white;
+}
+
+/*-------------Search-Start-------------*/
 .Search-container {
   flex: 8;
   display: flex;
@@ -73,23 +67,35 @@
 .Search-button:hover {
   background-color: #45a049;
 }
+/*-------------Search-End--------------*/
 
 .App-body {
+  flex: 1;
   display: flex;
+  flex-direction: row;
+}
+
+.Body-nav-bar {
+  flex: 1;
+  position: relative;
   background-color: #363c47;
+  border-radius: 10px;
+  margin-top: 5%;
+  max-height: 500px;
 }
 
 .App-body-content {
-  flex: 6; /* Fyller ut all tillgänglig vertikal plats */
-  padding: 20px;
+  flex: 4; /* Fyller ut all tillgänglig vertikal plats */
   overflow-x: auto;
+  position: relative;
+  margin: 5%;
+  border-radius: 10px;
 }
 
 .Body-sales {
-  background-color: #282c34;
-  margin: 10px;
-  margin-bottom: 10vh;
-  min-height: 50vh;
+  margin-bottom: 10%;
+  min-height: 50%;
+  width: 100%;
   border-radius: 10px;
   display: flex;
   flex-direction: row;
@@ -129,9 +135,9 @@
 }
 
 .Body-new-items {
-  background-color: #282c34;
-  margin: 10px;
+  background-color: #363c47;
   min-height: 40vh;
+  width: 100%;
   border-radius: 10px;
   display: flex;
   flex-direction: row;
@@ -141,82 +147,41 @@
 
 .App-footer {
   margin-top: auto;
+  background-color: #282c34;
+  flex-shrink: 0;
 }
 
 .Footer-content {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
-  background-color: #282c34;
 }
+
+/* background-color: #282c34; */
 
 .Footer-content p {
   margin: 0;
   color: white;
 }
 
-/* Navigation.css */
-.navigation {
-  position: fixed; /* Använd fast positionering för att skapa en overlay */
-  top: 10vh;
-  left: 0;
-  width: 50%;
-  height: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  background-color: #282c34;
+.desktop-sidebar {
+  background-color: rgba(126, 185, 26, 0.9);
+  position: relative;
+  width: 100%;
   color: white;
-  z-index: 1; /* Ange ett högt z-index-värde för att placera overlay över befintligt innehåll */
-  transform: translateX(-100%); /* Göm menyn utanför vänsterkanten */
-  transition: transform 0.3s ease; /* Lägg till en övergångseffekt */
+  overflow-wrap: break-word;
 }
 
-.Head-nav-bar {
-  flex: 2;
-  width: 100%;
-  height: 100%;
-  max-width: 100%;
-  max-height: 100%;
-}
-
-.menu-toggle {
-  font-size: 50px;
-  max-width: 100%;
-  max-height: 100%;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-  display: block; /* Visa hamburgerikonen vid alla skärmstorlekar */
-}
-
-ul {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-  padding: 0;
-}
-
-li {
-  margin: 10px 0;
-}
-
-.navigation.open {
-  transform: translateX(
-    0
-  ); /* Visa menyn genom att flytta den in från vänsterkanten */
-}
-
-@media (min-width: 600px) {
+@media (max-width: 600px) {
   .Head-nav-bar {
     flex: 2;
+    top: 20vh;
     width: 100%;
     height: 100%;
     max-width: 100%;
     max-height: 100%;
-    display: none;
+    display: block;
+    background-color: #2cbf70;
   }
 
   /* Justera stilen för större skärmar */
@@ -225,66 +190,12 @@ li {
     align-items: center;
   }
 
-  .menu-toggle {
-    display: none;
-  }
-
   ul {
     display: flex;
     flex-direction: row;
   }
-}
 
-.Side-nav-bar {
-  flex: 1;
-  background-color: #282c34;
-  margin: 10px;
-  border-radius: 10px;
-}
-.Nav-list-content {
-  width: 50vw;
-}
-
-.Nav-list {
-  position: relative;
-  border-radius: 5px;
-  padding: 2%;
-  background-color: #eceff4;
-  list-style: none;
-  font-size: large;
-}
-
-.Nav-list li {
-  margin-bottom: 10px;
-  position: relative; /* Lägg till position relative för att hålla dropdown inomför föräldern */
-}
-
-.Nav-list a {
-  background-color: #45a049;
-  text-decoration: none;
-  position: relative;
-  color: #4e0a0a;
-}
-
-.Dropdown-toggle {
-  position: absolute;
-  top: 0;
-  right: -30px;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.Sub-nav {
-  list-style: none;
-  padding-left: 20px;
-  display: none; /* Göm dropdown som standard */
-}
-
-.Sub-nav li {
-  margin-bottom: 5px;
-}
-
-.Nav-list li:hover .Sub-nav {
-  display: block; /* Visa dropdown när föräldern hovras över */
+  .Body-nav-bar {
+    display: none;
+  }
 }
