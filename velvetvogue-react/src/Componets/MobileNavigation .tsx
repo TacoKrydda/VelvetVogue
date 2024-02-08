@@ -1,9 +1,16 @@
 import { Sidebar } from "primereact/sidebar";
 import { Button } from "primereact/button";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const MobileNavigation = () => {
   const [visible, setVisible] = useState(false);
+
+  const buttonStyle: React.CSSProperties = {
+    position: "absolute",
+    height: "100%",
+    width: "100%",
+  };
 
   return (
     <div>
@@ -12,15 +19,28 @@ const MobileNavigation = () => {
         onHide={() => setVisible(false)}
         className="mobile-sidebar"
       >
-        <h2>Sidebar</h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
-        </p>
+        <nav className="mobile-Nav-Content">
+          <ul className="mobile-Nav-List">
+            <li>
+              <Link to="/category/pants">Byxor</Link>
+              <ul className="mobile-Sub-Nav">
+                <li>
+                  <Link className="mobile-Sub-Link" to="/category/pants/jeans">
+                    Jeans
+                  </Link>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
       </Sidebar>
-      <Button icon="pi pi-arrow-right" onClick={() => setVisible(true)} />
+      <Button
+        style={buttonStyle}
+        icon="pi pi-search"
+        severity="success"
+        aria-label="Search"
+        onClick={() => setVisible(true)}
+      />
     </div>
   );
 };
