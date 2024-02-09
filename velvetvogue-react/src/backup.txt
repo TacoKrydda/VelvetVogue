@@ -299,3 +299,104 @@ li {
 .Nav-list li:hover .Sub-nav {
   display: block; /* Visa dropdown när föräldern hovras över */
 }
+
+
+<Sidebar
+        visible={visible}
+        onHide={() => setVisible(false)}
+        className="mobile-sidebar"
+      >
+        <nav className="mobile-Nav-Content">
+          <ul className="mobile-Nav-List">
+            <li>
+              <Link to="/category/pants">Byxor</Link>
+              <button onClick={() => showCategories("Pants", subPants)}>
+                More
+              </button>
+            </li>
+
+            {subPants && (
+              <ul className="mobile-Sub-Nav">
+                <li>
+                  <Link className="mobile-Sub-Link" to="/category/pants/jeans">
+                    Jeans
+                  </Link>
+                </li>
+                <li>
+                  <Link className="mobile-Sub-Link" to="/category/pants/chinos">
+                    Chinos
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="mobile-Sub-Link"
+                    to="/category/pants/kostymbyxor"
+                  >
+                    Kostymbyxor
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="mobile-Sub-Link"
+                    to="/category/pants/träningsbyxor"
+                  >
+                    Träningsbyxor
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="mobile-Sub-Link"
+                    to="/category/pants/cargobyxor"
+                  >
+                    Cargobyxor
+                  </Link>
+                </li>
+              </ul>
+            )}
+
+            <li>
+              <Link to="/category/shirts">Shirts</Link>
+              <button onClick={() => showCategories("Shirts", subShirts)}>
+                More
+              </button>
+            </li>
+
+            {subShirts && (
+              <ul className="mobile-Sub-Nav">
+                <li>
+                  <Link
+                    className="mobile-Sub-Link"
+                    to="/category/shirts/t-shirts"
+                  >
+                    T-shirts
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="mobile-Sub-Link"
+                    to="/category/shirts/skjortor"
+                  >
+                    Skjortor
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="mobile-Sub-Link"
+                    to="/category/shirts/hoodies"
+                  >
+                    Hoodies
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="mobile-Sub-Link"
+                    to="/category/shirts/polotröjor"
+                  >
+                    Polotröjor
+                  </Link>
+                </li>
+              </ul>
+            )}
+          </ul>
+        </nav>
+      </Sidebar>
