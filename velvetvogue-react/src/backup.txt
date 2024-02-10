@@ -1,34 +1,11 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+<div>
+      <button className="mobile-sidebar-btn" onClick={() => setVisible(true)}></button>
 
-const About = () => {
-  const [subPants, setSubPants] = useState(false);
-  const [subShirts, setSubShirts] = useState(false);
-
-  const showCategories = (category: string, show: boolean) => {
-    switch (category) {
-      case "Pants":
-        setSubPants(!subPants);
-        setSubShirts(false);
-        break;
-      case "Shirts":
-        setSubShirts(!subShirts);
-        setSubPants(false);
-        break;
-      default:
-        break;
-    }
-  };
-
-  return (
-    <div>
-      <h2>Om oss</h2>
-      <p>
-        Välkommen till vår "Om oss"-sida. Vi är ett fantastiskt team som bygger
-        spännande saker!
-      </p>
-
-      <div className="desktop-sidebar">
+      <Sidebar
+        visible={visible}
+        onHide={() => setVisible(false)}
+        className="mobile-sidebar"
+      >
         <nav className="navigation-nav">
           <ul className="navigation-ul">
             <li className="navigation-li">
@@ -44,7 +21,7 @@ const About = () => {
             </li>
 
             {subPants && (
-              <ul className="navigation-ul">
+              <ul className="navigation-sub-ul">
                 <li className="navigation-li">
                   <Link className="navigation-a-c" to="/category/pants/jeans">
                     Jeans
@@ -71,7 +48,7 @@ const About = () => {
             </li>
 
             {subShirts && (
-              <ul className="navigation-sub-nav">
+              <ul className="navigation-sub-ul">
                 <li className="navigation-li">
                   <Link
                     className="navigation-a-c"
@@ -92,9 +69,5 @@ const About = () => {
             )}
           </ul>
         </nav>
-      </div>
+      </Sidebar>
     </div>
-  );
-};
-
-export default About;

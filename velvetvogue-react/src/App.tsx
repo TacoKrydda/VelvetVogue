@@ -4,7 +4,9 @@ import Home from "./Pages/Home";
 import Footer from "./Componets/Footer";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import About from "./Pages/About";
-import SideNavBar from "./Componets/SideNavBar";
+import MobileNavigation from "./Componets/MobileNavigation ";
+import DesktopNavigation from "./Componets/DesktopNavigation";
+import Jeans from "./Pages/Pants/Jeans";
 
 function App() {
   return (
@@ -12,20 +14,21 @@ function App() {
       <BrowserRouter>
         <div className="App-header">
           <div className="Head-nav-bar">
-            <SideNavBar />
+            <MobileNavigation />
           </div>
           <div className="Search-container">
             <Header />
           </div>
         </div>
         <div className="App-body">
-          <div className="Side-nav-bar">
-            <SideNavBar />
+          <div className="Body-nav-bar">
+            <DesktopNavigation />
           </div>
           <div className="App-body-content">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
+              <Route path="/category/pants/jeans" element={<Jeans />} />
             </Routes>
           </div>
         </div>

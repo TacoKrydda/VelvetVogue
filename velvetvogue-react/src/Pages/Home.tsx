@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Carousel } from "primereact/carousel";
 import testImg from "../Img/pexels-godisable-jacob-1346187.jpg";
 
 const Home = () => {
