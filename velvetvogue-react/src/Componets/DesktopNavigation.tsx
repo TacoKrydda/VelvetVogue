@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import ShowMoreLessIcon from "./ShowMoreLessIcon";
 
 const DesktopNavigation: React.FC = () => {
   const [subPants, setSubPants] = useState(false);
@@ -22,90 +23,57 @@ const DesktopNavigation: React.FC = () => {
 
   return (
     <div className="desktop-sidebar">
-      <nav className="mobile-Nav-Content">
-        <ul className="mobile-Nav-List">
-          <li>
-            <Link to="/category/pants">Byxor</Link>
-            <button onClick={() => showCategories("Pants", subPants)}>
-              More
+      <nav className="navigation-nav">
+        <ul className="navigation-ul">
+          <li className="navigation-li">
+            <Link className="navigation-a-p" to="/category/pants">
+              Byxor
+            </Link>
+            <button
+              className="navigation-btn"
+              onClick={() => showCategories("Pants", subPants)}
+            >
+              <ShowMoreLessIcon showMore={!subPants} />
             </button>
           </li>
 
           {subPants && (
-            <ul className="mobile-Sub-Nav">
-              <li>
-                <Link className="mobile-Sub-Link" to="/category/pants/jeans">
+            <ul className="navigation-sub-ul">
+              <li className="navigation-li">
+                <Link className="navigation-a-c" to="/category/pants/jeans">
                   Jeans
                 </Link>
               </li>
-              <li>
-                <Link className="mobile-Sub-Link" to="/category/pants/chinos">
+              <li className="navigation-li">
+                <Link className="navigation-a-c" to="/category/pants/chinos">
                   Chinos
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="mobile-Sub-Link"
-                  to="/category/pants/kostymbyxor"
-                >
-                  Kostymbyxor
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="mobile-Sub-Link"
-                  to="/category/pants/träningsbyxor"
-                >
-                  Träningsbyxor
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="mobile-Sub-Link"
-                  to="/category/pants/cargobyxor"
-                >
-                  Cargobyxor
                 </Link>
               </li>
             </ul>
           )}
 
-          <li>
-            <Link to="/category/shirts">Shirts</Link>
-            <button onClick={() => showCategories("Shirts", subShirts)}>
-              More
+          <li className="navigation-li">
+            <Link className="navigation-a-p" to="/category/shirts">
+              Shirts
+            </Link>
+            <button
+              className="navigation-btn"
+              onClick={() => showCategories("Shirts", subShirts)}
+            >
+              <ShowMoreLessIcon showMore={!subShirts} />
             </button>
           </li>
 
           {subShirts && (
-            <ul className="mobile-Sub-Nav">
-              <li>
-                <Link
-                  className="mobile-Sub-Link"
-                  to="/category/shirts/t-shirts"
-                >
+            <ul className="navigation-sub-ul">
+              <li className="navigation-li">
+                <Link className="navigation-a-c" to="/category/shirts/t-shirts">
                   T-shirts
                 </Link>
               </li>
-              <li>
-                <Link
-                  className="mobile-Sub-Link"
-                  to="/category/shirts/skjortor"
-                >
+              <li className="navigation-li">
+                <Link className="navigation-a-c" to="/category/shirts/skjortor">
                   Skjortor
-                </Link>
-              </li>
-              <li>
-                <Link className="mobile-Sub-Link" to="/category/shirts/hoodies">
-                  Hoodies
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="mobile-Sub-Link"
-                  to="/category/shirts/polotröjor"
-                >
-                  Polotröjor
                 </Link>
               </li>
             </ul>

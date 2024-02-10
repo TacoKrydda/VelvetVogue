@@ -1,7 +1,8 @@
 import { Sidebar } from "primereact/sidebar";
-import { Button } from "primereact/button";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import HamburgerIcon from "./HamburgerIcon";
+import ShowMoreLessIcon from "./ShowMoreLessIcon";
 
 const MobileNavigation = () => {
   const [visible, setVisible] = useState(false);
@@ -24,123 +25,85 @@ const MobileNavigation = () => {
     }
   };
 
-  const buttonStyle: React.CSSProperties = {
-    position: "absolute",
-    height: "100%",
-    width: "100%",
-  };
-
   return (
-    <div>
-      <button className="hellothere" onClick={() => setVisible(true)}></button>
-
-      <Sidebar
-        visible={visible}
-        onHide={() => setVisible(false)}
-        className="mobile-sidebar"
+    <>
+      <button
+        className="mobile-sidebar-btn"
+        onClick={() => setVisible(!visible)}
       >
-        <nav className="mobile-Nav-Content">
-          <ul className="mobile-Nav-List">
-            <li>
-              <Link to="/category/pants">Byxor</Link>
-              <button onClick={() => showCategories("Pants", subPants)}>
-                More
-              </button>
-            </li>
+        <HamburgerIcon isOpen={visible} />
+      </button>
+      {visible && (
+        <div className="mobile-sidebar">
+          <nav className="navigation-nav">
+            <ul className="navigation-ul">
+              <li className="navigation-li">
+                <Link className="navigation-a-p" to="/category/pants">
+                  Byxor
+                </Link>
+                <button
+                  className="navigation-btn"
+                  onClick={() => showCategories("Pants", subPants)}
+                >
+                  <ShowMoreLessIcon showMore={!subPants} />
+                </button>
+              </li>
 
-            {subPants && (
-              <ul className="mobile-Sub-Nav">
-                <li>
-                  <Link className="mobile-Sub-Link" to="/category/pants/jeans">
-                    Jeans
-                  </Link>
-                </li>
-                <li>
-                  <Link className="mobile-Sub-Link" to="/category/pants/chinos">
-                    Chinos
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="mobile-Sub-Link"
-                    to="/category/pants/kostymbyxor"
-                  >
-                    Kostymbyxor
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="mobile-Sub-Link"
-                    to="/category/pants/träningsbyxor"
-                  >
-                    Träningsbyxor
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="mobile-Sub-Link"
-                    to="/category/pants/cargobyxor"
-                  >
-                    Cargobyxor
-                  </Link>
-                </li>
-              </ul>
-            )}
+              {subPants && (
+                <ul className="navigation-sub-ul">
+                  <li className="navigation-li">
+                    <Link className="navigation-a-c" to="/category/pants/jeans">
+                      Jeans
+                    </Link>
+                  </li>
+                  <li className="navigation-li">
+                    <Link
+                      className="navigation-a-c"
+                      to="/category/pants/chinos"
+                    >
+                      Chinos
+                    </Link>
+                  </li>
+                </ul>
+              )}
 
-            <li>
-              <Link to="/category/shirts">Shirts</Link>
-              <button onClick={() => showCategories("Shirts", subShirts)}>
-                More
-              </button>
-            </li>
+              <li className="navigation-li">
+                <Link className="navigation-a-p" to="/category/shirts">
+                  Shirts
+                </Link>
+                <button
+                  className="navigation-btn"
+                  onClick={() => showCategories("Shirts", subShirts)}
+                >
+                  <ShowMoreLessIcon showMore={!subShirts} />
+                </button>
+              </li>
 
-            {subShirts && (
-              <ul className="mobile-Sub-Nav">
-                <li>
-                  <Link
-                    className="mobile-Sub-Link"
-                    to="/category/shirts/t-shirts"
-                  >
-                    T-shirts
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="mobile-Sub-Link"
-                    to="/category/shirts/skjortor"
-                  >
-                    Skjortor
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="mobile-Sub-Link"
-                    to="/category/shirts/hoodies"
-                  >
-                    Hoodies
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="mobile-Sub-Link"
-                    to="/category/shirts/polotröjor"
-                  >
-                    Polotröjor
-                  </Link>
-                </li>
-              </ul>
-            )}
-          </ul>
-        </nav>
-      </Sidebar>
-      {/* <Button
-        style={buttonStyle}
-        icon="pi pi-search"
-        severity="success"
-        aria-label="Search"
-        onClick={() => setVisible(true)}
-      /> */}
-    </div>
+              {subShirts && (
+                <ul className="navigation-sub-ul">
+                  <li className="navigation-li">
+                    <Link
+                      className="navigation-a-c"
+                      to="/category/shirts/t-shirts"
+                    >
+                      T-shirts
+                    </Link>
+                  </li>
+                  <li className="navigation-li">
+                    <Link
+                      className="navigation-a-c"
+                      to="/category/shirts/skjortor"
+                    >
+                      Skjortor
+                    </Link>
+                  </li>
+                </ul>
+              )}
+            </ul>
+          </nav>
+        </div>
+      )}
+    </>
   );
 };
 

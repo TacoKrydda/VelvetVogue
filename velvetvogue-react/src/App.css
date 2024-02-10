@@ -27,72 +27,6 @@ body {
   /* background-color: rgb(123, 94, 94); */
   display: none;
 }
-.hellothere {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-}
-
-.mobile-sidebar {
-  /* background-color: rgb(40, 44, 52, 0.9); */
-
-  z-index: 1;
-  width: 50%;
-  color: white;
-  display: block;
-  position: relative;
-  top: 10vh;
-}
-
-.mobile-Nav-Content {
-  position: relative;
-  width: 100%;
-}
-
-.mobile-Nav-List {
-  list-style-type: none; /* Ta bort punktlistan från ul-elementet */
-  background-color: #363c47;
-  border: 1px solid #000;
-  margin: 0;
-  padding: 0;
-  font-size: 30px;
-  position: relative;
-  width: 100%;
-}
-.mobile-Nav-List li {
-  justify-content: space-between;
-  display: flex;
-  border: 1px solid #000;
-}
-.mobile-Nav-List a {
-  flex: 4;
-  color: white;
-  text-decoration: none;
-}
-.mobile-Nav-List button {
-  background-color: #2f343e;
-  flex: 1;
-  color: white;
-  border: 1px solid #000;
-}
-
-.mobile-Sub-Nav {
-  list-style-type: none; /* Ta bort punktlistan från ul-elementet */
-  background-color: #2f343e;
-  font-size: 20px;
-  position: relative;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-.mobile-Sub-Link {
-  color: white;
-  text-decoration: none;
-  position: relative;
-  width: 100%;
-  display: block;
-}
 
 /*-------------Search-Start-------------*/
 .Search-container {
@@ -140,14 +74,6 @@ body {
 
   margin-top: 5%;
 }
-
-/* .desktop-sidebar {
-  background-color: rgba(126, 185, 26, 0.9);
-  position: relative;
-  width: 100%;
-  color: white;
-  overflow-wrap: break-word;
-} */
 
 .App-body-content {
   flex: 4; /* Fyller ut all tillgänglig vertikal plats */
@@ -243,4 +169,95 @@ body {
   .Body-nav-bar {
     display: none;
   }
+}
+
+.mobile-sidebar-btn {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background-color: #282c34;
+  border: 1px solid #000000;
+}
+
+.mobile-sidebar {
+  /* background-color: rgb(40, 44, 52, 0.9); */
+
+  z-index: 1;
+  width: 50%;
+  color: white;
+  display: block;
+  position: absolute;
+}
+
+.desktop-sidebar {
+  position: relative;
+  width: 100%;
+}
+
+.navigation-nav {
+  position: relative;
+  min-height: 100%;
+  min-width: 100%;
+}
+
+.navigation-ul,
+.navigation-sub-ul {
+  position: relative;
+  min-width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.navigation-li {
+  display: flex;
+}
+
+.navigation-a-p {
+  color: white;
+  font-size: xx-large;
+  border: 1px solid #000000;
+  position: relative;
+  flex: 9;
+  text-decoration: none;
+  overflow-wrap: break-word;
+  padding: 2px;
+  background-color: #363c47;
+}
+
+.navigation-a-c {
+  display: block;
+  color: white;
+  font-size: large;
+  border: 1px solid #000000;
+  position: relative;
+  width: 100%;
+  text-decoration: none;
+  overflow-wrap: break-word;
+  padding-left: 6px;
+  background-color: rgba(70, 77, 89);
+}
+
+.navigation-a-p:hover,
+.navigation-a-c:hover {
+  background-color: #242830;
+  color: white;
+  border-color: #999;
+}
+.navigation-a-p:active,
+.navigation-a-c:active {
+  transform: translateY(1px);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  font-weight: bold;
+}
+
+.navigation-btn {
+  color: rgb(0, 0, 0);
+  flex: 1;
+  border: 1px solid #000000;
+  position: relative;
+  width: 100px;
 }
