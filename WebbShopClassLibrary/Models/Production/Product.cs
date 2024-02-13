@@ -5,7 +5,7 @@ namespace WebbShopClassLibrary.Models.Production
     public class Product
     {
         public int Id { get; set; }
-        public string? ProductName { get; set; }
+        public string? ProductName { get; set; } = string.Empty;
         public int BrandId { get; set; }
         public int CategoryId { get; set; }
         public int ColorId { get; set; }
