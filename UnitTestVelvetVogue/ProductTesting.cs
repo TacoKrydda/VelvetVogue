@@ -1,9 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebbShopClassLibrary.Models.Production;
 
 namespace UnitTestVelvetVogue
@@ -95,5 +90,77 @@ namespace UnitTestVelvetVogue
             Assert.Null(deserializedProduct.Color);
             Assert.Null(deserializedProduct.Size);
         }
+
+        [Fact]
+        public void Product_Can_Set_and_Get_Associated_Brand()
+        {
+            // Arrange
+            var product = new Product();
+            var brand = new Brand { BrandName = "Test Brand" };
+
+            // Act
+            product.Brand = brand;
+
+            // Assert
+            Assert.Equal(brand, product.Brand);
+        }
+
+        [Fact]
+        public void Product_Can_Set_and_Get_Associated_Category()
+        {
+            // Arrange
+            var product = new Product();
+            var category = new Category { CategoryName = "Test Category" };
+
+            // Act
+            product.Category = category;
+
+            // Assert
+            Assert.Equal(category, product.Category);
+        }
+
+        [Fact]
+        public void Product_Can_Set_and_Get_Associated_Color()
+        {
+            // Arrange
+            var product = new Product();
+            var color = new Color { ColorName = "Test Color" };
+
+            // Act
+            product.Color = color;
+
+            // Assert
+            Assert.Equal(color, product.Color);
+        }
+
+        [Fact]
+        public void Product_Can_Set_and_Get_Associated_Size()
+        {
+            // Arrange
+            var product = new Product();
+            var size = new Size { SizeName = "Test Size" };
+
+            // Act
+            product.Size = size;
+
+            // Assert
+            Assert.Equal(size, product.Size);
+        }
+
+        [Fact]
+        public void Product_Can_Set_and_Get_Associated_Stock()
+        {
+            // Arrange
+            var product = new Product();
+            var stock = new Stock { Quantity = 10 };
+
+            // Act
+            product.Stock = stock;
+
+            // Assert
+            Assert.Equal(stock, product.Stock);
+        }
+
+
     }
 }
