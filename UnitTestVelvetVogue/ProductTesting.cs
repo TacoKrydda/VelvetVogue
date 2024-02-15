@@ -1,5 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using Moq;
+using Newtonsoft.Json;
 using WebbShopClassLibrary.Models.Production;
+using WebbShopClassLibrary.Services.Production;
+using WebbShopClassLibrary.Services;
 
 namespace UnitTestVelvetVogue
 {
@@ -161,6 +164,122 @@ namespace UnitTestVelvetVogue
             Assert.Equal(stock, product.Stock);
         }
 
+        [Theory]
+        [InlineData(10.99)]
+        [InlineData(20.49)]
+        [InlineData(100.0)]
+        public void Product_Price_Can_Be_Set_and_Get(decimal price)
+        {
+            // Arrange
+            var product = new Product();
 
+            // Act
+            product.Price = price;
+
+            // Assert
+            Assert.Equal(price, product.Price);
+        }
+
+        [Theory]
+        [InlineData(-10.99)]
+        public void Product_Price_Cannot_Be_Negative(decimal price)
+        {
+            // Arrange
+            var product = new Product();
+
+            // Act & Assert
+            Assert.Throws<ArgumentException>(() => product.Price = price);
+        }
+
+        [Fact]
+        public void Product_Id_Can_Be_Set_and_Get()
+        {
+            // Arrange
+            var product = new Product();
+            var expectedId = 1;
+
+            // Act
+            product.Id = expectedId;
+
+            // Assert
+            Assert.Equal(expectedId, product.Id);
+        }
+
+        [Theory]
+        [InlineData(0)] // minsta tillåtna värde
+        [InlineData(999)] // största tillåtna värde
+        public void Product_Id_Can_Be_Set_and_Get_Boundary(int id)
+        {
+            // Arrange
+            var product = new Product();
+
+            // Act
+            product.Id = id;
+
+            // Assert
+            Assert.Equal(id, product.Id);
+        }
+
+        [Theory]
+        [InlineData(0.01)]
+        [InlineData(999999.99)]
+        public void Product_Price_Can_Be_Set_and_Get_Boundary(decimal price)
+        {
+            // Arrange
+            var product = new Product();
+
+            // Act
+            product.Price = price;
+
+            // Assert
+            Assert.Equal(price, product.Price);
+        }
+
+        [Theory]
+        [InlineData(1)]
+        [InlineData(100)]
+        [InlineData(1000)]
+        public void Stock_Quantity_Can_Be_Set_and_Get_Boundary(int quantity)
+        {
+            // Arrange
+            var stock = new Stock();
+
+            // Act
+            stock.Quantity = quantity;
+
+            // Assert
+            Assert.Equal(quantity, stock.Quantity);
+        }
+
+        [Fact]
+        public void Product_Can_Be_Serialized_And_Deserialized()
+        {
+            // Arrange
+            var originalProduct = new Product
+            {
+                Id = 1,
+                ProductName = "Test Product",
+                BrandId = 1,
+                CategoryId = 1,
+                ColorId = 1,
+                SizeId = 1,
+                Price = 10.99m
+            };
+
+            // Act
+            var serializedProduct = JsonConvert.SerializeObject(originalProduct);
+            var deserializedProduct = JsonConvert.DeserializeObject<Product>(serializedProduct);
+
+            // Assert
+            Assert.Equal(originalProduct.Id, deserializedProduct.Id);
+            Assert.Equal(originalProduct.ProductName, deserializedProduct.ProductName);
+            Assert.Equal(originalProduct.BrandId, deserializedProduct.BrandId);
+            Assert.Equal(originalProduct.CategoryId, deserializedProduct.CategoryId);
+            Assert.Equal(originalProduct.ColorId, deserializedProduct.ColorId);
+            Assert.Equal(originalProduct.SizeId, deserializedProduct.SizeId);
+            Assert.Equal(originalProduct.Price, deserializedProduct.Price);
+        }
+
+        
     }
 }

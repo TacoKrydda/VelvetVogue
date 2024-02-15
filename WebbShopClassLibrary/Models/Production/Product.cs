@@ -4,13 +4,26 @@ namespace WebbShopClassLibrary.Models.Production
 {
     public class Product
     {
+        private decimal _price;
+
         public int Id { get; set; }
         public string? ProductName { get; set; } = string.Empty;
         public int BrandId { get; set; }
         public int CategoryId { get; set; }
         public int ColorId { get; set; }
         public int SizeId { get; set; }
-        public decimal Price { get; set; }
+        public decimal Price
+        {
+            get { return _price; }
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException("Price cannot be negative.");
+                }
+                _price = value;
+            }
+        }
 
         [JsonIgnore]
         public Brand? Brand { get; set; }
