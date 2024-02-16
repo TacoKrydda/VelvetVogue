@@ -3,6 +3,8 @@ using Newtonsoft.Json;
 using WebbShopClassLibrary.Models.Production;
 using WebbShopClassLibrary.Services.Production;
 using WebbShopClassLibrary.Services;
+using WebbShopClassLibrary.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace UnitTestVelvetVogue
 {

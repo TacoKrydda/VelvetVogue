@@ -26,7 +26,8 @@ builder.Services.AddDbContext<WebbShopContext>(options =>
 builder.Services.AddScoped<IGenericService<Brand>, BrandService>();
 builder.Services.AddScoped<IGenericService<Category>, CategoryService>();
 builder.Services.AddScoped<IGenericService<Color>, ColorService>();
-builder.Services.AddScoped<IGenericService<Product>, ProductService>();
+//builder.Services.AddScoped<IGenericService<Product>, ProductService>();
+builder.Services.AddScoped<IProductService,  ProductService>();
 builder.Services.AddScoped<IGenericService<Size>, SizeService>();
 builder.Services.AddScoped<IGenericService<Stock>, StockService>();
 builder.Services.AddScoped<GenericService<Brand>>();

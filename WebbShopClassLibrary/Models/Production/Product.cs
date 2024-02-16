@@ -33,7 +33,7 @@ namespace WebbShopClassLibrary.Models.Production
         public Color? Color { get; set; }
         [JsonIgnore]
         public Size? Size { get; set; }
-        
+        [JsonIgnore]
         public Stock? Stock { get; set; } = new Stock();
     }
 }
