@@ -5,11 +5,19 @@ using WebbShopClassLibrary.Services.Production;
 using WebbShopClassLibrary.Services;
 using WebbShopClassLibrary.Context;
 using Microsoft.EntityFrameworkCore;
+using WebbShopClassLibrary.Interfaces.Production;
 
 namespace UnitTestVelvetVogue
 {
     public class ProductTesting
     {
+        private readonly Mock<IProductService> _productServiceMock;
+
+        public ProductTesting()
+        {
+            _productServiceMock = new Mock<IProductService>();
+        }
+
         [Fact]
         public void Product_Properties_Have_Correct_Types()
         {
@@ -282,6 +290,73 @@ namespace UnitTestVelvetVogue
             Assert.Equal(originalProduct.Price, deserializedProduct.Price);
         }
 
-        
+        [Fact]
+        public async Task CreateProduct_ValidProduct_ReturnsCreatedProduct()
+        {
+            // Arrange
+            var expectedProduct = new Product { Id = 1, BrandId = 1, CategoryId = 1, ColorId = 1, SizeId = 1 };
+            var createdProduct = new Product { Id = 1, BrandId = 1, CategoryId = 1, ColorId = 1, SizeId = 1 };
+            _productServiceMock.Setup(service => service.CreateAsync(expectedProduct))
+                               .ReturnsAsync(createdProduct);
+
+            var productService = _productServiceMock.Object;
+
+            // Act
+            var actualProduct = await productService.CreateAsync(expectedProduct);
+
+            // Assert
+            _productServiceMock.Verify(service => service.CreateAsync(expectedProduct), Times.Once);
+            Assert.Equal(expectedProduct.Id, actualProduct.Id);
+            Assert.Equal(expectedProduct.BrandId, actualProduct.BrandId);
+            Assert.Equal(expectedProduct.CategoryId, actualProduct.CategoryId);
+            Assert.Equal(expectedProduct.ColorId, actualProduct.ColorId);
+            Assert.Equal(expectedProduct.SizeId, actualProduct.SizeId);
+        }
+
+        [Fact]
+        public async Task DeleteProduct_ExistingProduct_ReturnsDeletedProduct()
+        {
+            // Arrange
+            var productIdToDelete = 1;
+            var productToDelete = new Product { Id = productIdToDelete };
+            _productServiceMock.Setup(service => service.DeleteAsync(productIdToDelete))
+                               .ReturnsAsync(productToDelete);
+
+            var productService = _productServiceMock.Object;
+
+            // Act
+            var deletedProduct = await productService.DeleteAsync(productIdToDelete);
+
+            // Assert
+            _productServiceMock.Verify(service => service.DeleteAsync(productIdToDelete), Times.Once);
+            Assert.Equal(productIdToDelete, deletedProduct.Id);
+        }
+
+        [Fact]
+        public async Task GetAllProducts_ReturnsAllProducts()
+        {
+            // Arrange
+            var expectedProducts = new List<Product>
+            {
+                new Product { Id = 1, ProductName = "Test 1", BrandId = 1, CategoryId = 1, ColorId = 1, SizeId = 1  },
+                new Product { Id = 2, ProductName = "Test 2", BrandId = 2, CategoryId = 2, ColorId = 2, SizeId = 2 },
+            };
+            _productServiceMock.Setup(service => service.GetAllAsync())
+                               .ReturnsAsync(expectedProducts);
+
+            var productService = _productServiceMock.Object;
+
+            // Act
+            var actualProducts = await productService.GetAllAsync();
+
+            // Assert
+            _productServiceMock.Verify(service => service.GetAllAsync(), Times.Once);
+            Assert.Equal(expectedProducts.Count, actualProducts.Count());
+            foreach (var expectedProduct in expectedProducts)
+            {
+                Assert.Contains(expectedProduct, actualProducts);
+            }
+        }
+
     }
 }
