@@ -358,5 +358,62 @@ namespace UnitTestVelvetVogue
             }
         }
 
+        [Fact]
+        public async Task GetProductById_ExistingId_ReturnsCorrectProduct()
+        {
+            // Arrange
+            var productId = 1; // ID för den produkt som ska hämtas
+            var expectedProduct = new Product { Id = productId, ProductName = "Test 1", BrandId = 1, CategoryId = 1, ColorId = 1, SizeId = 1 };
+            _productServiceMock.Setup(service => service.GetByIdAsync(productId))
+                               .ReturnsAsync(expectedProduct);
+
+            var productService = _productServiceMock.Object;
+
+            // Act
+            var actualProduct = await productService.GetByIdAsync(productId);
+
+            // Assert
+            _productServiceMock.Verify(service => service.GetByIdAsync(productId), Times.Once);
+            Assert.Equal(expectedProduct.Id, actualProduct.Id);
+            Assert.Equal(expectedProduct.BrandId, actualProduct.BrandId);
+            Assert.Equal(expectedProduct.CategoryId, actualProduct.CategoryId);
+            Assert.Equal(expectedProduct.ColorId, actualProduct.ColorId);
+            Assert.Equal(expectedProduct.SizeId, actualProduct.SizeId);
+        }
+
+        [Fact]
+        public async Task UpdateProduct_ValidProduct_ReturnsUpdatedProduct()
+        {
+            // Arrange
+            var productIdToUpdate = 1; 
+            var expectedUpdatedProduct = new Product 
+                                            { 
+                                                Id = productIdToUpdate, 
+                                                ProductName = "Test Updated", 
+                                                BrandId = 2, 
+                                                CategoryId = 3, 
+                                                ColorId = 4, 
+                                                SizeId = 5 
+                                            };
+            var updatedProduct = new Product { Id = productIdToUpdate, ProductName = "Test Updated", BrandId = 2, CategoryId = 3, ColorId = 4, SizeId = 5 };
+            
+            _productServiceMock.Setup(service => service.UpdateAsync(productIdToUpdate, updatedProduct))
+                               .ReturnsAsync(updatedProduct);
+
+            var productService = _productServiceMock.Object;
+
+            // Act
+            var actualUpdatedProduct = await productService.UpdateAsync(productIdToUpdate, updatedProduct);
+
+            // Assert
+            _productServiceMock.Verify(service => service.UpdateAsync(productIdToUpdate, updatedProduct), Times.Once);
+            Assert.Equal(expectedUpdatedProduct.Id, actualUpdatedProduct.Id);
+            Assert.Equal(expectedUpdatedProduct.BrandId, actualUpdatedProduct.BrandId);
+            Assert.Equal(expectedUpdatedProduct.CategoryId, actualUpdatedProduct.CategoryId);
+            Assert.Equal(expectedUpdatedProduct.ColorId, actualUpdatedProduct.ColorId);
+            Assert.Equal(expectedUpdatedProduct.SizeId, actualUpdatedProduct.SizeId);
+        }
+
+
     }
 }
