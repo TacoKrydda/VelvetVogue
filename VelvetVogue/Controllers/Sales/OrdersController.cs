@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebbShopClassLibrary.Interfaces;
 using WebbShopClassLibrary.Models.Sales;
-using WebbShopClassLibrary.Services;
 
 namespace VelvetVogue.Controllers.Sales
 {

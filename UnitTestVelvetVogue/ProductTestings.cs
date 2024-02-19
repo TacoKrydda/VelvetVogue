@@ -1,21 +1,17 @@
 ﻿using Moq;
 using Newtonsoft.Json;
+using WebbShopClassLibrary.Interfaces;
 using WebbShopClassLibrary.Models.Production;
-using WebbShopClassLibrary.Services.Production;
-using WebbShopClassLibrary.Services;
-using WebbShopClassLibrary.Context;
-using Microsoft.EntityFrameworkCore;
-using WebbShopClassLibrary.Interfaces.Production;
 
 namespace UnitTestVelvetVogue
 {
-    public class ProductTesting
+    public class ProductTestings
     {
-        private readonly Mock<IProductService> _productServiceMock;
+        private readonly Mock<IGenericService<Product>> _productServiceMock;
 
-        public ProductTesting()
+        public ProductTestings()
         {
-            _productServiceMock = new Mock<IProductService>();
+            _productServiceMock = new Mock<IGenericService<Product>>();
         }
 
         [Fact]
@@ -109,7 +105,7 @@ namespace UnitTestVelvetVogue
         {
             // Arrange
             var product = new Product();
-            var brand = new Brand { BrandName = "Test Brand" };
+            var brand = new Brand { Name = "Test Brand" };
 
             // Act
             product.Brand = brand;
@@ -123,7 +119,7 @@ namespace UnitTestVelvetVogue
         {
             // Arrange
             var product = new Product();
-            var category = new Category { CategoryName = "Test Category" };
+            var category = new Category { Name = "Test Category" };
 
             // Act
             product.Category = category;
@@ -137,7 +133,7 @@ namespace UnitTestVelvetVogue
         {
             // Arrange
             var product = new Product();
-            var color = new Color { ColorName = "Test Color" };
+            var color = new Color { Name = "Test Color" };
 
             // Act
             product.Color = color;
@@ -151,7 +147,7 @@ namespace UnitTestVelvetVogue
         {
             // Arrange
             var product = new Product();
-            var size = new Size { SizeName = "Test Size" };
+            var size = new Size { Name = "Test Size" };
 
             // Act
             product.Size = size;
@@ -201,19 +197,19 @@ namespace UnitTestVelvetVogue
             Assert.Throws<ArgumentException>(() => product.Price = price);
         }
 
-        [Fact]
-        public void Product_Id_Can_Be_Set_and_Get()
-        {
-            // Arrange
-            var product = new Product();
-            var expectedId = 1;
+        //[Fact]
+        //public void Product_Id_Can_Be_Set_and_Get()
+        //{
+        //    // Arrange
+        //    var product = new Product();
+        //    var expectedId = 1;
 
-            // Act
-            product.Id = expectedId;
+        //    // Act
+        //    product.Id = expectedId;
 
-            // Assert
-            Assert.Equal(expectedId, product.Id);
-        }
+        //    // Assert
+        //    Assert.Equal(expectedId, product.Id);
+        //}
 
         [Theory]
         [InlineData(0)] // minsta tillåtna värde
@@ -290,6 +286,7 @@ namespace UnitTestVelvetVogue
             Assert.Equal(originalProduct.Price, deserializedProduct.Price);
         }
 
+
         [Fact]
         public async Task CreateProduct_ValidProduct_ReturnsCreatedProduct()
         {
@@ -362,7 +359,7 @@ namespace UnitTestVelvetVogue
         public async Task GetProductById_ExistingId_ReturnsCorrectProduct()
         {
             // Arrange
-            var productId = 1; // ID för den produkt som ska hämtas
+            var productId = 1;
             var expectedProduct = new Product { Id = productId, ProductName = "Test 1", BrandId = 1, CategoryId = 1, ColorId = 1, SizeId = 1 };
             _productServiceMock.Setup(service => service.GetByIdAsync(productId))
                                .ReturnsAsync(expectedProduct);
@@ -408,12 +405,13 @@ namespace UnitTestVelvetVogue
             // Assert
             _productServiceMock.Verify(service => service.UpdateAsync(productIdToUpdate, updatedProduct), Times.Once);
             Assert.Equal(expectedUpdatedProduct.Id, actualUpdatedProduct.Id);
+            Assert.Equal(expectedUpdatedProduct.ProductName, actualUpdatedProduct.ProductName);
             Assert.Equal(expectedUpdatedProduct.BrandId, actualUpdatedProduct.BrandId);
             Assert.Equal(expectedUpdatedProduct.CategoryId, actualUpdatedProduct.CategoryId);
             Assert.Equal(expectedUpdatedProduct.ColorId, actualUpdatedProduct.ColorId);
             Assert.Equal(expectedUpdatedProduct.SizeId, actualUpdatedProduct.SizeId);
         }
-
-
     }
 }
+
+

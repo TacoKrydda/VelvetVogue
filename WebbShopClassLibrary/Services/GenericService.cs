@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebbShopClassLibrary.Context;
+using WebbShopClassLibrary.Interfaces;
 
 namespace WebbShopClassLibrary.Services
 {

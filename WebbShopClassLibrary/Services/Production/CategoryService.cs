@@ -1,4 +1,5 @@
-﻿using WebbShopClassLibrary.Models.Production;
+﻿using WebbShopClassLibrary.Interfaces;
+using WebbShopClassLibrary.Models.Production;
 
 namespace WebbShopClassLibrary.Services.Production
 {
