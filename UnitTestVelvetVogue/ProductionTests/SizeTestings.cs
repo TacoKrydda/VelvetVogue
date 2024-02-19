@@ -3,21 +3,21 @@ using Newtonsoft.Json;
 using WebbShopClassLibrary.Interfaces;
 using WebbShopClassLibrary.Models.Production;
 
-namespace UnitTestVelvetVogue
+namespace UnitTestVelvetVogue.ProductionTests
 {
-    public class BrandTestings
+    public class SizeTestings
     {
-        private readonly Mock<IGenericService<Brand>> _entityServiceMock;
-        public BrandTestings()
+        private readonly Mock<IGenericService<Size>> _sut;
+        public SizeTestings()
         {
-            _entityServiceMock = new Mock<IGenericService<Brand>>();
+            _sut = new Mock<IGenericService<Size>>();
         }
 
         [Fact]
         public void Entity_Properties_Have_Correct_Types()
         {
             // Arrange
-            var entity = new Brand();
+            var entity = new Size();
 
             // Assert
             Assert.IsType<int>(entity.Id);
@@ -28,7 +28,7 @@ namespace UnitTestVelvetVogue
         public void Entity_Properties_Are_Gettable_Settable()
         {
             // Arrange
-            var entity = new Brand();
+            var entity = new Size();
 
             // Act
             entity.Id = 1;
@@ -43,7 +43,7 @@ namespace UnitTestVelvetVogue
         public void Entity_Can_Be_Constructed_With_Default_Constructor()
         {
             // Arrange
-            var entity = new Brand();
+            var entity = new Size();
 
             // Assert
             Assert.NotNull(entity);
@@ -53,7 +53,7 @@ namespace UnitTestVelvetVogue
         public void Entity_Properties_Are_Initialized_Correctly()
         {
             // Arrange & Act
-            var entity = new Brand();
+            var entity = new Size();
 
             // Assert
             Assert.Equal(0, entity.Id);
@@ -66,7 +66,7 @@ namespace UnitTestVelvetVogue
         public void Entity_Id_Can_Be_Set_and_Get_Boundary(int id)
         {
             // Arrange
-            var entity = new Brand();
+            var entity = new Size();
 
             // Act
             entity.Id = id;
@@ -79,7 +79,7 @@ namespace UnitTestVelvetVogue
         public void Entity_Can_Be_Serialized_And_Deserialized()
         {
             // Arrange
-            var originalEntity = new Brand
+            var originalEntity = new Size
             {
                 Id = 1,
                 Name = "Test",
@@ -87,7 +87,7 @@ namespace UnitTestVelvetVogue
 
             // Act
             var serializedEntity = JsonConvert.SerializeObject(originalEntity);
-            var deserializedEntity = JsonConvert.DeserializeObject<Brand>(serializedEntity);
+            var deserializedEntity = JsonConvert.DeserializeObject<Size>(serializedEntity);
 
             // Assert
             Assert.Equal(originalEntity.Id, deserializedEntity.Id);
@@ -98,18 +98,18 @@ namespace UnitTestVelvetVogue
         public async Task CreateEntity_ValidEntity_ReturnsCreatedEntity()
         {
             // Arrange
-            var expectedEntity = new Brand { Id = 1, Name = "Test" };
-            var createdEntity = new Brand { Id = 1, Name= "Test" };
-            _entityServiceMock.Setup(service => service.CreateAsync(expectedEntity))
+            var expectedEntity = new Size { Id = 1, Name = "Test" };
+            var createdEntity = new Size { Id = 1, Name = "Test" };
+            _sut.Setup(service => service.CreateAsync(expectedEntity))
                                .ReturnsAsync(createdEntity);
 
-            var entityService = _entityServiceMock.Object;
+            var entityService = _sut.Object;
 
             // Act
             var actualEntity = await entityService.CreateAsync(expectedEntity);
 
             // Assert
-            _entityServiceMock.Verify(service => service.CreateAsync(expectedEntity), Times.Once);
+            _sut.Verify(service => service.CreateAsync(expectedEntity), Times.Once);
             Assert.Equal(expectedEntity.Id, actualEntity.Id);
         }
 
@@ -118,17 +118,17 @@ namespace UnitTestVelvetVogue
         {
             // Arrange
             var entityIdToDelete = 1;
-            var entityToDelete = new Brand { Id = entityIdToDelete };
-            _entityServiceMock.Setup(service => service.DeleteAsync(entityIdToDelete))
+            var entityToDelete = new Size { Id = entityIdToDelete };
+            _sut.Setup(service => service.DeleteAsync(entityIdToDelete))
                                .ReturnsAsync(entityToDelete);
 
-            var entityService = _entityServiceMock.Object;
+            var entityService = _sut.Object;
 
             // Act
             var deletedEntity = await entityService.DeleteAsync(entityIdToDelete);
 
             // Assert
-            _entityServiceMock.Verify(service => service.DeleteAsync(entityIdToDelete), Times.Once);
+            _sut.Verify(service => service.DeleteAsync(entityIdToDelete), Times.Once);
             Assert.Equal(entityIdToDelete, deletedEntity.Id);
         }
 
@@ -136,21 +136,21 @@ namespace UnitTestVelvetVogue
         public async Task GetAllEntities_ReturnsAllEntities()
         {
             // Arrange
-            var expectedEntities = new List<Brand>
+            var expectedEntities = new List<Size>
             {
-                new Brand { Id = 1, Name = "Test 1"},
-                new Brand { Id = 2, Name = "Test 2"}
+                new Size { Id = 1, Name = "Test 1"},
+                new Size { Id = 2, Name = "Test 2"}
             };
-            _entityServiceMock.Setup(service => service.GetAllAsync())
+            _sut.Setup(service => service.GetAllAsync())
                                .ReturnsAsync(expectedEntities);
 
-            var entityService = _entityServiceMock.Object;
+            var entityService = _sut.Object;
 
             // Act
             var actualEntity = await entityService.GetAllAsync();
 
             // Assert
-            _entityServiceMock.Verify(service => service.GetAllAsync(), Times.Once);
+            _sut.Verify(service => service.GetAllAsync(), Times.Once);
             Assert.Equal(expectedEntities.Count, actualEntity.Count());
             foreach (var expectedEntity in expectedEntities)
             {
@@ -163,17 +163,17 @@ namespace UnitTestVelvetVogue
         {
             // Arrange
             var entityId = 1;
-            var expectedEntity = new Brand { Id = entityId, Name = "Test" };
-            _entityServiceMock.Setup(service => service.GetByIdAsync(entityId))
+            var expectedEntity = new Size { Id = entityId, Name = "Test" };
+            _sut.Setup(service => service.GetByIdAsync(entityId))
                                .ReturnsAsync(expectedEntity);
 
-            var entityService = _entityServiceMock.Object;
+            var entityService = _sut.Object;
 
             // Act
             var actualEntity = await entityService.GetByIdAsync(entityId);
 
             // Assert
-            _entityServiceMock.Verify(service => service.GetByIdAsync(entityId), Times.Once);
+            _sut.Verify(service => service.GetByIdAsync(entityId), Times.Once);
             Assert.Equal(expectedEntity.Id, actualEntity.Id);
         }
 
@@ -182,20 +182,19 @@ namespace UnitTestVelvetVogue
         {
             // Arrange
             var entityIdToUpdate = 1;
-            var expectedUpdatedEntity = new Brand { Id = entityIdToUpdate, Name = "Test Update" };
-            var updatedEntity = new Brand { Id = entityIdToUpdate, Name = "Test Update" };
+            var expectedUpdatedEntity = new Size { Id = entityIdToUpdate, Name = "Test Update" };
+            var updatedEntity = new Size { Id = entityIdToUpdate, Name = "Test Update" };
 
-            _entityServiceMock.Setup(service => service.UpdateAsync(entityIdToUpdate, updatedEntity))
+            _sut.Setup(service => service.UpdateAsync(entityIdToUpdate, updatedEntity))
                                .ReturnsAsync(updatedEntity);
 
-            var entityService = _entityServiceMock.Object;
+            var entityService = _sut.Object;
 
             // Act
             var actualUpdatedEntity = await entityService.UpdateAsync(entityIdToUpdate, updatedEntity);
 
             // Assert
-            // Assert
-            _entityServiceMock.Verify(service => service.UpdateAsync(entityIdToUpdate, updatedEntity), Times.Once);
+            _sut.Verify(service => service.UpdateAsync(entityIdToUpdate, updatedEntity), Times.Once);
             Assert.Equal(expectedUpdatedEntity.Id, actualUpdatedEntity.Id);
             Assert.Equal(expectedUpdatedEntity.Name, actualUpdatedEntity.Name);
         }

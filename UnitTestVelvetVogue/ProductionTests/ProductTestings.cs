@@ -3,15 +3,15 @@ using Newtonsoft.Json;
 using WebbShopClassLibrary.Interfaces;
 using WebbShopClassLibrary.Models.Production;
 
-namespace UnitTestVelvetVogue
+namespace UnitTestVelvetVogue.ProductionTests
 {
     public class ProductTestings
     {
-        private readonly Mock<IGenericService<Product>> _productServiceMock;
+        private readonly Mock<IGenericService<Product>> _sut;
 
         public ProductTestings()
         {
-            _productServiceMock = new Mock<IGenericService<Product>>();
+            _sut = new Mock<IGenericService<Product>>();
         }
 
         [Fact]
@@ -293,16 +293,16 @@ namespace UnitTestVelvetVogue
             // Arrange
             var expectedProduct = new Product { Id = 1, BrandId = 1, CategoryId = 1, ColorId = 1, SizeId = 1 };
             var createdProduct = new Product { Id = 1, BrandId = 1, CategoryId = 1, ColorId = 1, SizeId = 1 };
-            _productServiceMock.Setup(service => service.CreateAsync(expectedProduct))
+            _sut.Setup(service => service.CreateAsync(expectedProduct))
                                .ReturnsAsync(createdProduct);
 
-            var productService = _productServiceMock.Object;
+            var productService = _sut.Object;
 
             // Act
             var actualProduct = await productService.CreateAsync(expectedProduct);
 
             // Assert
-            _productServiceMock.Verify(service => service.CreateAsync(expectedProduct), Times.Once);
+            _sut.Verify(service => service.CreateAsync(expectedProduct), Times.Once);
             Assert.Equal(expectedProduct.Id, actualProduct.Id);
             Assert.Equal(expectedProduct.BrandId, actualProduct.BrandId);
             Assert.Equal(expectedProduct.CategoryId, actualProduct.CategoryId);
@@ -316,16 +316,16 @@ namespace UnitTestVelvetVogue
             // Arrange
             var productIdToDelete = 1;
             var productToDelete = new Product { Id = productIdToDelete };
-            _productServiceMock.Setup(service => service.DeleteAsync(productIdToDelete))
+            _sut.Setup(service => service.DeleteAsync(productIdToDelete))
                                .ReturnsAsync(productToDelete);
 
-            var productService = _productServiceMock.Object;
+            var productService = _sut.Object;
 
             // Act
             var deletedProduct = await productService.DeleteAsync(productIdToDelete);
 
             // Assert
-            _productServiceMock.Verify(service => service.DeleteAsync(productIdToDelete), Times.Once);
+            _sut.Verify(service => service.DeleteAsync(productIdToDelete), Times.Once);
             Assert.Equal(productIdToDelete, deletedProduct.Id);
         }
 
@@ -338,16 +338,16 @@ namespace UnitTestVelvetVogue
                 new Product { Id = 1, ProductName = "Test 1", BrandId = 1, CategoryId = 1, ColorId = 1, SizeId = 1  },
                 new Product { Id = 2, ProductName = "Test 2", BrandId = 2, CategoryId = 2, ColorId = 2, SizeId = 2 },
             };
-            _productServiceMock.Setup(service => service.GetAllAsync())
+            _sut.Setup(service => service.GetAllAsync())
                                .ReturnsAsync(expectedProducts);
 
-            var productService = _productServiceMock.Object;
+            var productService = _sut.Object;
 
             // Act
             var actualProducts = await productService.GetAllAsync();
 
             // Assert
-            _productServiceMock.Verify(service => service.GetAllAsync(), Times.Once);
+            _sut.Verify(service => service.GetAllAsync(), Times.Once);
             Assert.Equal(expectedProducts.Count, actualProducts.Count());
             foreach (var expectedProduct in expectedProducts)
             {
@@ -361,16 +361,16 @@ namespace UnitTestVelvetVogue
             // Arrange
             var productId = 1;
             var expectedProduct = new Product { Id = productId, ProductName = "Test 1", BrandId = 1, CategoryId = 1, ColorId = 1, SizeId = 1 };
-            _productServiceMock.Setup(service => service.GetByIdAsync(productId))
+            _sut.Setup(service => service.GetByIdAsync(productId))
                                .ReturnsAsync(expectedProduct);
 
-            var productService = _productServiceMock.Object;
+            var productService = _sut.Object;
 
             // Act
             var actualProduct = await productService.GetByIdAsync(productId);
 
             // Assert
-            _productServiceMock.Verify(service => service.GetByIdAsync(productId), Times.Once);
+            _sut.Verify(service => service.GetByIdAsync(productId), Times.Once);
             Assert.Equal(expectedProduct.Id, actualProduct.Id);
             Assert.Equal(expectedProduct.BrandId, actualProduct.BrandId);
             Assert.Equal(expectedProduct.CategoryId, actualProduct.CategoryId);
@@ -382,28 +382,28 @@ namespace UnitTestVelvetVogue
         public async Task UpdateProduct_ValidProduct_ReturnsUpdatedProduct()
         {
             // Arrange
-            var productIdToUpdate = 1; 
-            var expectedUpdatedProduct = new Product 
-                                            { 
-                                                Id = productIdToUpdate, 
-                                                ProductName = "Test Updated", 
-                                                BrandId = 2, 
-                                                CategoryId = 3, 
-                                                ColorId = 4, 
-                                                SizeId = 5 
-                                            };
+            var productIdToUpdate = 1;
+            var expectedUpdatedProduct = new Product
+            {
+                Id = productIdToUpdate,
+                ProductName = "Test Updated",
+                BrandId = 2,
+                CategoryId = 3,
+                ColorId = 4,
+                SizeId = 5
+            };
             var updatedProduct = new Product { Id = productIdToUpdate, ProductName = "Test Updated", BrandId = 2, CategoryId = 3, ColorId = 4, SizeId = 5 };
-            
-            _productServiceMock.Setup(service => service.UpdateAsync(productIdToUpdate, updatedProduct))
+
+            _sut.Setup(service => service.UpdateAsync(productIdToUpdate, updatedProduct))
                                .ReturnsAsync(updatedProduct);
 
-            var productService = _productServiceMock.Object;
+            var productService = _sut.Object;
 
             // Act
             var actualUpdatedProduct = await productService.UpdateAsync(productIdToUpdate, updatedProduct);
 
             // Assert
-            _productServiceMock.Verify(service => service.UpdateAsync(productIdToUpdate, updatedProduct), Times.Once);
+            _sut.Verify(service => service.UpdateAsync(productIdToUpdate, updatedProduct), Times.Once);
             Assert.Equal(expectedUpdatedProduct.Id, actualUpdatedProduct.Id);
             Assert.Equal(expectedUpdatedProduct.ProductName, actualUpdatedProduct.ProductName);
             Assert.Equal(expectedUpdatedProduct.BrandId, actualUpdatedProduct.BrandId);

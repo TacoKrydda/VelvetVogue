@@ -3,14 +3,14 @@ using Newtonsoft.Json;
 using WebbShopClassLibrary.Interfaces;
 using WebbShopClassLibrary.Models.Production;
 
-namespace UnitTestVelvetVogue
+namespace UnitTestVelvetVogue.ProductionTests
 {
     public class ColorTestings
     {
-        private readonly Mock<IGenericService<Color>> _entityServiceMock;
+        private readonly Mock<IGenericService<Color>> _sut;
         public ColorTestings()
         {
-            _entityServiceMock = new Mock<IGenericService<Color>>();
+            _sut = new Mock<IGenericService<Color>>();
         }
 
         [Fact]
@@ -100,16 +100,16 @@ namespace UnitTestVelvetVogue
             // Arrange
             var expectedEntity = new Color { Id = 1, Name = "Test" };
             var createdEntity = new Color { Id = 1, Name = "Test" };
-            _entityServiceMock.Setup(service => service.CreateAsync(expectedEntity))
+            _sut.Setup(service => service.CreateAsync(expectedEntity))
                                .ReturnsAsync(createdEntity);
 
-            var entityService = _entityServiceMock.Object;
+            var entityService = _sut.Object;
 
             // Act
             var actualEntity = await entityService.CreateAsync(expectedEntity);
 
             // Assert
-            _entityServiceMock.Verify(service => service.CreateAsync(expectedEntity), Times.Once);
+            _sut.Verify(service => service.CreateAsync(expectedEntity), Times.Once);
             Assert.Equal(expectedEntity.Id, actualEntity.Id);
         }
 
@@ -119,16 +119,16 @@ namespace UnitTestVelvetVogue
             // Arrange
             var entityIdToDelete = 1;
             var entityToDelete = new Color { Id = entityIdToDelete };
-            _entityServiceMock.Setup(service => service.DeleteAsync(entityIdToDelete))
+            _sut.Setup(service => service.DeleteAsync(entityIdToDelete))
                                .ReturnsAsync(entityToDelete);
 
-            var entityService = _entityServiceMock.Object;
+            var entityService = _sut.Object;
 
             // Act
             var deletedEntity = await entityService.DeleteAsync(entityIdToDelete);
 
             // Assert
-            _entityServiceMock.Verify(service => service.DeleteAsync(entityIdToDelete), Times.Once);
+            _sut.Verify(service => service.DeleteAsync(entityIdToDelete), Times.Once);
             Assert.Equal(entityIdToDelete, deletedEntity.Id);
         }
 
@@ -141,16 +141,16 @@ namespace UnitTestVelvetVogue
                 new Color { Id = 1, Name = "Test 1"},
                 new Color { Id = 2, Name = "Test 2"}
             };
-            _entityServiceMock.Setup(service => service.GetAllAsync())
+            _sut.Setup(service => service.GetAllAsync())
                                .ReturnsAsync(expectedEntities);
 
-            var entityService = _entityServiceMock.Object;
+            var entityService = _sut.Object;
 
             // Act
             var actualEntity = await entityService.GetAllAsync();
 
             // Assert
-            _entityServiceMock.Verify(service => service.GetAllAsync(), Times.Once);
+            _sut.Verify(service => service.GetAllAsync(), Times.Once);
             Assert.Equal(expectedEntities.Count, actualEntity.Count());
             foreach (var expectedEntity in expectedEntities)
             {
@@ -164,16 +164,16 @@ namespace UnitTestVelvetVogue
             // Arrange
             var entityId = 1;
             var expectedEntity = new Color { Id = entityId, Name = "Test" };
-            _entityServiceMock.Setup(service => service.GetByIdAsync(entityId))
+            _sut.Setup(service => service.GetByIdAsync(entityId))
                                .ReturnsAsync(expectedEntity);
 
-            var entityService = _entityServiceMock.Object;
+            var entityService = _sut.Object;
 
             // Act
             var actualEntity = await entityService.GetByIdAsync(entityId);
 
             // Assert
-            _entityServiceMock.Verify(service => service.GetByIdAsync(entityId), Times.Once);
+            _sut.Verify(service => service.GetByIdAsync(entityId), Times.Once);
             Assert.Equal(expectedEntity.Id, actualEntity.Id);
         }
 
@@ -185,17 +185,16 @@ namespace UnitTestVelvetVogue
             var expectedUpdatedEntity = new Color { Id = entityIdToUpdate, Name = "Test Update" };
             var updatedEntity = new Color { Id = entityIdToUpdate, Name = "Test Update" };
 
-            _entityServiceMock.Setup(service => service.UpdateAsync(entityIdToUpdate, updatedEntity))
+            _sut.Setup(service => service.UpdateAsync(entityIdToUpdate, updatedEntity))
                                .ReturnsAsync(updatedEntity);
 
-            var entityService = _entityServiceMock.Object;
+            var entityService = _sut.Object;
 
             // Act
             var actualUpdatedEntity = await entityService.UpdateAsync(entityIdToUpdate, updatedEntity);
 
             // Assert
-            // Assert
-            _entityServiceMock.Verify(service => service.UpdateAsync(entityIdToUpdate, updatedEntity), Times.Once);
+            _sut.Verify(service => service.UpdateAsync(entityIdToUpdate, updatedEntity), Times.Once);
             Assert.Equal(expectedUpdatedEntity.Id, actualUpdatedEntity.Id);
             Assert.Equal(expectedUpdatedEntity.Name, actualUpdatedEntity.Name);
         }

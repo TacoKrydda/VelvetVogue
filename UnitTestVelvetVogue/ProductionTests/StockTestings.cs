@@ -1,49 +1,54 @@
 ﻿using Moq;
 using Newtonsoft.Json;
+using System.Diagnostics;
 using WebbShopClassLibrary.Interfaces;
 using WebbShopClassLibrary.Models.Production;
 
-namespace UnitTestVelvetVogue
+namespace UnitTestVelvetVogue.ProductionTests
 {
-    public class SizeTestings
+    public class StockTestings
     {
-        private readonly Mock<IGenericService<Size>> _entityServiceMock;
-        public SizeTestings()
+        private readonly Mock<IGenericService<Stock>> _sut;
+
+        public StockTestings()
         {
-            _entityServiceMock = new Mock<IGenericService<Size>>();
+            _sut = new Mock<IGenericService<Stock>>();
         }
 
         [Fact]
         public void Entity_Properties_Have_Correct_Types()
         {
             // Arrange
-            var entity = new Size();
+            var entity = new Stock();
 
             // Assert
             Assert.IsType<int>(entity.Id);
-            Assert.IsType<string>(entity.Name);
+            Assert.IsType<int>(entity.ProductId);
+            Assert.IsType<int>(entity.Quantity);
         }
 
         [Fact]
         public void Entity_Properties_Are_Gettable_Settable()
         {
             // Arrange
-            var entity = new Size();
+            var entity = new Stock();
 
             // Act
             entity.Id = 1;
-            entity.Name = "test";
+            entity.ProductId = 1;
+            entity.Quantity = 1;
 
             // Assert
             Assert.Equal(1, entity.Id);
-            Assert.Equal("test", entity.Name);
+            Assert.Equal(1, entity.ProductId);
+            Assert.Equal(1, entity.Quantity);
         }
 
         [Fact]
         public void Entity_Can_Be_Constructed_With_Default_Constructor()
         {
             // Arrange
-            var entity = new Size();
+            var entity = new Stock();
 
             // Assert
             Assert.NotNull(entity);
@@ -53,11 +58,12 @@ namespace UnitTestVelvetVogue
         public void Entity_Properties_Are_Initialized_Correctly()
         {
             // Arrange & Act
-            var entity = new Size();
+            var entity = new Stock();
 
             // Assert
             Assert.Equal(0, entity.Id);
-            Assert.Equal(string.Empty, entity.Name);
+            Assert.Equal(0, entity.ProductId);
+            Assert.Equal(0, entity.Quantity);
         }
 
         [Theory]
@@ -66,50 +72,70 @@ namespace UnitTestVelvetVogue
         public void Entity_Id_Can_Be_Set_and_Get_Boundary(int id)
         {
             // Arrange
-            var entity = new Size();
+            var entity = new Stock();
 
             // Act
             entity.Id = id;
+            entity.ProductId = id;
+            entity.Quantity = id;
 
             // Assert
             Assert.Equal(id, entity.Id);
+            Assert.Equal(id, entity.ProductId);
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(999999)]
+        public void Product_Price_Can_Be_Set_and_Get_Boundary(int quantity)
+        {
+            // Arrange
+            var entity = new Stock();
+
+            // Act
+            entity.Quantity = quantity;
+
+            // Assert
+            Assert.Equal(quantity, entity.Quantity);
         }
 
         [Fact]
         public void Entity_Can_Be_Serialized_And_Deserialized()
         {
             // Arrange
-            var originalEntity = new Size
+            var originalEntity = new Stock
             {
                 Id = 1,
-                Name = "Test",
+                ProductId = 1,
+                Quantity = 1,
             };
 
             // Act
             var serializedEntity = JsonConvert.SerializeObject(originalEntity);
-            var deserializedEntity = JsonConvert.DeserializeObject<Size>(serializedEntity);
+            var deserializedEntity = JsonConvert.DeserializeObject<Stock>(serializedEntity);
 
             // Assert
             Assert.Equal(originalEntity.Id, deserializedEntity.Id);
-            Assert.Equal(originalEntity.Name, deserializedEntity.Name);
+            Assert.Equal(originalEntity.ProductId, deserializedEntity.ProductId);
+            Assert.Equal(originalEntity.Quantity, deserializedEntity.Quantity);
         }
 
         [Fact]
         public async Task CreateEntity_ValidEntity_ReturnsCreatedEntity()
         {
             // Arrange
-            var expectedEntity = new Size { Id = 1, Name = "Test" };
-            var createdEntity = new Size { Id = 1, Name = "Test" };
-            _entityServiceMock.Setup(service => service.CreateAsync(expectedEntity))
+            var expectedEntity = new Stock { Id = 1, ProductId = 1, Quantity = 1 };
+            var createdEntity = new Stock { Id = 1, ProductId = 1, Quantity = 1 };
+            _sut.Setup(service => service.CreateAsync(expectedEntity))
                                .ReturnsAsync(createdEntity);
 
-            var entityService = _entityServiceMock.Object;
+            var entityService = _sut.Object;
 
             // Act
             var actualEntity = await entityService.CreateAsync(expectedEntity);
 
             // Assert
-            _entityServiceMock.Verify(service => service.CreateAsync(expectedEntity), Times.Once);
+            _sut.Verify(service => service.CreateAsync(expectedEntity), Times.Once);
             Assert.Equal(expectedEntity.Id, actualEntity.Id);
         }
 
@@ -118,17 +144,17 @@ namespace UnitTestVelvetVogue
         {
             // Arrange
             var entityIdToDelete = 1;
-            var entityToDelete = new Size { Id = entityIdToDelete };
-            _entityServiceMock.Setup(service => service.DeleteAsync(entityIdToDelete))
+            var entityToDelete = new Stock { Id = entityIdToDelete };
+            _sut.Setup(service => service.DeleteAsync(entityIdToDelete))
                                .ReturnsAsync(entityToDelete);
 
-            var entityService = _entityServiceMock.Object;
+            var entityService = _sut.Object;
 
             // Act
             var deletedEntity = await entityService.DeleteAsync(entityIdToDelete);
 
             // Assert
-            _entityServiceMock.Verify(service => service.DeleteAsync(entityIdToDelete), Times.Once);
+            _sut.Verify(service => service.DeleteAsync(entityIdToDelete), Times.Once);
             Assert.Equal(entityIdToDelete, deletedEntity.Id);
         }
 
@@ -136,21 +162,21 @@ namespace UnitTestVelvetVogue
         public async Task GetAllEntities_ReturnsAllEntities()
         {
             // Arrange
-            var expectedEntities = new List<Size>
+            var expectedEntities = new List<Stock>
             {
-                new Size { Id = 1, Name = "Test 1"},
-                new Size { Id = 2, Name = "Test 2"}
+                new Stock { Id = 1, ProductId = 1, Quantity = 1},
+                new Stock { Id = 2, ProductId = 2, Quantity = 2}
             };
-            _entityServiceMock.Setup(service => service.GetAllAsync())
+            _sut.Setup(service => service.GetAllAsync())
                                .ReturnsAsync(expectedEntities);
 
-            var entityService = _entityServiceMock.Object;
+            var entityService = _sut.Object;
 
             // Act
             var actualEntity = await entityService.GetAllAsync();
 
             // Assert
-            _entityServiceMock.Verify(service => service.GetAllAsync(), Times.Once);
+            _sut.Verify(service => service.GetAllAsync(), Times.Once);
             Assert.Equal(expectedEntities.Count, actualEntity.Count());
             foreach (var expectedEntity in expectedEntities)
             {
@@ -163,17 +189,17 @@ namespace UnitTestVelvetVogue
         {
             // Arrange
             var entityId = 1;
-            var expectedEntity = new Size { Id = entityId, Name = "Test" };
-            _entityServiceMock.Setup(service => service.GetByIdAsync(entityId))
+            var expectedEntity = new Stock { Id = 1, ProductId = 1, Quantity = 1 };
+            _sut.Setup(service => service.GetByIdAsync(entityId))
                                .ReturnsAsync(expectedEntity);
 
-            var entityService = _entityServiceMock.Object;
+            var entityService = _sut.Object;
 
             // Act
             var actualEntity = await entityService.GetByIdAsync(entityId);
 
             // Assert
-            _entityServiceMock.Verify(service => service.GetByIdAsync(entityId), Times.Once);
+            _sut.Verify(service => service.GetByIdAsync(entityId), Times.Once);
             Assert.Equal(expectedEntity.Id, actualEntity.Id);
         }
 
@@ -182,22 +208,23 @@ namespace UnitTestVelvetVogue
         {
             // Arrange
             var entityIdToUpdate = 1;
-            var expectedUpdatedEntity = new Size { Id = entityIdToUpdate, Name = "Test Update" };
-            var updatedEntity = new Size { Id = entityIdToUpdate, Name = "Test Update" };
+            var expectedUpdatedEntity = new Stock { Id = entityIdToUpdate, ProductId = 1, Quantity = 1 };
+            var updatedEntity = new Stock { Id = entityIdToUpdate, ProductId = 1, Quantity = 1 };
 
-            _entityServiceMock.Setup(service => service.UpdateAsync(entityIdToUpdate, updatedEntity))
+            _sut.Setup(service => service.UpdateAsync(entityIdToUpdate, updatedEntity))
                                .ReturnsAsync(updatedEntity);
 
-            var entityService = _entityServiceMock.Object;
+            var entityService = _sut.Object;
 
             // Act
             var actualUpdatedEntity = await entityService.UpdateAsync(entityIdToUpdate, updatedEntity);
 
             // Assert
-            // Assert
-            _entityServiceMock.Verify(service => service.UpdateAsync(entityIdToUpdate, updatedEntity), Times.Once);
+            _sut.Verify(service => service.UpdateAsync(entityIdToUpdate, updatedEntity), Times.Once);
             Assert.Equal(expectedUpdatedEntity.Id, actualUpdatedEntity.Id);
-            Assert.Equal(expectedUpdatedEntity.Name, actualUpdatedEntity.Name);
+            Assert.Equal(expectedUpdatedEntity.ProductId, actualUpdatedEntity.ProductId);
+            Assert.Equal(expectedUpdatedEntity.Quantity, actualUpdatedEntity.Quantity);
         }
+
     }
 }
