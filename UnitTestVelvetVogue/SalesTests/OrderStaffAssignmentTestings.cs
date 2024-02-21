@@ -2,52 +2,53 @@
 using Newtonsoft.Json;
 using WebbShopClassLibrary.Interfaces;
 using WebbShopClassLibrary.Models.Production;
+using WebbShopClassLibrary.Models.Sales;
 
-namespace UnitTestVelvetVogue.ProductionTests
+namespace UnitTestVelvetVogue.SalesTests
 {
-    public class StockTestings
+    public class OrderStaffAssignmentTestings
     {
-        private readonly Mock<IGenericService<Stock>> _sut;
+        private readonly Mock<IGenericService<OrderStaffAssignment>> _sut;
 
-        public StockTestings()
+        public OrderStaffAssignmentTestings()
         {
-            _sut = new Mock<IGenericService<Stock>>();
+            _sut = new Mock<IGenericService<OrderStaffAssignment>>();
         }
 
         [Fact]
         public void Entity_Properties_Have_Correct_Types()
         {
             // Arrange
-            var entity = new Stock();
+            var entity = new OrderStaffAssignment();
 
             // Assert
             Assert.IsType<int>(entity.Id);
-            Assert.IsType<int>(entity.ProductId);
-            Assert.IsType<int>(entity.Quantity);
+            Assert.IsType<int>(entity.OrderId);
+            Assert.IsType<int>(entity.StaffId);
         }
 
         [Fact]
         public void Entity_Properties_Are_Gettable_Settable()
         {
             // Arrange
-            var entity = new Stock();
+            var entity = new OrderStaffAssignment();
 
             // Act
             entity.Id = 1;
-            entity.ProductId = 1;
-            entity.Quantity = 1;
+            entity.OrderId = 1;
+            entity.StaffId = 1;
 
             // Assert
             Assert.Equal(1, entity.Id);
-            Assert.Equal(1, entity.ProductId);
-            Assert.Equal(1, entity.Quantity);
+            Assert.Equal(1, entity.OrderId);
+            Assert.Equal(1, entity.StaffId);
         }
 
         [Fact]
         public void Entity_Can_Be_Constructed_With_Default_Constructor()
         {
             // Arrange
-            var entity = new Stock();
+            var entity = new OrderStaffAssignment();
 
             // Assert
             Assert.NotNull(entity);
@@ -57,12 +58,12 @@ namespace UnitTestVelvetVogue.ProductionTests
         public void Entity_Properties_Are_Initialized_Correctly()
         {
             // Arrange & Act
-            var entity = new Stock();
+            var entity = new OrderStaffAssignment();
 
             // Assert
             Assert.Equal(0, entity.Id);
-            Assert.Equal(0, entity.ProductId);
-            Assert.Equal(0, entity.Quantity);
+            Assert.Equal(0, entity.OrderId);
+            Assert.Equal(0, entity.StaffId);
         }
 
         [Theory]
@@ -71,60 +72,46 @@ namespace UnitTestVelvetVogue.ProductionTests
         public void Entity_Id_Can_Be_Set_and_Get_Boundary(int id)
         {
             // Arrange
-            var entity = new Stock();
+            var entity = new OrderStaffAssignment();
 
             // Act
             entity.Id = id;
-            entity.ProductId = id;
-            entity.Quantity = id;
+            entity.OrderId = id;
+            entity.StaffId = id;
 
             // Assert
             Assert.Equal(id, entity.Id);
-            Assert.Equal(id, entity.ProductId);
-        }
-
-        [Theory]
-        [InlineData(0)]
-        [InlineData(999999)]
-        public void Product_Price_Can_Be_Set_and_Get_Boundary(int quantity)
-        {
-            // Arrange
-            var entity = new Stock();
-
-            // Act
-            entity.Quantity = quantity;
-
-            // Assert
-            Assert.Equal(quantity, entity.Quantity);
+            Assert.Equal(id, entity.OrderId);
+            Assert.Equal(id, entity.StaffId);
         }
 
         [Fact]
         public void Entity_Can_Be_Serialized_And_Deserialized()
         {
             // Arrange
-            var originalEntity = new Stock
+            var originalEntity = new OrderStaffAssignment
             {
                 Id = 1,
-                ProductId = 1,
-                Quantity = 1,
+                OrderId = 1,
+                StaffId = 1,
             };
 
             // Act
             var serializedEntity = JsonConvert.SerializeObject(originalEntity);
-            var deserializedEntity = JsonConvert.DeserializeObject<Stock>(serializedEntity);
+            var deserializedEntity = JsonConvert.DeserializeObject<OrderStaffAssignment>(serializedEntity);
 
             // Assert
             Assert.Equal(originalEntity.Id, deserializedEntity.Id);
-            Assert.Equal(originalEntity.ProductId, deserializedEntity.ProductId);
-            Assert.Equal(originalEntity.Quantity, deserializedEntity.Quantity);
+            Assert.Equal(originalEntity.OrderId, deserializedEntity.OrderId);
+            Assert.Equal(originalEntity.StaffId, deserializedEntity.StaffId);
         }
 
         [Fact]
         public async Task CreateEntity_ValidEntity_ReturnsCreatedEntity()
         {
             // Arrange
-            var expectedEntity = new Stock { Id = 1, ProductId = 1, Quantity = 1 };
-            var createdEntity = new Stock { Id = 1, ProductId = 1, Quantity = 1 };
+            var expectedEntity = new OrderStaffAssignment { Id = 1, OrderId = 1, StaffId = 1 };
+            var createdEntity = new OrderStaffAssignment { Id = 1, OrderId = 1, StaffId = 1 };
             _sut.Setup(service => service.CreateAsync(expectedEntity))
                                .ReturnsAsync(createdEntity);
 
@@ -143,7 +130,7 @@ namespace UnitTestVelvetVogue.ProductionTests
         {
             // Arrange
             var entityIdToDelete = 1;
-            var entityToDelete = new Stock { Id = entityIdToDelete };
+            var entityToDelete = new OrderStaffAssignment { Id = entityIdToDelete };
             _sut.Setup(service => service.DeleteAsync(entityIdToDelete))
                                .ReturnsAsync(entityToDelete);
 
@@ -161,10 +148,10 @@ namespace UnitTestVelvetVogue.ProductionTests
         public async Task GetAllEntities_ReturnsAllEntities()
         {
             // Arrange
-            var expectedEntities = new List<Stock>
+            var expectedEntities = new List<OrderStaffAssignment>
             {
-                new Stock { Id = 1, ProductId = 1, Quantity = 1},
-                new Stock { Id = 2, ProductId = 2, Quantity = 2}
+                new OrderStaffAssignment { Id = 1, OrderId = 1, StaffId = 1},
+                new OrderStaffAssignment { Id = 2, OrderId = 2, StaffId = 2}
             };
             _sut.Setup(service => service.GetAllAsync())
                                .ReturnsAsync(expectedEntities);
@@ -188,7 +175,7 @@ namespace UnitTestVelvetVogue.ProductionTests
         {
             // Arrange
             var entityId = 1;
-            var expectedEntity = new Stock { Id = 1, ProductId = 1, Quantity = 1 };
+            var expectedEntity = new OrderStaffAssignment { Id = 1, OrderId = 1, StaffId = 1 };
             _sut.Setup(service => service.GetByIdAsync(entityId))
                                .ReturnsAsync(expectedEntity);
 
@@ -207,8 +194,8 @@ namespace UnitTestVelvetVogue.ProductionTests
         {
             // Arrange
             var entityIdToUpdate = 1;
-            var expectedUpdatedEntity = new Stock { Id = entityIdToUpdate, ProductId = 1, Quantity = 1 };
-            var updatedEntity = new Stock { Id = entityIdToUpdate, ProductId = 1, Quantity = 1 };
+            var expectedUpdatedEntity = new OrderStaffAssignment { Id = entityIdToUpdate, OrderId = 1, StaffId = 1 };
+            var updatedEntity = new OrderStaffAssignment { Id = entityIdToUpdate, OrderId = 1, StaffId = 1 };
 
             _sut.Setup(service => service.UpdateAsync(entityIdToUpdate, updatedEntity))
                                .ReturnsAsync(updatedEntity);
@@ -221,8 +208,8 @@ namespace UnitTestVelvetVogue.ProductionTests
             // Assert
             _sut.Verify(service => service.UpdateAsync(entityIdToUpdate, updatedEntity), Times.Once);
             Assert.Equal(expectedUpdatedEntity.Id, actualUpdatedEntity.Id);
-            Assert.Equal(expectedUpdatedEntity.ProductId, actualUpdatedEntity.ProductId);
-            Assert.Equal(expectedUpdatedEntity.Quantity, actualUpdatedEntity.Quantity);
+            Assert.Equal(expectedUpdatedEntity.OrderId, actualUpdatedEntity.OrderId);
+            Assert.Equal(expectedUpdatedEntity.StaffId, actualUpdatedEntity.StaffId);
         }
 
     }

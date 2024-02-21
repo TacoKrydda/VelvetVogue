@@ -1,27 +1,27 @@
 ﻿using Moq;
 using Newtonsoft.Json;
 using WebbShopClassLibrary.Interfaces;
-using WebbShopClassLibrary.Models.Production;
+using WebbShopClassLibrary.Models.Sales;
 
-namespace UnitTestVelvetVogue.ProductionTests
+namespace UnitTestVelvetVogue.SalesTests
 {
-    public class StockTestings
+    public class CartItemTestings
     {
-        private readonly Mock<IGenericService<Stock>> _sut;
-
-        public StockTestings()
+        private readonly Mock<IGenericService<CartItem>> _sut;
+        public CartItemTestings()
         {
-            _sut = new Mock<IGenericService<Stock>>();
+            _sut = new Mock<IGenericService<CartItem>>();
         }
 
         [Fact]
         public void Entity_Properties_Have_Correct_Types()
         {
             // Arrange
-            var entity = new Stock();
+            var entity = new CartItem();
 
             // Assert
             Assert.IsType<int>(entity.Id);
+            Assert.True(entity.OrderId == null || entity.OrderId is int);
             Assert.IsType<int>(entity.ProductId);
             Assert.IsType<int>(entity.Quantity);
         }
@@ -30,15 +30,17 @@ namespace UnitTestVelvetVogue.ProductionTests
         public void Entity_Properties_Are_Gettable_Settable()
         {
             // Arrange
-            var entity = new Stock();
+            var entity = new CartItem();
 
             // Act
             entity.Id = 1;
+            entity.OrderId = 1;
             entity.ProductId = 1;
             entity.Quantity = 1;
 
             // Assert
             Assert.Equal(1, entity.Id);
+            Assert.Equal(1, entity.OrderId);
             Assert.Equal(1, entity.ProductId);
             Assert.Equal(1, entity.Quantity);
         }
@@ -47,7 +49,7 @@ namespace UnitTestVelvetVogue.ProductionTests
         public void Entity_Can_Be_Constructed_With_Default_Constructor()
         {
             // Arrange
-            var entity = new Stock();
+            var entity = new CartItem();
 
             // Assert
             Assert.NotNull(entity);
@@ -57,10 +59,11 @@ namespace UnitTestVelvetVogue.ProductionTests
         public void Entity_Properties_Are_Initialized_Correctly()
         {
             // Arrange & Act
-            var entity = new Stock();
+            var entity = new CartItem();
 
             // Assert
             Assert.Equal(0, entity.Id);
+            Assert.Null(entity.OrderId);
             Assert.Equal(0, entity.ProductId);
             Assert.Equal(0, entity.Quantity);
         }
@@ -71,50 +74,34 @@ namespace UnitTestVelvetVogue.ProductionTests
         public void Entity_Id_Can_Be_Set_and_Get_Boundary(int id)
         {
             // Arrange
-            var entity = new Stock();
+            var entity = new CartItem();
 
             // Act
             entity.Id = id;
-            entity.ProductId = id;
-            entity.Quantity = id;
 
             // Assert
             Assert.Equal(id, entity.Id);
-            Assert.Equal(id, entity.ProductId);
-        }
-
-        [Theory]
-        [InlineData(0)]
-        [InlineData(999999)]
-        public void Product_Price_Can_Be_Set_and_Get_Boundary(int quantity)
-        {
-            // Arrange
-            var entity = new Stock();
-
-            // Act
-            entity.Quantity = quantity;
-
-            // Assert
-            Assert.Equal(quantity, entity.Quantity);
         }
 
         [Fact]
         public void Entity_Can_Be_Serialized_And_Deserialized()
         {
             // Arrange
-            var originalEntity = new Stock
+            var originalEntity = new CartItem
             {
                 Id = 1,
+                OrderId = 1,
                 ProductId = 1,
                 Quantity = 1,
             };
 
             // Act
             var serializedEntity = JsonConvert.SerializeObject(originalEntity);
-            var deserializedEntity = JsonConvert.DeserializeObject<Stock>(serializedEntity);
+            var deserializedEntity = JsonConvert.DeserializeObject<CartItem>(serializedEntity);
 
             // Assert
             Assert.Equal(originalEntity.Id, deserializedEntity.Id);
+            Assert.Equal(originalEntity.OrderId, deserializedEntity.OrderId);
             Assert.Equal(originalEntity.ProductId, deserializedEntity.ProductId);
             Assert.Equal(originalEntity.Quantity, deserializedEntity.Quantity);
         }
@@ -123,8 +110,22 @@ namespace UnitTestVelvetVogue.ProductionTests
         public async Task CreateEntity_ValidEntity_ReturnsCreatedEntity()
         {
             // Arrange
-            var expectedEntity = new Stock { Id = 1, ProductId = 1, Quantity = 1 };
-            var createdEntity = new Stock { Id = 1, ProductId = 1, Quantity = 1 };
+            var expectedEntity = new CartItem
+            {
+                Id = 1,
+                OrderId = 1,
+                ProductId = 1,
+                Quantity = 1
+            };
+
+            var createdEntity = new CartItem
+            {
+                Id = 1,
+                OrderId = 1,
+                ProductId = 1,
+                Quantity = 1
+            };
+
             _sut.Setup(service => service.CreateAsync(expectedEntity))
                                .ReturnsAsync(createdEntity);
 
@@ -136,6 +137,9 @@ namespace UnitTestVelvetVogue.ProductionTests
             // Assert
             _sut.Verify(service => service.CreateAsync(expectedEntity), Times.Once);
             Assert.Equal(expectedEntity.Id, actualEntity.Id);
+            Assert.Equal(expectedEntity.OrderId, actualEntity.OrderId);
+            Assert.Equal(expectedEntity.ProductId, actualEntity.ProductId);
+            Assert.Equal(expectedEntity.Quantity, actualEntity.Quantity);
         }
 
         [Fact]
@@ -143,7 +147,7 @@ namespace UnitTestVelvetVogue.ProductionTests
         {
             // Arrange
             var entityIdToDelete = 1;
-            var entityToDelete = new Stock { Id = entityIdToDelete };
+            var entityToDelete = new CartItem { Id = entityIdToDelete };
             _sut.Setup(service => service.DeleteAsync(entityIdToDelete))
                                .ReturnsAsync(entityToDelete);
 
@@ -161,10 +165,22 @@ namespace UnitTestVelvetVogue.ProductionTests
         public async Task GetAllEntities_ReturnsAllEntities()
         {
             // Arrange
-            var expectedEntities = new List<Stock>
+            var expectedEntities = new List<CartItem>
             {
-                new Stock { Id = 1, ProductId = 1, Quantity = 1},
-                new Stock { Id = 2, ProductId = 2, Quantity = 2}
+                new CartItem
+                {
+                    Id = 1,
+                    OrderId = 1,
+                    ProductId = 1,
+                    Quantity = 1
+                },
+                new CartItem
+                {
+                    Id = 2,
+                    OrderId = 2,
+                    ProductId = 2,
+                    Quantity = 2
+                }
             };
             _sut.Setup(service => service.GetAllAsync())
                                .ReturnsAsync(expectedEntities);
@@ -188,7 +204,13 @@ namespace UnitTestVelvetVogue.ProductionTests
         {
             // Arrange
             var entityId = 1;
-            var expectedEntity = new Stock { Id = 1, ProductId = 1, Quantity = 1 };
+            var expectedEntity = new CartItem
+            {
+                Id = entityId,
+                OrderId = 1,
+                ProductId = 1,
+                Quantity = 1
+            };
             _sut.Setup(service => service.GetByIdAsync(entityId))
                                .ReturnsAsync(expectedEntity);
 
@@ -200,6 +222,9 @@ namespace UnitTestVelvetVogue.ProductionTests
             // Assert
             _sut.Verify(service => service.GetByIdAsync(entityId), Times.Once);
             Assert.Equal(expectedEntity.Id, actualEntity.Id);
+            Assert.Equal(expectedEntity.OrderId, actualEntity.OrderId);
+            Assert.Equal(expectedEntity.ProductId, actualEntity.ProductId);
+            Assert.Equal(expectedEntity.Quantity, actualEntity.Quantity);
         }
 
         [Fact]
@@ -207,8 +232,20 @@ namespace UnitTestVelvetVogue.ProductionTests
         {
             // Arrange
             var entityIdToUpdate = 1;
-            var expectedUpdatedEntity = new Stock { Id = entityIdToUpdate, ProductId = 1, Quantity = 1 };
-            var updatedEntity = new Stock { Id = entityIdToUpdate, ProductId = 1, Quantity = 1 };
+            var expectedUpdatedEntity = new CartItem
+            {
+                Id = entityIdToUpdate,
+                OrderId = 1,
+                ProductId = 1,
+                Quantity = 1
+            };
+            var updatedEntity = new CartItem
+            {
+                Id = entityIdToUpdate,
+                OrderId = 1,
+                ProductId = 1,
+                Quantity = 1
+            };
 
             _sut.Setup(service => service.UpdateAsync(entityIdToUpdate, updatedEntity))
                                .ReturnsAsync(updatedEntity);
@@ -221,6 +258,7 @@ namespace UnitTestVelvetVogue.ProductionTests
             // Assert
             _sut.Verify(service => service.UpdateAsync(entityIdToUpdate, updatedEntity), Times.Once);
             Assert.Equal(expectedUpdatedEntity.Id, actualUpdatedEntity.Id);
+            Assert.Equal(expectedUpdatedEntity.OrderId, actualUpdatedEntity.OrderId);
             Assert.Equal(expectedUpdatedEntity.ProductId, actualUpdatedEntity.ProductId);
             Assert.Equal(expectedUpdatedEntity.Quantity, actualUpdatedEntity.Quantity);
         }
