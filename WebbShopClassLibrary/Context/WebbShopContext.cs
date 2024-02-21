@@ -11,6 +11,9 @@ namespace WebbShopClassLibrary.Context
 {
     public class WebbShopContext : DbContext
     {
+        public WebbShopContext() : base()
+        {
+        }
         public WebbShopContext(DbContextOptions<WebbShopContext> options) : base(options)
         {
             

@@ -1,4 +1,4 @@
-﻿namespace WebbShopClassLibrary.Services
+﻿namespace WebbShopClassLibrary.Interfaces
 {
     public interface IGenericService<T> where T : class
     {

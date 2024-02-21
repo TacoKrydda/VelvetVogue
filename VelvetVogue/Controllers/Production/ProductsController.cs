@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebbShopClassLibrary.Interfaces;
+using WebbShopClassLibrary.Interfaces.Production;
 using WebbShopClassLibrary.Models.Production;
-using WebbShopClassLibrary.Services;
 
 namespace VelvetVogue.Controllers.Production
 {

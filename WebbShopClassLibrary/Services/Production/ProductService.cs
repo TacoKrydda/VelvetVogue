@@ -1,4 +1,5 @@
-﻿using WebbShopClassLibrary.Models.Production;
+﻿using WebbShopClassLibrary.Interfaces;
+using WebbShopClassLibrary.Models.Production;
 
 namespace WebbShopClassLibrary.Services.Production
 {
@@ -20,7 +21,7 @@ namespace WebbShopClassLibrary.Services.Production
 
         public async Task<Product> DeleteAsync(int id)
         {
-            return  await _genericService.DeleteAsync(id);
+            return await _genericService.DeleteAsync(id);
         }
 
         public async Task<IEnumerable<Product>> GetAllAsync(params string[] includeProperties)

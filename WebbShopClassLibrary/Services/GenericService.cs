@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebbShopClassLibrary.Context;
+using WebbShopClassLibrary.Interfaces;
 
 namespace WebbShopClassLibrary.Services
 {
@@ -27,14 +28,21 @@ namespace WebbShopClassLibrary.Services
 
             if (result == null)
             {
+                throw new ArgumentNullException(nameof(result));
+            }
+
+            if (!result.Any())
+            {
                 throw new ArgumentException($"The table is empty");
             }
+
             return result;
         }
 
         public async Task<T> GetByIdAsync(int id)
         {
             var result = await _table.FindAsync(id);
+
             if (result == null)
             {
                 throw new KeyNotFoundException($"Item with ID {id} was not found");

@@ -1,4 +1,5 @@
-﻿using WebbShopClassLibrary.Models.Sales;
+﻿using WebbShopClassLibrary.Interfaces;
+using WebbShopClassLibrary.Models.Sales;
 using WebbShopClassLibrary.Utilities;
 
 namespace WebbShopClassLibrary.Services.Sales
