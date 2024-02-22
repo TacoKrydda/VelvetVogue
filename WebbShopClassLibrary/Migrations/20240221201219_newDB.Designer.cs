@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebbShopClassLibrary.Context;
 
@@ -11,9 +12,11 @@ using WebbShopClassLibrary.Context;
 namespace WebbShopClassLibrary.Migrations
 {
     [DbContext(typeof(WebbShopContext))]
-    partial class WebbShopContextModelSnapshot : ModelSnapshot
+    [Migration("20240221201219_newDB")]
+    partial class newDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,7 +33,7 @@ namespace WebbShopClassLibrary.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Name")
+                    b.Property<string>("BrandName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -46,7 +49,7 @@ namespace WebbShopClassLibrary.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Name")
+                    b.Property<string>("CategoryName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -62,7 +65,7 @@ namespace WebbShopClassLibrary.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Name")
+                    b.Property<string>("ColorName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -117,7 +120,7 @@ namespace WebbShopClassLibrary.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Name")
+                    b.Property<string>("SizeName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -133,7 +136,7 @@ namespace WebbShopClassLibrary.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ProductId")
+                    b.Property<int?>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
@@ -142,7 +145,8 @@ namespace WebbShopClassLibrary.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[ProductId] IS NOT NULL");
 
                     b.ToTable("Stocks");
                 });
@@ -215,7 +219,7 @@ namespace WebbShopClassLibrary.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("OrderDate")
+                    b.Property<DateTime?>("OrderDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("OrderStatus")
@@ -326,9 +330,7 @@ namespace WebbShopClassLibrary.Migrations
                 {
                     b.HasOne("WebbShopClassLibrary.Models.Production.Product", "Product")
                         .WithOne("Stock")
-                        .HasForeignKey("WebbShopClassLibrary.Models.Production.Stock", "ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("WebbShopClassLibrary.Models.Production.Stock", "ProductId");
 
                     b.Navigation("Product");
                 });
