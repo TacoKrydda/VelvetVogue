@@ -7,6 +7,7 @@ import About from "./Pages/About";
 import MobileNavigation from "./Componets/MobileNavigation ";
 import DesktopNavigation from "./Componets/DesktopNavigation";
 import Jeans from "./Pages/Pants/Jeans";
+import PostEntity from "./Pages/Crud/PostEntity";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <div className="App-body-content">
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/post" element={<PostEntity />} />
               <Route path="/about" element={<About />} />
               <Route path="/category/pants/jeans" element={<Jeans />} />
             </Routes>

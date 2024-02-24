@@ -5,8 +5,8 @@ type BrandProps = {
   name: string;
 };
 
-const Brand = () => {
+const BrandPost = () => {
   return <div>Brand</div>;
 };
 
-export default Brand;
+export default BrandPost;

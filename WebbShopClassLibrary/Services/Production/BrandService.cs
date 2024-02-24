@@ -13,6 +13,10 @@ namespace WebbShopClassLibrary.Services.Production
         }
         public async Task<Brand> CreateAsync(Brand entity)
         {
+            if (entity.Name == "string" || entity.Name == "")
+            {
+                throw new ArgumentException($"Entity needs a name");
+            }
             return await _genericService.CreateAsync(entity);
         }
 
