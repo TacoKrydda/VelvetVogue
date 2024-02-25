@@ -1,70 +1,35 @@
-import React, { useEffect, useState } from "react";
-import { BrandProps, CategoryProps } from "../../Data/EntityProps";
+import React, { useState } from "react";
+import BrandPost from "./Brand/BrandPost";
+import Category from "./Category/Category";
+import Color from "./Color/Color";
 
 const PostEntity = () => {
-  const [formType, setFormType] = useState<"brand" | "category">("brand");
-  const [formData, setFormData] = useState<any>({});
+  const [selectedComponent, setSelectedComponent] = useState("BrandPost");
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("Form Data:", formData);
-    if (formType === "brand") {
-      postData("Brands");
-    } else if (formType === "category") {
-      postData("Categories");
-    }
-  };
-
-  const postData = async (entityType: string) => {
-    try {
-      let url = `https://localhost:7221/api/${entityType}`;
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Data från servern:", data);
-      } else {
-        console.error("Serverfel:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Fel vid POST-förfrågan:", error);
+  const renderComponent = () => {
+    switch (selectedComponent) {
+      case "BrandPost":
+        return <BrandPost />;
+      case "Category":
+        return <Category />;
+      case "Color":
+        return <Color />;
+      default:
+        return null;
     }
   };
 
   return (
     <div>
-      <h2>Post Entity</h2>
-      <form onSubmit={handleSubmit}>
-        {formType === "brand" && (
-          <>
-            <label htmlFor="brandName">Brand Name:</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              onChange={handleInputChange}
-            />
-          </>
-        )}
-        <button type="submit">Submit</button>
-      </form>
-
-      <div>
-        <button onClick={() => setFormType("brand")}>Brand</button>
-      </div>
+      <select
+        value={selectedComponent}
+        onChange={(e) => setSelectedComponent(e.target.value)}
+      >
+        <option value="BrandPost">Brand Post</option>
+        <option value="Category">Category</option>
+        <option value="Color">Color</option>
+      </select>
+      {renderComponent()}
     </div>
   );
 };
