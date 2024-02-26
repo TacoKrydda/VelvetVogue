@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import BrandPost from "./Brand/BrandPost";
-import Category from "./Category/Category";
-import Color from "./Color/Color";
+import CategoryPost from "./Category/CategoryPost";
+import ColorPost from "./Color/ColorPost";
+import { SizePost } from "./Size/SizePost";
 
 const PostEntity = () => {
   const [selectedComponent, setSelectedComponent] = useState("BrandPost");
@@ -11,9 +12,11 @@ const PostEntity = () => {
       case "BrandPost":
         return <BrandPost />;
       case "Category":
-        return <Category />;
+        return <CategoryPost />;
       case "Color":
-        return <Color />;
+        return <ColorPost />;
+      case "Size":
+        return <SizePost />;
       default:
         return null;
     }
@@ -28,6 +31,7 @@ const PostEntity = () => {
         <option value="BrandPost">Brand Post</option>
         <option value="Category">Category</option>
         <option value="Color">Color</option>
+        <option value="Size">Size</option>
       </select>
       {renderComponent()}
     </div>
