@@ -3,6 +3,7 @@ import BrandPost from "./Brand/BrandPost";
 import CategoryPost from "./Category/CategoryPost";
 import ColorPost from "./Color/ColorPost";
 import { SizePost } from "./Size/SizePost";
+import ProductPost from "./Product/ProductPost";
 
 const PostEntity = () => {
   const [selectedComponent, setSelectedComponent] = useState("BrandPost");
@@ -17,6 +18,8 @@ const PostEntity = () => {
         return <ColorPost />;
       case "Size":
         return <SizePost />;
+      case "Product":
+        return <ProductPost />;
       default:
         return null;
     }
@@ -32,6 +35,7 @@ const PostEntity = () => {
         <option value="Category">Category</option>
         <option value="Color">Color</option>
         <option value="Size">Size</option>
+        <option value="Product">Product</option>
       </select>
       {renderComponent()}
     </div>

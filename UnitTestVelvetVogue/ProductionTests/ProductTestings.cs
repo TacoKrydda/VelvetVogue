@@ -23,7 +23,7 @@ namespace UnitTestVelvetVogue.ProductionTests
 
             // Assert
             Assert.IsType<int>(product.Id);
-            Assert.IsType<string>(product.ProductName);
+            Assert.IsType<string>(product.Name);
             Assert.IsType<int>(product.BrandId);
             Assert.IsType<int>(product.CategoryId);
             Assert.IsType<int>(product.ColorId);
@@ -39,7 +39,7 @@ namespace UnitTestVelvetVogue.ProductionTests
 
             // Act
             product.Id = 1;
-            product.ProductName = "Test Product";
+            product.Name = "Test Product";
             product.BrandId = 1;
             product.CategoryId = 1;
             product.ColorId = 1;
@@ -48,7 +48,7 @@ namespace UnitTestVelvetVogue.ProductionTests
 
             // Assert
             Assert.Equal(1, product.Id);
-            Assert.Equal("Test Product", product.ProductName);
+            Assert.Equal("Test Product", product.Name);
             Assert.Equal(1, product.BrandId);
             Assert.Equal(1, product.CategoryId);
             Assert.Equal(1, product.ColorId);
@@ -74,7 +74,7 @@ namespace UnitTestVelvetVogue.ProductionTests
 
             // Assert
             Assert.Equal(0, product.Id);
-            Assert.Equal(string.Empty, product.ProductName);
+            Assert.Equal(string.Empty, product.Name);
             Assert.Equal(0, product.BrandId);
             Assert.Equal(0, product.CategoryId);
             Assert.Equal(0, product.ColorId);
@@ -264,7 +264,7 @@ namespace UnitTestVelvetVogue.ProductionTests
             var originalProduct = new Product
             {
                 Id = 1,
-                ProductName = "Test Product",
+                Name = "Test Product",
                 BrandId = 1,
                 CategoryId = 1,
                 ColorId = 1,
@@ -278,7 +278,7 @@ namespace UnitTestVelvetVogue.ProductionTests
 
             // Assert
             Assert.Equal(originalProduct.Id, deserializedProduct.Id);
-            Assert.Equal(originalProduct.ProductName, deserializedProduct.ProductName);
+            Assert.Equal(originalProduct.Name, deserializedProduct.Name);
             Assert.Equal(originalProduct.BrandId, deserializedProduct.BrandId);
             Assert.Equal(originalProduct.CategoryId, deserializedProduct.CategoryId);
             Assert.Equal(originalProduct.ColorId, deserializedProduct.ColorId);
@@ -335,8 +335,8 @@ namespace UnitTestVelvetVogue.ProductionTests
             // Arrange
             var expectedProducts = new List<Product>
             {
-                new Product { Id = 1, ProductName = "Test 1", BrandId = 1, CategoryId = 1, ColorId = 1, SizeId = 1  },
-                new Product { Id = 2, ProductName = "Test 2", BrandId = 2, CategoryId = 2, ColorId = 2, SizeId = 2 },
+                new Product { Id = 1, Name = "Test 1", BrandId = 1, CategoryId = 1, ColorId = 1, SizeId = 1  },
+                new Product { Id = 2, Name = "Test 2", BrandId = 2, CategoryId = 2, ColorId = 2, SizeId = 2 },
             };
             _sut.Setup(service => service.GetAllAsync())
                                .ReturnsAsync(expectedProducts);
@@ -360,7 +360,7 @@ namespace UnitTestVelvetVogue.ProductionTests
         {
             // Arrange
             var productId = 1;
-            var expectedProduct = new Product { Id = productId, ProductName = "Test 1", BrandId = 1, CategoryId = 1, ColorId = 1, SizeId = 1 };
+            var expectedProduct = new Product { Id = productId, Name = "Test 1", BrandId = 1, CategoryId = 1, ColorId = 1, SizeId = 1 };
             _sut.Setup(service => service.GetByIdAsync(productId))
                                .ReturnsAsync(expectedProduct);
 
@@ -386,13 +386,13 @@ namespace UnitTestVelvetVogue.ProductionTests
             var expectedUpdatedProduct = new Product
             {
                 Id = productIdToUpdate,
-                ProductName = "Test Updated",
+                Name = "Test Updated",
                 BrandId = 2,
                 CategoryId = 3,
                 ColorId = 4,
                 SizeId = 5
             };
-            var updatedProduct = new Product { Id = productIdToUpdate, ProductName = "Test Updated", BrandId = 2, CategoryId = 3, ColorId = 4, SizeId = 5 };
+            var updatedProduct = new Product { Id = productIdToUpdate, Name = "Test Updated", BrandId = 2, CategoryId = 3, ColorId = 4, SizeId = 5 };
 
             _sut.Setup(service => service.UpdateAsync(productIdToUpdate, updatedProduct))
                                .ReturnsAsync(updatedProduct);
@@ -405,7 +405,7 @@ namespace UnitTestVelvetVogue.ProductionTests
             // Assert
             _sut.Verify(service => service.UpdateAsync(productIdToUpdate, updatedProduct), Times.Once);
             Assert.Equal(expectedUpdatedProduct.Id, actualUpdatedProduct.Id);
-            Assert.Equal(expectedUpdatedProduct.ProductName, actualUpdatedProduct.ProductName);
+            Assert.Equal(expectedUpdatedProduct.Name, actualUpdatedProduct.Name);
             Assert.Equal(expectedUpdatedProduct.BrandId, actualUpdatedProduct.BrandId);
             Assert.Equal(expectedUpdatedProduct.CategoryId, actualUpdatedProduct.CategoryId);
             Assert.Equal(expectedUpdatedProduct.ColorId, actualUpdatedProduct.ColorId);
