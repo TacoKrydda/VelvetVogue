@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { BrandProps } from "../../../Data/EntityProps";
+import style from "../Brand/CSS/BrandPost.module.css";
 
 const BrandPost = () => {
   const [formData, setFormData] = useState<BrandProps[]>([]);
@@ -44,20 +45,22 @@ const BrandPost = () => {
 
   console.log(formData);
   return (
-    <div>
-      <form>
-        <label>Brand Name:</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          onChange={handleInputChange}
-          required
-        />
+    <div className={style.bpContainer}>
+      <form className={style.bpForm}>
+        <div className={style.bpFormGroup}>
+          <label htmlFor="name">Brand Name:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            onChange={handleInputChange}
+            required
+          />
+        </div>
       </form>
-      <div>
-        <button onClick={() => handleSubmit()}>Submit</button>
-      </div>
+      <button className={style.bpPostBtn} onClick={() => handleSubmit()}>
+        Submit
+      </button>
     </div>
   );
 };

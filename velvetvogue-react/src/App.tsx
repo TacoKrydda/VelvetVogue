@@ -28,7 +28,7 @@ function App() {
           </div>
           <div className="App-body-content">
             <Routes>
-              <Route path="/" element={<BrandPost />} />
+              <Route path="/" element={<Home />} />
               <Route path="/post" element={<PostEntity />} />
               <Route path="/about" element={<About />} />
               <Route path="/category/pants/jeans" element={<Jeans />} />

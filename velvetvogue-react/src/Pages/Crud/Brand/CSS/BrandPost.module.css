@@ -1,0 +1,33 @@
+.bpContainer {
+  background-color: red;
+  flex: 4; /* Fyller ut all tillgänglig vertikal plats */
+  overflow-x: auto;
+  position: relative;
+  margin: 5%;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.bpForm {
+  margin: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bpFormGroup {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.bpFormGroup label {
+  margin-bottom: 10px;
+  font-size: large;
+}
+
+.bpPostBtn {
+  background-color: green;
+  font-size: large;
+}
