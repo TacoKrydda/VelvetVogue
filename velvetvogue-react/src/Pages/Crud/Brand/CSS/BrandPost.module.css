@@ -1,6 +1,6 @@
 .bpContainer {
   background-color: red;
-  flex: 4; /* Fyller ut all tillgänglig vertikal plats */
+  flex: 4;
   overflow-x: auto;
   position: relative;
   margin: 5%;
@@ -12,22 +12,26 @@
 .bpForm {
   margin: 5%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
 }
 
 .bpFormGroup {
   display: flex;
   flex-direction: column;
-  margin-bottom: 10px;
+  margin-bottom: 5px; /* Minska avståndet mellan formulärfälten */
 }
 
 .bpFormGroup label {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   font-size: large;
 }
 
 .bpPostBtn {
   background-color: green;
   font-size: large;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
 }

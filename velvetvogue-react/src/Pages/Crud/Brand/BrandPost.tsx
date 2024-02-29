@@ -57,10 +57,12 @@ const BrandPost = () => {
             required
           />
         </div>
+        <div className={style.buttonContainer}>
+          <button className={style.bpPostBtn} onClick={() => handleSubmit()}>
+            Submit
+          </button>
+        </div>
       </form>
-      <button className={style.bpPostBtn} onClick={() => handleSubmit()}>
-        Submit
-      </button>
     </div>
   );
 };

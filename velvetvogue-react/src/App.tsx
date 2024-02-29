@@ -8,7 +8,6 @@ import MobileNavigation from "./Componets/MobileNavigation ";
 import DesktopNavigation from "./Componets/DesktopNavigation";
 import Jeans from "./Pages/Pants/Jeans";
 import PostEntity from "./Pages/Crud/PostEntity";
-import BrandPost from "./Pages/Crud/Brand/BrandPost";
 
 function App() {
   return (
