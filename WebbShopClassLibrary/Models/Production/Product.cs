@@ -7,7 +7,7 @@ namespace WebbShopClassLibrary.Models.Production
         private decimal _price;
 
         public int Id { get; set; }
-        public string? ProductName { get; set; } = string.Empty;
+        public string? Name { get; set; } = string.Empty;
         public int BrandId { get; set; }
         public int CategoryId { get; set; }
         public int ColorId { get; set; }

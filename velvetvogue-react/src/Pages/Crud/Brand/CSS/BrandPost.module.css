@@ -1,0 +1,37 @@
+.bpContainer {
+  background-color: red;
+  flex: 4;
+  overflow-x: auto;
+  position: relative;
+  margin: 5%;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.bpForm {
+  margin: 5%;
+  display: flex;
+  flex-direction: column;
+}
+
+.bpFormGroup {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px; /* Minska avståndet mellan formulärfälten */
+}
+
+.bpFormGroup label {
+  margin-bottom: 5px;
+  font-size: large;
+}
+
+.bpPostBtn {
+  background-color: green;
+  font-size: large;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+}
