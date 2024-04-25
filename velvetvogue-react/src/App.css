@@ -28,6 +28,92 @@ body {
   display: none;
 }
 
+.head-cart {
+  flex: 1;
+  display: flex;
+  margin: 10px;
+  justify-content: center;
+  background-color: red;
+}
+
+.cartContainer {
+  width: 5vw;
+  /* height: 5vh; */
+}
+
+.cartContainer button {
+  width: 100%;
+  height: 100%;
+}
+.cartContainer img {
+  width: 100%;
+  height: 100%;
+}
+
+.cart {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  width: 250px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  z-index: 1;
+  max-height: 300px; /* Lägg till en maxhöjd för att aktivera scrollbar när innehållet blir för stort */
+  overflow-y: auto; /* Lägg till scrollbar om innehållet blir för stort */
+  display: none;
+  background-color: rgb(175, 11, 177);
+}
+
+.cart.visible {
+  display: block; 
+}
+
+.cart h2 {
+  margin-bottom: 10px;
+}
+
+.cart ul {
+  list-style: none;
+  padding: 0;
+  margin: 0; /* Ta bort standardmarginaler från ul-elementet */
+}
+
+.cart li {
+  margin-bottom: 5px;
+}
+
+.cartIcon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+}
+
+.cartIcon img {
+  width: 30px;
+  height: 30px;
+}
+
+.cartIcon:hover + .cart,
+.cart:hover {
+  display: block;
+}
+.cartItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.cartItemImage {
+  width: 25%;
+  max-width: 50px; /* Anpassa storleken efter behov */
+  margin-right: 10px;
+}
+
+.cartItemDetails {
+  flex-grow: 1;
+}
+
 /*-------------Search-Start-------------*/
 .Search-container {
   flex: 8;

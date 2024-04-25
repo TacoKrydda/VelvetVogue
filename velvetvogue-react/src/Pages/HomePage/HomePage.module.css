@@ -103,8 +103,8 @@
   border: 1px solid #ddd;
   background-color: #fff;
   z-index: 1;
-  max-height: 300px;
-  overflow-y: auto; 
+  max-height: 300px; /* Lägg till en maxhöjd för att aktivera scrollbar när innehållet blir för stort */
+  overflow-y: auto; /* Lägg till scrollbar om innehållet blir för stort */
 }
 
 .cart h2 {
@@ -114,41 +114,41 @@
 .cart ul {
   list-style: none;
   padding: 0;
-  margin: 0; 
+  margin: 0; /* Ta bort standardmarginaler från ul-elementet */
 }
 
 .cart li {
   margin-bottom: 5px;
 }
 
-.cart-icon {
+.cartIcon {
   position: absolute;
   top: 20px;
   right: 20px;
   cursor: pointer;
 }
 
-.cart-icon img {
+.cartIcon img {
   width: 30px;
   height: 30px;
 }
 
-.cart-icon:hover + .cart,
+.cartIcon:hover + .cart,
 .cart:hover {
   display: block;
 }
-.cart-item {
+.cartItem {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
 }
 
-.cart-item-image {
+.cartItemImage {
   width: 25%;
-  max-width: 50px; 
+  max-width: 50px; /* Anpassa storleken efter behov */
   margin-right: 10px;
 }
 
-.cart-item-details {
+.cartItemDetails {
   flex-grow: 1;
 }
